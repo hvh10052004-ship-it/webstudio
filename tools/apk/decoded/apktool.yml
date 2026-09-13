@@ -1,0 +1,27 @@
+version: 2.11.1
+apkFileName: WebStudio.apk
+isFrameworkApk: false
+usesFramework:
+  ids:
+  - 1
+  tag: null
+sdkInfo:
+  minSdkVersion: 21
+  targetSdkVersion: 28
+packageInfo:
+  forcedPackageId: null
+  renameManifestPackage: null
+versionInfo:
+  versionCode: 11
+  versionName: 1.8.0
+sharedLibrary: false
+sparseResources: false
+compactEntries: false
+doNotCompress:
+- resources.arsc
+- dex
+- png
+- so
+- wav
+- mp3
+- ogg

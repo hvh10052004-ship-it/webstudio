@@ -1,0 +1,19 @@
+[Unit]
+Description=WebStudio
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/webstudio
+Environment=NODE_ENV=production
+Environment=PORT=3000
+Environment=HOSTNAME=0.0.0.0
+EnvironmentFile=-/opt/webstudio/.env
+ExecStart=/usr/bin/node node_modules/next/dist/bin/next start --hostname 0.0.0.0 --port 3000
+Restart=always
+RestartSec=4
+User=webstudio
+Group=webstudio
+
+[Install]
+WantedBy=multi-user.target

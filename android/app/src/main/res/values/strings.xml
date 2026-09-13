@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">WebStudio</string>
+    <string name="title_activity_main">WebStudio</string>
+    <string name="package_name">com.webstudio.khach</string>
+    <string name="custom_url_scheme">com.webstudio.khach</string>
+</resources>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tải ứng dụng — WebStudio</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="download-app.css" />
+</head>
+<body>
+  <div id="top">
+    <header class="site-header" id="siteHeader">
+      <div class="container">
+        <nav class="site-nav">
+          <a class="logo" href="index.html">Web<span>Studio.</span></a>
+          <div class="nav-cluster" id="navLinks">
+            <ul class="nav-pill">
+              <li><a href="index.html">Trang chủ</a></li>
+              <li><a href="about.html">Về chúng tôi</a></li>
+              <li class="has-dropdown">
+                <button type="button" class="nav-drop-btn" aria-expanded="false">
+                  Thiết kế Website <span class="chev" aria-hidden="true"></span>
+                </button>
+                <ul class="dropdown">
+                  <li><a href="landing.html">Landing Page</a></li>
+                  <li><a href="company.html">Website công ty</a></li>
+                  <li><a href="saas.html">Website Startup / SaaS</a></li>
+                  <li><a href="ecommerce.html">Web bán hàng / E-commerce</a></li>
+                </ul>
+              </li>
+              <li class="has-dropdown">
+                <button type="button" class="nav-drop-btn" aria-expanded="false">
+                  Dịch vụ <span class="chev" aria-hidden="true"></span>
+                </button>
+                <ul class="dropdown">
+                  <li><a href="index.html#services">Lập trình web</a></li>
+                  <li><a href="index.html#pricing">Bảng giá</a></li>
+                  <li><a href="tai-ung-dung.html">Tải ứng dụng</a></li>
+                </ul>
+              </li>
+              <li><a href="collection.html">Dự án</a></li>
+            </ul>
+            <a class="nav-cta" href="contact.html">Tư vấn ngay</a>
+          </div>
+          <button type="button" class="menu-btn" id="menuBtn" aria-label="Mở menu">☰</button>
+        </nav>
+      </div>
+    </header>
+
+    <div class="dl-page">
+      <div class="dl-phone-outline" aria-hidden="true"></div>
+      <div class="dl-dialog" id="dlDialog">
+        <p class="dl-dialog-title">Đang mở “WebStudio.app”…</p>
+        <p class="dl-dialog-sub">Đang xác minh…</p>
+        <div class="dl-progress"><span id="dlBar"></span></div>
+        <div class="dl-dialog-actions">
+          <a class="dl-ghost" href="index.html">Hủy</a>
+          <button type="button" class="dl-ghost" id="dlSkip">Bỏ qua</button>
+        </div>
+      </div>
+      <main class="dl-main" id="dlMain">
+        <img class="dl-icon" src="public/icons/app-khach-192.png" alt="" />
+        <h1>Cảm ơn bạn đã tải WebStudio xuống!</h1>
+        <p class="dl-lead">
+          Tệp cài đặt sẽ được tải về máy. Mở tệp trên điện thoại Android để cài ứng dụng khách.
+        </p>
+        <a class="dl-download" id="dlApk" href="WebStudio.apk" download="WebStudio.apk">Tải tệp cài đặt</a>
+        <p class="dl-hint" id="dlHint">
+          Trên điện thoại Android: mở tệp WebStudio.apk, cho phép cài đặt từ nguồn này, rồi bấm Cài đặt.
+          Không mở website bằng file trên máy tính (file://). Hãy chạy npm run dev:lan rồi vào http://IP-máy-tính:3000/tai-ung-dung trên điện thoại.
+        </p>
+        <p class="dl-retry">
+          Nếu quá trình tải xuống không bắt đầu, vui lòng
+          <a href="tai-ung-dung.html">nhấp vào đây</a> để thử lại.
+        </p>
+      </main>
+    </div>
+  </div>
+  <script src="main.js"></script>
+  <script>
+    (function () {
+      var bar = document.getElementById("dlBar");
+      var dialog = document.getElementById("dlDialog");
+      var main = document.getElementById("dlMain");
+      var p = 8;
+      function done() {
+        dialog.style.display = "none";
+        main.classList.add("is-on");
+      }
+      document.getElementById("dlSkip").onclick = done;
+      var t = setInterval(function () {
+        p = Math.min(100, p + 8);
+        bar.style.width = p + "%";
+        if (p >= 100) {
+          clearInterval(t);
+          setTimeout(done, 200);
+        }
+      }, 160);
+      var apk = "WebStudio.apk";
+      if (location.protocol !== "file:") {
+        apk = location.port === "3000" ? "/api/download/apk" : (location.origin.indexOf("localhost") >= 0 ? "WebStudio.apk" : "/api/download/apk");
+        if (location.port === "3000") apk = "/api/download/apk";
+      }
+      document.getElementById("dlApk").href = apk;
+      if (location.protocol !== "file:") {
+        setTimeout(function () { location.href = apk; }, 2800);
+      }
+    })();
+  </script>
+</body>
+</html>

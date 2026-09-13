@@ -1,0 +1,31 @@
+{
+  "name": "thiet-ke-website-chuyen-nghiep",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "dev": "next dev",
+    "dev:lan": "next dev --hostname 0.0.0.0",
+    "build": "next build",
+    "start": "next start",
+    "start:prod": "next start --hostname 0.0.0.0 --port 3000",
+    "start:cloudflare": "node scripts/start-cloudflare.mjs",
+    "server:start": "node scripts/server-watchdog.mjs",
+    "server:install": "node scripts/install-autostart.mjs",
+    "server:uninstall": "node scripts/uninstall-autostart.mjs",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "next": "16.3.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.3.0",
+    "typescript": "^5"
+  }
+}

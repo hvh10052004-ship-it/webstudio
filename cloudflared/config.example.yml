@@ -1,0 +1,16 @@
+# Copy thanh config.yml sau khi da: cloudflared tunnel login
+# va: cloudflared tunnel create duoc
+#
+# tunnel: <ID-TUNNEL>
+# credentials-file: C:\Users\<BAN>\.cloudflared\<ID-TUNNEL>.json
+#
+# ingress:
+#   - hostname: duoc.ten-mien-cua-ban.com
+#     service: http://127.0.0.1:3000
+#   - service: http_status:404
+tunnel: THAY-BANG-ID-TUNNEL
+credentials-file: C:\Users\LAPTOP VINH HA\.cloudflared\THAY-BANG-ID-TUNNEL.json
+ingress:
+  - hostname: duoc.ten-mien-cua-ban.com
+    service: http://127.0.0.1:3000
+  - service: http_status:404

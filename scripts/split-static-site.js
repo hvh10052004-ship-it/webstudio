@@ -1,0 +1,504 @@
+const fs = require("fs");
+const path = require("path");
+
+const root = "C:/Users/LAPTOP VINH HA/thiet-ke-website-chuyen-nghiep";
+const cssSrc = path.join(root, "src/styles/webstudio.css");
+
+const css = fs
+  .readFileSync(cssSrc, "utf8")
+  .replace('var(--font-inter), "Inter", sans-serif', '"Inter", sans-serif');
+
+const lines = css.split(/\r?\n/);
+
+function slice(start, end) {
+  return lines.slice(start - 1, end).join("\n").trim() + "\n";
+}
+
+const cssDir = path.join(root, "css");
+const jsDir = path.join(root, "js");
+fs.mkdirSync(cssDir, { recursive: true });
+fs.mkdirSync(jsDir, { recursive: true });
+
+const files = {
+  "base.css": slice(1, 64),
+  "header.css": slice(66, 132),
+  "hero.css": slice(134, 376),
+  "sections.css": [
+    slice(378, 467),
+    slice(469, 500),
+    slice(502, 571),
+    slice(573, 607),
+    slice(609, 687),
+    slice(689, 712),
+  ].join("\n"),
+  "contact.css": slice(714, 791),
+  "footer.css": slice(793, 818),
+  "responsive.css": slice(820, lines.length),
+};
+
+for (const [name, content] of Object.entries(files)) {
+  fs.writeFileSync(path.join(cssDir, name), content, "utf8");
+}
+
+fs.writeFileSync(
+  path.join(jsDir, "menu.js"),
+  `const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+
+if (menuBtn && navLinks) {
+  menuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+  });
+
+  document.querySelectorAll(".nav-links a").forEach((link) => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("active");
+    });
+  });
+}
+`,
+  "utf8"
+);
+
+fs.writeFileSync(
+  path.join(jsDir, "header.js"),
+  `const siteHeader = document.getElementById("siteHeader");
+
+if (siteHeader) {
+  window.addEventListener(
+    "scroll",
+    () => {
+      siteHeader.classList.toggle("scrolled", window.scrollY > 50);
+    },
+    { passive: true }
+  );
+}
+`,
+  "utf8"
+);
+
+fs.writeFileSync(
+  path.join(jsDir, "form.js"),
+  `const contactForm = document.getElementById("contactForm");
+
+if (contactForm) {
+  contactForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    alert("Cảm ơn bạn! Yêu cầu của bạn đã được gửi.");
+    this.reset();
+  });
+}
+`,
+  "utf8"
+);
+
+const html = `<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebStudio - Thiết kế Website chuyên nghiệp</title>
+  <meta
+    name="description"
+    content="Thiết kế Landing Page, Website công ty, Web bán hàng E-commerce và Website Startup SaaS chuyên nghiệp."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/header.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/sections.css" />
+  <link rel="stylesheet" href="css/contact.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+</head>
+<body>
+  <div id="top">
+    <header class="site-header" id="siteHeader">
+      <div class="container">
+        <nav class="site-nav">
+          <a class="logo" href="#top">Web<span>Studio.</span></a>
+          <ul class="nav-links" id="navLinks">
+            <li><a href="#services">Dịch vụ</a></li>
+            <li><a href="#portfolio">Dự án</a></li>
+            <li><a href="#process">Quy trình</a></li>
+            <li><a href="#pricing">Bảng giá</a></li>
+            <li><a class="nav-btn" href="#contact">Nhận tư vấn</a></li>
+          </ul>
+          <button type="button" class="menu-btn" id="menuBtn" aria-label="Mở menu">☰</button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <div class="hero-grid">
+            <div>
+              <div class="badge">
+                <span class="badge-dot"></span>
+                Nhận dự án thiết kế Website
+              </div>
+              <h1>
+                Website đẹp.
+                <br />
+                <span class="gradient-text">Chuyển đổi tốt.</span>
+              </h1>
+              <p class="hero-description">
+                Chúng tôi thiết kế và phát triển website hiện đại dành cho
+                doanh nghiệp, thương hiệu, cửa hàng và startup. Tối ưu giao
+                diện, tốc độ, SEO và trải nghiệm người dùng.
+              </p>
+              <div class="hero-actions">
+                <a href="#contact" class="btn btn-primary">Bắt đầu dự án →</a>
+                <a href="#portfolio" class="btn btn-secondary">Xem dự án</a>
+              </div>
+              <div class="hero-info">
+                <div class="hero-stat"><strong>50+</strong><span>Dự án</span></div>
+                <div class="hero-stat"><strong>30+</strong><span>Khách hàng</span></div>
+                <div class="hero-stat"><strong>4</strong><span>Loại Website</span></div>
+              </div>
+            </div>
+            <div class="hero-preview">
+              <div class="browser-card">
+                <div class="browser">
+                  <div class="browser-top">
+                    <span class="circle"></span>
+                    <span class="circle"></span>
+                    <span class="circle"></span>
+                  </div>
+                  <div class="browser-content">
+                    <div class="mini-nav">
+                      <div class="mini-logo"></div>
+                      <div class="mini-links"><span></span><span></span><span></span></div>
+                    </div>
+                    <div class="mock-tag"></div>
+                    <div class="mock-title"></div>
+                    <div class="mock-title short"></div>
+                    <div class="mock-text"><div></div><div></div><div></div></div>
+                    <div class="mock-buttons"><span></span><span></span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" class="section">
+        <div class="container">
+          <div class="section-label">Dịch vụ</div>
+          <h2 class="section-title">Thiết kế website cho mọi nhu cầu kinh doanh.</h2>
+          <p class="section-description">
+            Từ Landing Page đơn giản đến hệ thống SaaS, chúng tôi xây dựng
+            website phù hợp với mục tiêu và mô hình kinh doanh của bạn.
+          </p>
+          <div class="services-grid">
+            <article class="service-card">
+              <div class="service-number">01</div>
+              <div class="service-icon">⚡</div>
+              <h3>Landing Page</h3>
+              <p>
+                Landing Page tập trung vào chuyển đổi, phù hợp cho chạy quảng
+                cáo, giới thiệu sản phẩm, sự kiện hoặc thu thập khách hàng tiềm năng.
+              </p>
+              <div class="service-arrow">↗</div>
+            </article>
+            <article class="service-card">
+              <div class="service-number">02</div>
+              <div class="service-icon">🏢</div>
+              <h3>Website công ty</h3>
+              <p>
+                Website chuyên nghiệp giúp giới thiệu doanh nghiệp, dịch vụ,
+                đội ngũ, dự án và xây dựng uy tín thương hiệu trên Internet.
+              </p>
+              <div class="service-arrow">↗</div>
+            </article>
+            <article class="service-card">
+              <div class="service-number">03</div>
+              <div class="service-icon">🛒</div>
+              <h3>Web bán hàng / E-commerce</h3>
+              <p>
+                Website bán hàng hoàn chỉnh với danh mục sản phẩm, giỏ hàng,
+                đặt hàng, quản lý đơn và tích hợp các phương thức thanh toán.
+              </p>
+              <div class="service-arrow">↗</div>
+            </article>
+            <article class="service-card">
+              <div class="service-number">04</div>
+              <div class="service-icon">🚀</div>
+              <h3>Website Startup / SaaS</h3>
+              <p>
+                Website và Web App dành cho Startup với Dashboard, đăng nhập,
+                tài khoản người dùng, subscription và các tính năng tùy chỉnh.
+              </p>
+              <div class="service-arrow">↗</div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="features section">
+        <div class="container">
+          <div class="section-label">Chất lượng</div>
+          <h2 class="section-title">Không chỉ đẹp. Website phải hoạt động hiệu quả.</h2>
+          <div class="features-grid">
+            <div class="feature">
+              <div class="feature-icon">✦</div>
+              <h3>UI/UX hiện đại</h3>
+              <p>Thiết kế giao diện rõ ràng, trực quan và phù hợp thương hiệu.</p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">⚡</div>
+              <h3>Tốc độ cao</h3>
+              <p>Tối ưu mã nguồn, hình ảnh và hiệu suất tải trang.</p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">📱</div>
+              <h3>Responsive</h3>
+              <p>Hiển thị đẹp trên máy tính, tablet và điện thoại.</p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">🔎</div>
+              <h3>SEO Friendly</h3>
+              <p>Cấu trúc website thân thiện với công cụ tìm kiếm.</p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">🔐</div>
+              <h3>Bảo mật</h3>
+              <p>Áp dụng các tiêu chuẩn bảo mật website hiện đại.</p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">⚙</div>
+              <h3>Dễ mở rộng</h3>
+              <p>Kiến trúc rõ ràng giúp thêm tính năng khi doanh nghiệp phát triển.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="portfolio" class="section">
+        <div class="container">
+          <div class="section-label">Portfolio</div>
+          <h2 class="section-title">Một số phong cách website chúng tôi có thể xây dựng.</h2>
+          <div class="portfolio-grid">
+            <div class="portfolio-item">
+              <div class="portfolio-bg">
+                <span class="portfolio-badge">Startup / SaaS</span>
+                <div class="portfolio-name">
+                  <h3>Nova Analytics</h3>
+                  <p>SaaS Dashboard Platform</p>
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-item">
+              <div class="portfolio-bg">
+                <span class="portfolio-badge">E-commerce</span>
+                <div class="portfolio-name">
+                  <h3>Green Store</h3>
+                  <p>Online Shopping</p>
+                </div>
+              </div>
+            </div>
+            <div class="portfolio-item">
+              <div class="portfolio-bg">
+                <span class="portfolio-badge">Landing Page</span>
+                <div class="portfolio-name">
+                  <h3>Aura Studio</h3>
+                  <p>Creative Landing Page</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="process" class="section">
+        <div class="container">
+          <div class="section-label">Quy trình</div>
+          <h2 class="section-title">Từ ý tưởng đến website hoàn chỉnh.</h2>
+          <div class="process-grid">
+            <article class="process-card">
+              <div class="process-number">01</div>
+              <h3>Trao đổi</h3>
+              <p>Tìm hiểu nhu cầu, khách hàng, sản phẩm và mục tiêu dự án.</p>
+            </article>
+            <article class="process-card">
+              <div class="process-number">02</div>
+              <h3>UI/UX Design</h3>
+              <p>Thiết kế bố cục, giao diện và trải nghiệm người dùng.</p>
+            </article>
+            <article class="process-card">
+              <div class="process-number">03</div>
+              <h3>Development</h3>
+              <p>Lập trình website, responsive và các tính năng cần thiết.</p>
+            </article>
+            <article class="process-card">
+              <div class="process-number">04</div>
+              <h3>Launch</h3>
+              <p>Kiểm thử, tối ưu và đưa website lên Internet.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing" class="section">
+        <div class="container">
+          <div class="section-label">Bảng giá</div>
+          <h2 class="section-title">Gói thiết kế phù hợp với từng giai đoạn.</h2>
+          <div class="price-grid">
+            <div class="price-card">
+              <h3>Landing</h3>
+              <p class="price-desc">Phù hợp quảng cáo và giới thiệu sản phẩm.</p>
+              <div class="price">3.900.000đ</div>
+              <ul class="price-features">
+                <li>01 Landing Page</li>
+                <li>Responsive Mobile</li>
+                <li>Form liên hệ</li>
+                <li>Tối ưu tốc độ</li>
+                <li>SEO cơ bản</li>
+              </ul>
+              <a class="btn btn-secondary" href="#contact">Chọn gói</a>
+            </div>
+            <div class="price-card popular">
+              <span class="popular-label">PHỔ BIẾN</span>
+              <h3>Business</h3>
+              <p class="price-desc">Website chuyên nghiệp dành cho doanh nghiệp.</p>
+              <div class="price">8.900.000đ</div>
+              <ul class="price-features">
+                <li>5–10 trang</li>
+                <li>Thiết kế UI riêng</li>
+                <li>Responsive</li>
+                <li>CMS quản trị</li>
+                <li>SEO cơ bản</li>
+                <li>Google Analytics</li>
+              </ul>
+              <a class="btn btn-primary" href="#contact">Chọn gói</a>
+            </div>
+            <div class="price-card">
+              <h3>E-commerce / SaaS</h3>
+              <p class="price-desc">Dành cho website bán hàng hoặc nền tảng Startup.</p>
+              <div class="price">Liên hệ</div>
+              <ul class="price-features">
+                <li>Thiết kế riêng</li>
+                <li>Database</li>
+                <li>Đăng nhập người dùng</li>
+                <li>Dashboard</li>
+                <li>Thanh toán</li>
+                <li>API Integration</li>
+              </ul>
+              <a class="btn btn-secondary" href="#contact">Nhận báo giá</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="cta-box">
+            <h2>Bạn đang có ý tưởng cho một website?</h2>
+            <p>
+              Hãy biến ý tưởng của bạn thành một website chuyên nghiệp, nhanh
+              và có khả năng tạo ra khách hàng.
+            </p>
+            <a href="#contact" class="btn btn-primary">Trao đổi dự án →</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section">
+        <div class="container">
+          <div class="contact-grid">
+            <div class="contact-info">
+              <div class="section-label">Liên hệ</div>
+              <h2>Hãy cùng tạo nên website của bạn.</h2>
+              <p>
+                Gửi cho chúng tôi thông tin dự án. Chúng tôi sẽ tư vấn giải
+                pháp phù hợp.
+              </p>
+              <div class="contact-details">
+                <div class="contact-detail">
+                  <span>Email</span>
+                  <strong>hello@webstudio.vn</strong>
+                </div>
+                <div class="contact-detail">
+                  <span>Điện thoại</span>
+                  <strong>0900 000 000</strong>
+                </div>
+                <div class="contact-detail">
+                  <span>Thời gian làm việc</span>
+                  <strong>Thứ 2 – Thứ 7</strong>
+                </div>
+              </div>
+            </div>
+            <form class="contact-form" id="contactForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Họ tên</label>
+                  <input id="name" class="form-control" type="text" placeholder="Nguyễn Văn A" required />
+                </div>
+                <div class="form-group">
+                  <label for="phone">Số điện thoại</label>
+                  <input id="phone" class="form-control" type="tel" placeholder="09xx xxx xxx" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" class="form-control" type="email" placeholder="email@example.com" />
+              </div>
+              <div class="form-group">
+                <label for="type">Loại Website</label>
+                <select id="type" class="form-control">
+                  <option>Landing Page</option>
+                  <option>Website công ty</option>
+                  <option>Web bán hàng / E-commerce</option>
+                  <option>Website Startup / SaaS</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="message">Mô tả dự án</label>
+                <textarea id="message" class="form-control" placeholder="Hãy mô tả website bạn muốn làm..."></textarea>
+              </div>
+              <button class="btn btn-primary" style="width:100%" type="submit">
+                Gửi yêu cầu →
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-content">
+          <a class="logo" href="#top">Web<span>Studio.</span></a>
+          <p>© 2026 WebStudio. All rights reserved.</p>
+          <div class="footer-links">
+            <a href="#">Facebook</a>
+            <a href="#">Behance</a>
+            <a href="#">Zalo</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/menu.js"></script>
+  <script src="js/header.js"></script>
+  <script src="js/form.js"></script>
+</body>
+</html>
+`;
+
+fs.writeFileSync(path.join(root, "index.html"), html, "utf8");
+
+console.log("Created:");
+console.log("- index.html");
+Object.keys(files).forEach((f) => console.log("- css/" + f));
+console.log("- js/menu.js");
+console.log("- js/header.js");
+console.log("- js/form.js");

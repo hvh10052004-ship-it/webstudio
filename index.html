@@ -1,0 +1,4429 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WebStudio - Thiết kế Website chuyên nghiệp</title>
+  <meta
+    name="description"
+    content="Thiết kế Landing Page, Website công ty, Web bán hàng E-commerce và Website Startup SaaS chuyên nghiệp."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  />
+  <meta name="theme-color" content="#8f7cff" />
+  <script>
+    (function () {
+      try {
+        if (localStorage.getItem("webstudio-theme") === "light") {
+          document.documentElement.classList.add("theme-light-pending");
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: #070b14;
+  color: #ffffff;
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+.container {
+  width: min(1180px, 92%);
+  margin: auto;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  background: #6c5ce7;
+  filter: blur(180px);
+  opacity: 0.13;
+  top: -300px;
+  left: -200px;
+  z-index: -1;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  width: 600px;
+  height: 600px;
+  background: #00d2d3;
+  filter: blur(200px);
+  opacity: 0.08;
+  right: -300px;
+  top: 300px;
+  z-index: -1;
+}
+
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  border-bottom: 0;
+  background: transparent;
+  transition: background 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.site-header.scrolled {
+  background: rgba(7, 11, 20, 0.72);
+  backdrop-filter: blur(16px);
+}
+
+.site-nav {
+  min-height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: #fff;
+  flex-shrink: 0;
+}
+
+.logo span {
+  color: #8f7cff;
+}
+
+.nav-cluster {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.nav-pill,
+.nav-tools {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  background: #e8ebf0;
+  border-radius: 999px;
+  padding: 6px;
+  gap: 2px;
+}
+
+.nav-pill a,
+.nav-drop-btn,
+.nav-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0;
+  background: transparent;
+  color: #1a1f2b;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-pill a:hover,
+.nav-drop-btn:hover,
+.nav-more:hover,
+.has-dropdown.open > .nav-drop-btn,
+.has-dropdown.open > .nav-more,
+.has-dropdown:hover > .nav-drop-btn,
+.has-dropdown:hover > .nav-more,
+.has-dropdown:focus-within > .nav-drop-btn,
+.has-dropdown:focus-within > .nav-more {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.chev {
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 5px solid #1a1f2b;
+  margin-top: 2px;
+}
+
+.nav-more {
+  font-size: 18px;
+  line-height: 1;
+  padding: 8px 14px;
+  letter-spacing: 1px;
+}
+
+.has-dropdown {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 200px;
+  list-style: none;
+  padding: 14px 0 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  display: none;
+  z-index: 20;
+}
+
+.dropdown::before {
+  content: "";
+  position: absolute;
+  inset: 14px 0 0;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
+  z-index: -1;
+}
+
+.has-dropdown.open > .dropdown,
+.has-dropdown:hover > .dropdown,
+.has-dropdown:focus-within > .dropdown {
+  display: grid;
+  gap: 2px;
+  padding: 22px 8px 8px;
+}
+
+@media (max-width: 900px) {
+  .has-dropdown:hover > .dropdown,
+  .has-dropdown:focus-within > .dropdown {
+    display: none;
+  }
+
+  .has-dropdown.open > .dropdown {
+    display: grid;
+    gap: 2px;
+  }
+}
+
+.dropdown a {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: #1a1f2b;
+  font-size: 14px;
+  font-weight: 500;
+  position: relative;
+  z-index: 1;
+}
+
+.dropdown a:hover {
+  background: #eef1f5;
+}
+
+.more .dropdown {
+  left: auto;
+  right: 0;
+}
+
+.icon-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 0;
+  background: #fff;
+  color: #1a1f2b;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.icon-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.nav-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 22px;
+  border-radius: 999px;
+  background: #e11d2e;
+  color: #fff !important;
+  font-size: 14px;
+  font-weight: 700;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.nav-cta:hover {
+  background: #c41625;
+  transform: translateY(-1px);
+}
+
+.menu-btn {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  color: #fff;
+  line-height: 1;
+}
+
+/* ===== THEME: LIGHT ===== */
+html.theme-light-pending,
+html.theme-light-pending body,
+body.theme-light {
+  background: #f3f5f8;
+  color: #121722;
+}
+
+body.theme-light {
+  background: #f3f5f8;
+  color: #121722;
+}
+
+body.theme-light::before {
+  background: #a995ff;
+  opacity: 0.12;
+}
+
+body.theme-light::after {
+  background: #72d8ff;
+  opacity: 0.1;
+}
+
+body.theme-light .logo,
+body.theme-light .menu-btn {
+  color: #121722;
+}
+
+body.theme-light .site-header.scrolled {
+  background: rgba(243, 245, 248, 0.9);
+}
+
+body.theme-light .hero-description,
+body.theme-light .section-description,
+body.theme-light .service-card p,
+body.theme-light .feature p,
+body.theme-light .process-card p,
+body.theme-light .price-desc,
+body.theme-light .price-features li,
+body.theme-light .contact-info p,
+body.theme-light .cta-box p,
+body.theme-light .page-hero p,
+body.theme-light .list-card p,
+body.theme-light .content-card p,
+body.theme-light .product-panel p,
+body.theme-light .cart-box p,
+body.theme-light .search-box p,
+body.theme-light .portfolio-name p,
+body.theme-light .hero-stat span,
+body.theme-light .contact-detail span,
+body.theme-light .cart-item span,
+body.theme-light .site-footer p,
+body.theme-light .footer-links a {
+  color: #5b6475;
+}
+
+body.theme-light .section-title,
+body.theme-light .page-hero h1,
+body.theme-light .contact-info h2,
+body.theme-light .service-card h3,
+body.theme-light .feature h3,
+body.theme-light .process-card h3,
+body.theme-light .price-card h3,
+body.theme-light .portfolio-name h3,
+body.theme-light .list-card h3,
+body.theme-light .content-card h2,
+body.theme-light .product-panel h2,
+body.theme-light .cart-box h2,
+body.theme-light .search-box h2,
+body.theme-light .price,
+body.theme-light .price-inline,
+body.theme-light .cart-total,
+body.theme-light .contact-detail strong,
+body.theme-light .cart-item,
+body.theme-light .hero h1 {
+  color: #121722;
+}
+
+body.theme-light .gradient-text {
+  background: linear-gradient(90deg, #6c5ce7, #0984e3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+body.theme-light .badge {
+  background: rgba(18, 23, 34, 0.04);
+  border-color: rgba(18, 23, 34, 0.1);
+  color: #4b5565;
+}
+
+body.theme-light .btn-secondary {
+  color: #121722;
+  border-color: rgba(18, 23, 34, 0.14);
+  background: rgba(18, 23, 34, 0.04);
+}
+
+body.theme-light .btn-secondary:hover {
+  background: rgba(18, 23, 34, 0.08);
+}
+
+body.theme-light .btn-primary {
+  background: #121722;
+  color: #fff;
+}
+
+body.theme-light .btn-primary:hover {
+  background: #000;
+  box-shadow: 0 12px 35px rgba(18, 23, 34, 0.18);
+}
+
+body.theme-light .service-card,
+body.theme-light .process-card,
+body.theme-light .price-card,
+body.theme-light .contact-form,
+body.theme-light .content-card,
+body.theme-light .list-card,
+body.theme-light .product-panel,
+body.theme-light .cart-box,
+body.theme-light .search-box,
+body.theme-light .portfolio-item {
+  background: #ffffff;
+  border-color: rgba(18, 23, 34, 0.08);
+}
+
+body.theme-light .service-card:hover {
+  border-color: rgba(143, 124, 255, 0.55);
+  background: #fff;
+}
+
+body.theme-light .service-icon {
+  background: #eef1f6;
+}
+
+body.theme-light .service-number,
+body.theme-light .feature {
+  border-color: rgba(18, 23, 34, 0.1);
+}
+
+body.theme-light .features {
+  background: rgba(18, 23, 34, 0.03);
+  border-color: rgba(18, 23, 34, 0.06);
+}
+
+body.theme-light .price-card.popular {
+  border-color: #8f7cff;
+  background: linear-gradient(180deg, rgba(143, 124, 255, 0.12), #fff);
+}
+
+body.theme-light .cta-box {
+  background:
+    radial-gradient(circle at 50% 120%, #8f7cff, transparent 42%),
+    #ffffff;
+  border-color: rgba(18, 23, 34, 0.08);
+}
+
+body.theme-light .cta-box h2 {
+  color: #121722;
+}
+
+body.theme-light .form-control {
+  background: #f7f8fb;
+  border-color: rgba(18, 23, 34, 0.1);
+  color: #121722;
+}
+
+body.theme-light .form-group label {
+  color: #5b6475;
+}
+
+/* Browser mock: viền luôn đen, chỉ phần nội dung đổi sáng/tối */
+body.theme-light .browser-card {
+  background: #05070c;
+  border-color: #000;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.35);
+}
+
+body.theme-light .browser {
+  background: #0f1218;
+  border-color: rgba(255, 255, 255, 0.04);
+}
+
+body.theme-light .browser-top {
+  background: #151a24;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+body.theme-light .browser-content {
+  background:
+    radial-gradient(circle at 70% 18%, rgba(143, 124, 255, 0.22), transparent 40%),
+    #f4f6fb;
+}
+
+body.theme-light .mini-logo {
+  background: transparent;
+  color: #1a1f2b;
+}
+
+body.theme-light .mock-title {
+  background: transparent;
+  color: #1a1f2b;
+}
+
+body.theme-light .mock-title.short {
+  color: #3a4254;
+}
+
+body.theme-light .mini-links span,
+body.theme-light .mock-text p,
+body.theme-light .mock-text div {
+  background: transparent;
+  color: #6a7385;
+}
+
+body.theme-light .mock-tag {
+  background: rgba(124, 108, 255, 0.12);
+  color: #5b4fd6;
+}
+
+body.theme-light .mock-buttons span:last-child {
+  background: #e4e7ef;
+  color: #3a4254;
+}
+
+body.theme-light .site-footer {
+  border-top-color: rgba(18, 23, 34, 0.08);
+}
+
+body.theme-light .sitemap-list a {
+  background: #fff;
+  border-color: rgba(18, 23, 34, 0.08);
+  color: #121722;
+}
+
+body.theme-light .sitemap-list a:hover {
+  border-color: rgba(143, 124, 255, 0.5);
+}
+
+body.theme-light .cart-item {
+  border-bottom-color: rgba(18, 23, 34, 0.08);
+}
+
+body.theme-light .nav-cluster.active {
+  background: #f3f5f8;
+}
+
+#themeToggle .icon-moon {
+  display: none;
+}
+
+body.theme-light #themeToggle .icon-sun {
+  display: none;
+}
+
+body.theme-light #themeToggle .icon-moon {
+  display: block;
+}
+
+/* Hiệu ứng nước lan tỏa khi đổi sáng/tối */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+  animation: theme-ripple-spread 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes theme-ripple-spread {
+  from {
+    clip-path: circle(0px at var(--theme-ripple-x) var(--theme-ripple-y));
+  }
+  to {
+    clip-path: circle(var(--theme-ripple-r) at var(--theme-ripple-x) var(--theme-ripple-y));
+  }
+}
+
+.theme-ripple-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  pointer-events: none;
+  background: #070b14;
+  clip-path: circle(0px at var(--theme-ripple-x) var(--theme-ripple-y));
+  transition: clip-path 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+  opacity: 1;
+}
+
+.theme-ripple-overlay[data-theme="light"] {
+  background: #f3f5f8;
+}
+
+.theme-ripple-overlay.is-active {
+  clip-path: circle(150vmax at var(--theme-ripple-x) var(--theme-ripple-y));
+}
+
+.theme-ripple-overlay.is-done {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-new(root),
+  .theme-ripple-overlay {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 100px;
+  position: relative;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  align-items: center;
+  gap: 70px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 13px;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 13px;
+  color: #bec5d5;
+  margin-bottom: 24px;
+}
+
+.badge-dot {
+  width: 8px;
+  height: 8px;
+  background: #5cff9d;
+  border-radius: 50%;
+  box-shadow: 0 0 14px #5cff9d;
+}
+
+.hero h1 {
+  font-size: clamp(46px, 6vw, 82px);
+  line-height: 0.98;
+  letter-spacing: -4px;
+  margin-bottom: 25px;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #a995ff, #72d8ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-description {
+  color: #9fa8bb;
+  font-size: 18px;
+  max-width: 610px;
+  margin-bottom: 34px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 25px;
+  border-radius: 12px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.btn-primary {
+  background: #fff;
+  color: #10131b;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(255, 255, 255, 0.18);
+}
+
+.btn-secondary {
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.hero-info {
+  display: flex;
+  gap: 35px;
+  margin-top: 45px;
+}
+
+.hero-stat strong {
+  font-size: 22px;
+  display: block;
+}
+
+.hero-stat span {
+  color: #798397;
+  font-size: 13px;
+}
+
+.browser-card {
+  padding: 10px;
+  border-radius: 25px;
+  background: #05070c;
+  border: 1px solid #000;
+  transform: rotate(2deg);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.45);
+}
+
+.browser {
+  border-radius: 18px;
+  overflow: hidden;
+  background: #121725;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.browser-top {
+  height: 45px;
+  background: #191f2d;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 15px;
+}
+
+.circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.circle:nth-child(1) {
+  background: #ff6b6b;
+}
+
+.circle:nth-child(2) {
+  background: #feca57;
+}
+
+.circle:nth-child(3) {
+  background: #1dd1a1;
+}
+
+.browser-content {
+  padding: 35px;
+  min-height: 470px;
+  background:
+    radial-gradient(circle at 70% 15%, #312d72, transparent 38%),
+    #0d111c;
+}
+
+.mini-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 65px;
+}
+
+.mini-logo {
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: transparent;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.mini-links {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.mini-links span {
+  width: auto;
+  height: auto;
+  background: transparent;
+  border-radius: 0;
+  color: #8b93a3;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.mock-tag {
+  height: auto;
+  width: auto;
+  display: inline-block;
+  border-radius: 999px;
+  background: rgba(124, 108, 255, 0.18);
+  color: #b7a9ff;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 10px;
+  margin-bottom: 18px;
+}
+
+.mock-title {
+  height: auto;
+  width: auto;
+  max-width: 100%;
+  background: transparent;
+  border-radius: 0;
+  margin: 0 0 8px;
+  color: #fff;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.mock-title.short {
+  width: auto;
+  margin-bottom: 16px;
+  color: #d7dbe6;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.mock-text {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 22px;
+}
+
+.mock-text p,
+.mock-text div {
+  height: auto;
+  width: auto;
+  background: transparent;
+  border-radius: 0;
+  margin: 0;
+  color: #8f98ab;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.mock-text div:nth-child(2) {
+  width: auto;
+}
+
+.mock-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.mock-buttons span {
+  width: auto;
+  height: auto;
+  border-radius: 999px;
+  background: #7c6cff;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 10px 16px;
+}
+
+.mock-buttons span:last-child {
+  background: rgba(255, 255, 255, 0.08);
+  color: #d5dae4;
+}
+
+.section {
+  padding: 110px 0;
+}
+
+.section-label {
+  color: #8f7cff;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 13px;
+}
+
+.section-title {
+  font-size: clamp(34px, 4vw, 53px);
+  letter-spacing: -2px;
+  line-height: 1.1;
+  max-width: 700px;
+}
+
+.section-description {
+  color: #8d96a8;
+  max-width: 600px;
+  margin-top: 18px;
+  font-size: 16px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+  margin-top: 55px;
+}
+
+.service-card {
+  position: relative;
+  overflow: hidden;
+  padding: 35px;
+  min-height: 315px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: 0.35s;
+}
+
+.service-card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(143, 124, 255, 0.5);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.service-number {
+  color: #626c7e;
+  font-size: 13px;
+  margin-bottom: 38px;
+}
+
+.service-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: 22px;
+  background: #191f2e;
+  margin-bottom: 20px;
+}
+
+.service-card h3 {
+  font-size: 25px;
+  margin-bottom: 12px;
+}
+
+.service-card p {
+  max-width: 480px;
+  color: #8992a4;
+  font-size: 15px;
+}
+
+.service-arrow {
+  position: absolute;
+  right: 30px;
+  bottom: 27px;
+  font-size: 25px;
+  transition: 0.3s;
+}
+
+.service-card:hover .service-arrow {
+  transform: translate(4px, -4px);
+}
+
+.features {
+  background: rgba(255, 255, 255, 0.018);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.features-grid {
+  margin-top: 60px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.feature {
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  padding-left: 24px;
+}
+
+.feature-icon {
+  font-size: 27px;
+  margin-bottom: 16px;
+}
+
+.feature h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.feature p {
+  color: #7d8798;
+  font-size: 14px;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  grid-template-rows: 360px 360px;
+  gap: 20px;
+  margin-top: 55px;
+}
+
+.portfolio-item {
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #131925;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.portfolio-item:first-child {
+  grid-row: 1 / 3;
+}
+
+.portfolio-media {
+  position: absolute;
+  inset: 0;
+}
+
+.portfolio-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.45s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.portfolio-img--main {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 1;
+}
+
+.portfolio-img--hover {
+  opacity: 0;
+  transform: scale(1.04);
+  z-index: 2;
+}
+
+.portfolio-item:hover .portfolio-img--main {
+  opacity: 0;
+  transform: scale(1.04);
+}
+
+.portfolio-item:hover .portfolio-img--hover {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.portfolio-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: linear-gradient(
+    180deg,
+    rgba(7, 11, 20, 0.15) 0%,
+    rgba(7, 11, 20, 0.25) 40%,
+    rgba(7, 11, 20, 0.78) 100%
+  );
+  pointer-events: none;
+}
+
+.portfolio-badge {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  z-index: 4;
+  display: inline-block;
+  padding: 7px 11px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  font-size: 11px;
+  color: #fff;
+}
+
+.portfolio-name {
+  position: absolute;
+  left: 30px;
+  bottom: 27px;
+  z-index: 4;
+}
+
+.portfolio-name h3 {
+  font-size: 24px;
+  color: #fff;
+}
+
+.portfolio-name p {
+  color: #c9d0db;
+  font-size: 13px;
+}
+
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 55px;
+}
+
+.process-card {
+  padding: 27px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.process-number {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  background: #8f7cff;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 35px;
+}
+
+.process-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.process-card p {
+  color: #7f899b;
+  font-size: 14px;
+}
+
+.price-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 55px;
+}
+
+.price-card {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  padding: 32px;
+  border-radius: 23px;
+  position: relative;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.price-card.popular {
+  border-color: #8f7cff;
+  background: linear-gradient(
+    180deg,
+    rgba(143, 124, 255, 0.12),
+    rgba(255, 255, 255, 0.025)
+  );
+}
+
+.popular-label {
+  position: absolute;
+  right: 22px;
+  top: 22px;
+  padding: 6px 11px;
+  background: #8f7cff;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.price-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.price-desc {
+  color: #7f899c;
+  font-size: 13px;
+  min-height: 45px;
+}
+
+.price {
+  font-size: 36px;
+  font-weight: 800;
+  margin: 25px 0;
+  letter-spacing: -1px;
+}
+
+.price small {
+  font-size: 13px;
+  font-weight: 400;
+  color: #788294;
+}
+
+.price-features {
+  list-style: none;
+  margin-bottom: 30px;
+}
+
+.price-features li {
+  padding: 9px 0;
+  color: #a5adbc;
+  font-size: 14px;
+}
+
+.price-features li::before {
+  content: "✓";
+  color: #73e6ad;
+  margin-right: 9px;
+}
+
+.price-card .btn {
+  width: 100%;
+}
+
+.cta-box {
+  text-align: center;
+  border-radius: 30px;
+  padding: 80px 20px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 120%, #6f5cff, transparent 40%),
+    #121624;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cta-box h2 {
+  font-size: clamp(35px, 5vw, 58px);
+  max-width: 700px;
+  margin: auto;
+  line-height: 1.05;
+  letter-spacing: -2.5px;
+}
+
+.cta-box p {
+  color: #9ba4b5;
+  margin: 20px auto 30px;
+  max-width: 550px;
+}
+
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 70px;
+}
+
+.contact-info h2 {
+  font-size: 43px;
+  line-height: 1.1;
+  letter-spacing: -2px;
+}
+
+.contact-info p {
+  color: #8992a3;
+  margin-top: 20px;
+}
+
+.contact-details {
+  margin-top: 40px;
+}
+
+.contact-detail {
+  margin-bottom: 20px;
+}
+
+.contact-detail span {
+  display: block;
+  font-size: 12px;
+  color: #656f81;
+  margin-bottom: 3px;
+}
+
+.contact-detail strong {
+  font-size: 15px;
+}
+
+.contact-detail strong a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.contact-detail strong a:hover {
+  color: var(--accent, #8f7cff);
+}
+
+.contact-form {
+  padding: 35px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 22px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-group {
+  margin-bottom: 17px;
+}
+
+.form-group label {
+  font-size: 12px;
+  display: block;
+  color: #8d96a7;
+  margin-bottom: 7px;
+}
+
+.form-control {
+  width: 100%;
+  background: #0d121d;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  color: #fff;
+  border-radius: 10px;
+  padding: 14px 15px;
+  outline: none;
+}
+
+textarea.form-control {
+  min-height: 125px;
+  resize: vertical;
+}
+
+.form-control:focus {
+  border-color: #8f7cff;
+}
+
+
+.site-footer {
+  padding: 70px 0 28px;
+  background: #000;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 0.9fr 1.1fr 0.9fr;
+  gap: 36px 28px;
+}
+
+.footer-col h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 18px;
+  color: #fff;
+}
+
+.footer-contact,
+.footer-list {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+.footer-contact li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.footer-ico {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  opacity: 0.9;
+}
+
+.footer-contact a,
+.footer-list a {
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.footer-contact a:hover,
+.footer-list a:hover {
+  color: #fff;
+}
+
+.footer-social {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.social-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #fff;
+  color: #000;
+  display: grid;
+  place-items: center;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.social-btn:hover {
+  transform: translateY(-2px);
+  background: #e11d2e;
+  color: #fff;
+}
+
+.footer-tax {
+  margin-top: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 6px 12px;
+  border: 1.5px dashed #e11d2e;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.footer-bottom {
+  margin-top: 42px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-bottom p,
+.site-footer p {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 13px;
+}
+
+.footer-content,
+.footer-links {
+  display: none;
+}
+
+body.theme-light .site-footer {
+  background: #000;
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+body.theme-light .site-footer p,
+body.theme-light .footer-bottom p {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+
+@media (max-width: 900px) {
+  .nav-cluster {
+    display: none;
+    position: absolute;
+    top: 76px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 18px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    background: #0b101a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .nav-cluster.active {
+    display: flex;
+  }
+
+  .nav-pill,
+  .nav-tools {
+    width: 100%;
+    border-radius: 18px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .nav-cta {
+    width: 100%;
+  }
+
+  .dropdown {
+    position: static;
+    box-shadow: none;
+    background: #f3f5f8;
+    margin: 0 8px 8px;
+    padding: 8px;
+    border-radius: 16px;
+  }
+
+  .dropdown::before {
+    display: none;
+  }
+
+  .menu-btn {
+    display: block;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding-top: 150px;
+    padding-bottom: 80px;
+  }
+
+  .hero-preview {
+    max-width: 600px;
+  }
+
+  .services-grid,
+  .price-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .process-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .portfolio-item {
+    min-height: 360px;
+  }
+
+  .portfolio-item:first-child {
+    grid-row: auto;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .section {
+    padding: 80px 0;
+  }
+
+  .hero h1 {
+    letter-spacing: -2.5px;
+  }
+
+  .hero-info {
+    gap: 20px;
+  }
+
+  .features-grid,
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .browser-content {
+    min-height: 380px;
+    padding: 25px;
+  }
+
+  .service-card {
+    padding: 28px;
+  }
+}
+
+
+/* ===== INNER PAGES ===== */
+.page-hero {
+  padding: 140px 0 50px;
+}
+
+.page-hero h1 {
+  font-size: clamp(34px, 5vw, 58px);
+  letter-spacing: -2px;
+  line-height: 1.08;
+  max-width: 16ch;
+  margin-bottom: 14px;
+}
+
+.page-hero p {
+  color: #8d96a8;
+  max-width: 52ch;
+}
+
+.page-content {
+  padding: 0 0 110px;
+}
+
+.content-card,
+.list-card,
+.product-panel,
+.cart-box,
+.search-box {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.035);
+  border-radius: 22px;
+  padding: 28px;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 22px;
+}
+
+.stack {
+  display: grid;
+  gap: 16px;
+}
+
+.list-card h3,
+.product-panel h2,
+.cart-box h2,
+.search-box h2 {
+  margin-bottom: 10px;
+  font-size: 22px;
+}
+
+.list-card p,
+.product-panel p,
+.cart-box p,
+.search-box p,
+.content-card p {
+  color: #8992a4;
+  font-size: 15px;
+}
+
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0 24px;
+}
+
+.chip {
+  display: inline-flex;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 12px;
+  color: #bec5d5;
+}
+
+.price-inline {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  margin: 18px 0;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cart-item strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.cart-item span {
+  color: #7f899b;
+  font-size: 13px;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.sitemap-list {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+.sitemap-list a {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: #d7dbe5;
+  transition: 0.25s;
+}
+
+.sitemap-list a:hover {
+  border-color: rgba(143, 124, 255, 0.5);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.search-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.search-row input {
+  flex: 1;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.projects-grid .portfolio-item {
+  min-height: 320px;
+}
+
+.projects-grid .portfolio-item:first-child {
+  grid-row: auto;
+}
+
+@media (max-width: 900px) {
+  .content-grid,
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  .search-row {
+    flex-direction: column;
+  }
+}
+
+
+/* ===== SEARCH OVERLAY ===== */
+body.search-open {
+  overflow: hidden;
+}
+
+body.search-open .site-header {
+  z-index: 1200;
+}
+
+.search-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  background: rgba(7, 11, 20, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+}
+
+.search-panel {
+  position: fixed;
+  top: 92px;
+  left: auto;
+  right: max(16px, calc((100vw - 1180px) / 2));
+  width: min(640px, calc(100vw - 32px));
+  max-height: min(78vh, 720px);
+  z-index: 1101;
+  background: #f4f5f7;
+  color: #121722;
+  border-radius: 28px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
+  padding: 22px;
+  overflow: auto;
+  opacity: 0;
+  transform: translateY(-12px) scale(0.98);
+  pointer-events: none;
+  transition: opacity 0.28s ease, transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  transform-origin: top right;
+}
+
+body.search-open .search-backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+body.search-open .search-panel {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.search-field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 54px;
+  padding: 0 18px;
+  border-radius: 999px;
+  border: 1.5px solid #2a3140;
+  background: #fff;
+}
+
+.search-field svg {
+  display: block;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: #6b7280;
+}
+
+.search-field input {
+  flex: 1;
+  height: 100%;
+  border: 0;
+  outline: none;
+  background: transparent;
+  font-size: 16px;
+  line-height: 1;
+  color: #121722;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.search-field input[type="search"]::-webkit-search-decoration,
+.search-field input[type="search"]::-webkit-search-cancel-button,
+.search-field input[type="search"]::-webkit-search-results-button,
+.search-field input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+.search-field input::placeholder {
+  color: #9aa1ae;
+  line-height: 1;
+  position: relative;
+  top: 0;
+}
+
+.search-featured {
+  margin-top: 28px;
+}
+
+.search-featured h3 {
+  font-size: 28px;
+  letter-spacing: -0.5px;
+  margin-bottom: 18px;
+  color: #111827;
+}
+
+.search-featured ul {
+  list-style: none;
+  display: grid;
+  gap: 14px;
+}
+
+.search-featured li a {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: #1f2937;
+  font-size: 16px;
+  line-height: 1.45;
+  padding: 4px 2px;
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+.search-featured li a:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.search-check {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #111827;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.search-check svg {
+  width: 12px;
+  height: 12px;
+}
+
+.search-featured li.is-hidden {
+  display: none;
+}
+
+.search-empty {
+  display: none;
+  color: #6b7280;
+  margin-top: 8px;
+}
+
+.search-empty.is-visible {
+  display: block;
+}
+
+#searchOpen.is-close {
+  background: #e11d2e;
+  color: #fff;
+}
+
+#searchOpen.is-close:hover {
+  box-shadow: 0 6px 16px rgba(225, 29, 46, 0.35);
+}
+
+body.theme-light .search-backdrop {
+  background: rgba(18, 23, 34, 0.28);
+}
+
+body:not(.theme-light) .search-panel {
+  background: #171b24;
+  color: #eef1f6;
+}
+
+body:not(.theme-light) .search-field {
+  background: #0f131a;
+  border-color: #3a4252;
+}
+
+body:not(.theme-light) .search-field input,
+body:not(.theme-light) .search-featured h3,
+body:not(.theme-light) .search-featured li a {
+  color: #eef1f6;
+}
+
+body:not(.theme-light) .search-field input::placeholder,
+body:not(.theme-light) .search-field svg,
+body:not(.theme-light) .search-empty {
+  color: #8b93a3;
+}
+
+body:not(.theme-light) .search-check {
+  background: #eef1f6;
+  color: #111827;
+}
+
+body:not(.theme-light) .search-featured li a:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+@media (max-width: 900px) {
+  .search-panel {
+    top: 84px;
+    left: 12px;
+    right: 12px;
+    width: auto;
+    border-radius: 22px;
+    padding: 18px;
+  }
+
+  .search-featured h3 {
+    font-size: 22px;
+  }
+}
+
+
+a.service-card {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+/* ===== LANDING SAMPLE GALLERY ===== */
+.sample-section .section-description {
+  margin-bottom: 28px;
+}
+
+.sample-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.sample-card {
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #121722;
+  min-height: 240px;
+}
+
+.sample-card--wide {
+  grid-column: 1 / -1;
+  min-height: 320px;
+}
+
+.sample-card img {
+  width: 100%;
+  height: 100%;
+  min-height: 240px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sample-card--wide img {
+  min-height: 320px;
+}
+
+.sample-card:hover img {
+  transform: scale(1.04);
+}
+
+.sample-card figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 18px 20px;
+  background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.78));
+  display: grid;
+  gap: 4px;
+}
+
+.sample-card figcaption strong {
+  color: #fff;
+  font-size: 18px;
+}
+
+.sample-card figcaption span {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 13px;
+}
+
+body.theme-light .sample-card {
+  border-color: rgba(18, 23, 34, 0.1);
+  background: #e8ecf2;
+}
+
+@media (max-width: 700px) {
+  .sample-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sample-card--wide {
+    grid-column: auto;
+    min-height: 240px;
+  }
+
+  .sample-card--wide img {
+    min-height: 240px;
+  }
+}
+
+
+/* ===== LEGAL PAGES ===== */
+.legal-content {
+  max-width: 820px;
+  display: grid;
+  gap: 28px;
+}
+
+.legal-block h2 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+  color: inherit;
+}
+
+.legal-block p,
+.legal-block li {
+  color: #8d96a8;
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.legal-block p + p {
+  margin-top: 10px;
+}
+
+.legal-block ul {
+  margin: 12px 0 0 1.1rem;
+  display: grid;
+  gap: 8px;
+}
+
+.legal-updated {
+  color: #667082;
+  font-size: 13px;
+  margin-top: 8px;
+}
+
+body.theme-light .legal-block p,
+body.theme-light .legal-block li,
+body.theme-light .legal-updated {
+  color: #5b6475;
+}
+
+
+/* ===== FLOATING CONTACT BUBBLES ===== */
+.float-bubbles {
+  position: fixed;
+  right: 18px;
+  bottom: 22px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.float-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  text-decoration: none;
+  border: 0;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.float-btn:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.34);
+}
+
+.float-btn--zalo {
+  background: #0068ff;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.float-btn--phone {
+  background: #e11d2e;
+  color: #fff;
+}
+
+.float-btn--top {
+  background: #fff;
+  color: #1a9b4a;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px) scale(0.92);
+  transition: opacity 0.25s ease, transform 0.25s ease, box-shadow 0.2s ease;
+}
+
+.float-btn--top.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.float-btn--top:hover {
+  transform: translateY(-2px) scale(1.04);
+}
+
+.float-progress {
+  position: absolute;
+  inset: 0;
+  width: 52px;
+  height: 52px;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+
+.float-progress circle {
+  fill: none;
+  stroke-width: 3;
+}
+
+.float-progress .float-progress-track {
+  stroke: #111;
+}
+
+.float-progress .float-progress-bar {
+  stroke: #e11d2e;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.12s linear;
+}
+
+.float-btn--top .float-top-icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+}
+
+@media (max-width: 600px) {
+  .float-bubbles {
+    right: 12px;
+    bottom: 16px;
+    gap: 10px;
+  }
+
+  .float-btn,
+  .float-progress {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+body.page-tai-ung-dung {
+  background: #fff;
+}
+
+.dl-page {
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px 80px;
+  position: relative;
+  background: #fff;
+  color: #202124;
+}
+
+.dl-phone-outline {
+  position: absolute;
+  top: 4%;
+  width: min(280px, 70vw);
+  height: min(480px, 55vh);
+  border: 1px solid #e8eaed;
+  border-radius: 28px;
+  pointer-events: none;
+}
+
+.dl-dialog {
+  position: relative;
+  z-index: 2;
+  width: min(420px, 100%);
+  background: #f6f6f8;
+  border: 1px solid #d8d8de;
+  border-radius: 14px;
+  padding: 18px 18px 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
+.dl-dialog-title {
+  margin: 0 0 6px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.dl-dialog-sub {
+  margin: 0 0 14px;
+  font-size: 13px;
+  color: #5f6368;
+}
+
+.dl-progress {
+  height: 6px;
+  border-radius: 99px;
+  background: #e4e5ea;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.dl-progress span {
+  display: block;
+  height: 100%;
+  width: 12%;
+  background: #1a73e8;
+  border-radius: 99px;
+  transition: width 0.18s linear;
+}
+
+.dl-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.dl-ghost {
+  border: 0;
+  background: transparent;
+  color: #1a73e8;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 10px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: inherit;
+}
+
+.dl-main {
+  position: relative;
+  z-index: 2;
+  width: min(560px, 100%);
+  text-align: center;
+  display: none;
+}
+
+.dl-main.is-on {
+  display: block;
+}
+
+.dl-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  margin-bottom: 18px;
+}
+
+.dl-main h1 {
+  margin: 0 0 12px;
+  font-size: clamp(26px, 4vw, 36px);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: #202124;
+}
+
+.dl-lead {
+  margin: 0 auto 28px;
+  max-width: 420px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #5f6368;
+}
+
+.dl-download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 220px;
+  margin-bottom: 22px;
+  padding: 12px 22px;
+  border-radius: 8px;
+  background: #1a73e8;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.dl-hint,
+.dl-retry {
+  margin: 0 auto 16px;
+  max-width: 440px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #5f6368;
+}
+
+.dl-retry a {
+  color: #1a73e8;
+}
+
+@media (max-width: 640px) {
+  .dl-phone-outline {
+    display: none;
+  }
+}
+
+
+.site-page { display: none; }
+.site-page.is-on { display: block; }
+.site-page[hidden="true"] { display: none !important; }
+.site-page[hidden="false"] { display: block; }
+
+  </style>
+</head>
+<body>
+  <script>
+    if (document.documentElement.classList.contains("theme-light-pending")) {
+      document.body.classList.add("theme-light");
+      document.documentElement.classList.remove("theme-light-pending");
+    }
+  </script>
+  <div id="top">
+    <header class="site-header" id="siteHeader">
+      <div class="container">
+        <nav class="site-nav">
+          <a class="logo" href="#home">Web<span>Studio.</span></a>
+
+          <div class="nav-cluster" id="navLinks">
+            <ul class="nav-pill">
+              <li><a href="#home">Trang chủ</a></li>
+              <li><a href="#about">Về chúng tôi</a></li>
+              <li class="has-dropdown">
+                <button type="button" class="nav-drop-btn" aria-expanded="false">
+                  Thiết kế Website <span class="chev" aria-hidden="true"></span>
+                </button>
+                <ul class="dropdown">
+                  <li><a href="#landing">Landing Page</a></li>
+                  <li><a href="#company">Website công ty</a></li>
+                  <li><a href="#saas">Website Startup / SaaS</a></li>
+                  <li><a href="#ecommerce">Web bán hàng / E-commerce</a></li>
+                </ul>
+              </li>
+              <li class="has-dropdown">
+                <button type="button" class="nav-drop-btn" aria-expanded="false">
+                  Dịch vụ <span class="chev" aria-hidden="true"></span>
+                </button>
+                <ul class="dropdown">
+                  <li><a href="#services">Lập trình web</a></li>
+                  <li><a href="#pricing">Bảng giá</a></li>
+                  <li><a href="#tai-ung-dung">Tải ứng dụng</a></li>
+                </ul>
+              </li>
+              <li><a href="#collection">Dự án</a></li>
+              <li class="has-dropdown more">
+                <button type="button" class="nav-more" aria-label="Thêm menu" aria-expanded="false">⋯</button>
+                <ul class="dropdown">
+                  <li><a href="#cart">Giỏ yêu cầu</a></li>
+                  <li><a href="#process">Quy trình</a></li>
+                </ul>
+              </li>
+            </ul>
+
+            <div class="nav-tools">
+              <button type="button" class="icon-btn" id="searchOpen" aria-label="Tìm kiếm" aria-expanded="false"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg></button>
+              <button type="button" class="icon-btn" id="themeToggle" aria-label="Chuyển sang chế độ sáng"><svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg><svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3 7 7 0 0 0 21 14.5z"></path></svg></button>
+            </div>
+
+            <a class="nav-cta" href="#lien-he">Tư vấn ngay</a>
+          </div>
+
+          <button type="button" class="menu-btn" id="menuBtn" aria-label="Mở menu">☰</button>
+        </nav>
+      </div>
+    </header>
+
+    <div id="sitePages">
+      <div class="site-page is-on" data-page="home">
+        <main>
+      <section class="hero">
+        <div class="container">
+          <div class="hero-grid">
+            <div>
+              <div class="badge">
+                <span class="badge-dot"></span>
+                Nhận dự án thiết kế Website
+              </div>
+              <h1>
+                Website đẹp.
+                <br />
+                <span class="gradient-text">Chuyển đổi tốt.</span>
+              </h1>
+              <p class="hero-description">
+                Chúng tôi thiết kế và phát triển website hiện đại dành cho
+                doanh nghiệp, thương hiệu, cửa hàng và startup. Tối ưu giao
+                diện, tốc độ, SEO và trải nghiệm người dùng.
+              </p>
+              <div class="hero-actions">
+                <a href="#lien-he" class="btn btn-primary">Bắt đầu dự án →</a>
+                <a href="#portfolio" class="btn btn-secondary">Xem dự án</a>
+              </div>
+              <div class="hero-info">
+                <div class="hero-stat"><strong>50+</strong><span>Dự án</span></div>
+                <div class="hero-stat"><strong>30+</strong><span>Khách hàng</span></div>
+                <div class="hero-stat"><strong>4</strong><span>Loại Website</span></div>
+              </div>
+            </div>
+            <div class="hero-preview">
+              <div class="browser-card">
+                <div class="browser">
+                  <div class="browser-top">
+                    <span class="circle"></span>
+                    <span class="circle"></span>
+                    <span class="circle"></span>
+                  </div>
+                  <div class="browser-content">
+                    <div class="mini-nav">
+                      <div class="mini-logo">WebStudio</div>
+                      <div class="mini-links">
+                        <span>Dịch vụ</span>
+                        <span>Dự án</span>
+                        <span>Liên hệ</span>
+                      </div>
+                    </div>
+                    <div class="mock-tag">Website chuyên nghiệp</div>
+                    <h3 class="mock-title">Thiết kế website hiện đại</h3>
+                    <h3 class="mock-title short">cho doanh nghiệp &amp; startup</h3>
+                    <div class="mock-text">
+                      <p>Giao diện đẹp, tốc độ cao, tối ưu SEO.</p>
+                      <p>Landing Page, Website công ty, E-commerce, SaaS.</p>
+                      <p>Từ ý tưởng đến website sẵn sàng ra mắt.</p>
+                    </div>
+                    <div class="mock-buttons">
+                      <span>Bắt đầu dự án</span>
+                      <span>Xem mẫu</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" class="section">
+        <div class="container">
+          <div class="section-label">Dịch vụ</div>
+          <h2 class="section-title">Thiết kế website cho mọi nhu cầu kinh doanh.</h2>
+          <p class="section-description">
+            Từ Landing Page đơn giản đến hệ thống SaaS, chúng tôi xây dựng
+            website phù hợp với mục tiêu và mô hình kinh doanh của bạn.
+          </p>
+          <div class="services-grid">
+            <a class="service-card" href="#landing">
+              <div class="service-number">01</div>
+              <div class="service-icon">⚡</div>
+              <h3>Landing Page</h3>
+              <p>
+                Landing Page tập trung vào chuyển đổi, phù hợp cho chạy quảng
+                cáo, giới thiệu sản phẩm, sự kiện hoặc thu thập khách hàng tiềm năng.
+              </p>
+              <div class="service-arrow">↗</div>
+            </a>
+            <a class="service-card" href="#company">
+              <div class="service-number">02</div>
+              <div class="service-icon">🏢</div>
+              <h3>Website công ty</h3>
+              <p>
+                Website chuyên nghiệp giúp giới thiệu doanh nghiệp, dịch vụ,
+                đội ngũ, dự án và xây dựng uy tín thương hiệu trên Internet.
+              </p>
+              <div class="service-arrow">↗</div>
+            </a>
+            <a class="service-card" href="#ecommerce">
+              <div class="service-number">03</div>
+              <div class="service-icon">🛒</div>
+              <h3>Web bán hàng / E-commerce</h3>
+              <p>
+                Website bán hàng hoàn chỉnh với danh mục sản phẩm, giỏ hàng,
+                đặt hàng, quản lý đơn và tích hợp các phương thức thanh toán.
+              </p>
+              <div class="service-arrow">↗</div>
+            </a>
+            <a class="service-card" href="#saas">
+              <div class="service-number">04</div>
+              <div class="service-icon">🚀</div>
+              <h3>Website Startup / SaaS</h3>
+              <p>
+                Website và Web App dành cho Startup với Dashboard, đăng nhập,
+                tài khoản người dùng, subscription và các tính năng tùy chỉnh.
+              </p>
+              <div class="service-arrow">↗</div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="features section">
+        <div class="container">
+          <div class="section-label">Chất lượng</div>
+          <h2 class="section-title">Không chỉ đẹp. Website phải hoạt động hiệu quả.</h2>
+          <div class="features-grid">
+            <div class="feature">
+              <div class="feature-icon">✦</div>
+              <h3>UI/UX hiện đại</h3>
+              <p>Thiết kế giao diện rõ ràng, trực quan và phù hợp thương hiệu.</p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">⚡</div>
+              <h3>Tốc độ cao</h3>
+              <p>Tối ưu mã nguồn, hình ảnh và hiệu suất tải trang.</p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">📱</div>
+              <h3>Responsive</h3>
+              <p>Hiển thị đẹp trên máy tính, tablet và điện thoại.</p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">🔎</div>
+              <h3>SEO Friendly</h3>
+              <p>Cấu trúc website thân thiện với công cụ tìm kiếm.</p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">🔐</div>
+              <h3>Bảo mật</h3>
+              <p>Áp dụng các tiêu chuẩn bảo mật website hiện đại.</p>
+            </div>
+            <div class="feature">
+              <div class="feature-icon">⚙</div>
+              <h3>Dễ mở rộng</h3>
+              <p>Kiến trúc rõ ràng giúp thêm tính năng khi doanh nghiệp phát triển.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="portfolio" class="section">
+        <div class="container">
+          <div class="section-label">Dự án</div>
+          <h2 class="section-title">Một số dự án website tiêu biểu.</h2>
+          <div class="portfolio-grid">
+            <a class="portfolio-item" href="#saas">
+              <div class="portfolio-media">
+                <img
+                  class="portfolio-img portfolio-img--main"
+                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&amp;fit=crop&amp;w=1400&amp;q=80"
+                  alt="Nova Analytics SaaS dashboard"
+                  loading="lazy"
+                />
+                <img
+                  class="portfolio-img portfolio-img--hover"
+                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&amp;fit=crop&amp;w=1400&amp;q=80"
+                  alt="Nova Analytics analytics view"
+                  loading="lazy"
+                />
+              </div>
+              <span class="portfolio-badge">Startup / SaaS</span>
+              <div class="portfolio-name">
+                <h3>Nova Analytics</h3>
+                <p>SaaS Dashboard Platform</p>
+              </div>
+            </a>
+            <a class="portfolio-item" href="#ecommerce">
+              <div class="portfolio-media">
+                <img
+                  class="portfolio-img portfolio-img--main"
+                  src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"
+                  alt="Green Store online shopping"
+                  loading="lazy"
+                />
+                <img
+                  class="portfolio-img portfolio-img--hover"
+                  src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"
+                  alt="Green Store product showcase"
+                  loading="lazy"
+                />
+              </div>
+              <span class="portfolio-badge">E-commerce</span>
+              <div class="portfolio-name">
+                <h3>Green Store</h3>
+                <p>Online Shopping</p>
+              </div>
+            </a>
+            <a class="portfolio-item" href="#landing">
+              <div class="portfolio-media">
+                <img
+                  class="portfolio-img portfolio-img--main"
+                  src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"
+                  alt="Aura Studio creative landing"
+                  loading="lazy"
+                />
+                <img
+                  class="portfolio-img portfolio-img--hover"
+                  src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&amp;fit=crop&amp;w=1200&amp;q=80"
+                  alt="Aura Studio team collaboration"
+                  loading="lazy"
+                />
+              </div>
+              <span class="portfolio-badge">Landing Page</span>
+              <div class="portfolio-name">
+                <h3>Aura Studio</h3>
+                <p>Creative Landing Page</p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="process" class="section">
+        <div class="container">
+          <div class="section-label">Quy trình</div>
+          <h2 class="section-title">Từ ý tưởng đến website hoàn chỉnh.</h2>
+          <div class="process-grid">
+            <article class="process-card">
+              <div class="process-number">01</div>
+              <h3>Trao đổi</h3>
+              <p>Tìm hiểu nhu cầu, khách hàng, sản phẩm và mục tiêu dự án.</p>
+            </article>
+            <article class="process-card">
+              <div class="process-number">02</div>
+              <h3>UI/UX Design</h3>
+              <p>Thiết kế bố cục, giao diện và trải nghiệm người dùng.</p>
+            </article>
+            <article class="process-card">
+              <div class="process-number">03</div>
+              <h3>Development</h3>
+              <p>Lập trình website, responsive và các tính năng cần thiết.</p>
+            </article>
+            <article class="process-card">
+              <div class="process-number">04</div>
+              <h3>Launch</h3>
+              <p>Kiểm thử, tối ưu và đưa website lên Internet.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing" class="section">
+        <div class="container">
+          <div class="section-label">Bảng giá</div>
+          <h2 class="section-title">Gói thiết kế phù hợp với từng giai đoạn.</h2>
+          <div class="price-grid">
+            <div class="price-card">
+              <h3>Landing</h3>
+              <p class="price-desc">Phù hợp quảng cáo và giới thiệu sản phẩm.</p>
+              <div class="price">3.900.000đ</div>
+              <ul class="price-features">
+                <li>01 Landing Page</li>
+                <li>Responsive Mobile</li>
+                <li>Form liên hệ</li>
+                <li>Tối ưu tốc độ</li>
+                <li>SEO cơ bản</li>
+              </ul>
+              <a class="btn btn-secondary" href="#lien-he">Chọn gói</a>
+            </div>
+            <div class="price-card popular">
+              <span class="popular-label">PHỔ BIẾN</span>
+              <h3>Business</h3>
+              <p class="price-desc">Website chuyên nghiệp dành cho doanh nghiệp.</p>
+              <div class="price">8.900.000đ</div>
+              <ul class="price-features">
+                <li>5–10 trang</li>
+                <li>Thiết kế UI riêng</li>
+                <li>Responsive</li>
+                <li>CMS quản trị</li>
+                <li>SEO cơ bản</li>
+                <li>Google Analytics</li>
+              </ul>
+              <a class="btn btn-primary" href="#lien-he">Chọn gói</a>
+            </div>
+            <div class="price-card">
+              <h3>E-commerce / SaaS</h3>
+              <p class="price-desc">Dành cho website bán hàng hoặc nền tảng Startup.</p>
+              <div class="price">Liên hệ</div>
+              <ul class="price-features">
+                <li>Thiết kế riêng</li>
+                <li>Database</li>
+                <li>Đăng nhập người dùng</li>
+                <li>Dashboard</li>
+                <li>Thanh toán</li>
+                <li>API Integration</li>
+              </ul>
+              <a class="btn btn-secondary" href="#lien-he">Nhận báo giá</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="cta-box">
+            <h2>Bạn đang có ý tưởng cho một website?</h2>
+            <p>
+              Hãy biến ý tưởng của bạn thành một website chuyên nghiệp, nhanh
+              và có khả năng tạo ra khách hàng.
+            </p>
+            <a href="#lien-he" class="btn btn-primary">Trao đổi dự án →</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section">
+        <div class="container">
+          <div class="contact-grid">
+            <div class="contact-info">
+              <div class="section-label">Liên hệ</div>
+              <h2>Hãy cùng tạo nên website của bạn.</h2>
+              <p>
+                Gửi cho chúng tôi thông tin dự án. Chúng tôi sẽ tư vấn giải
+                pháp phù hợp.
+              </p>
+              <div class="contact-details">
+                <div class="contact-detail">
+                  <span>Email</span>
+                  <strong><a href="mailto:info@webhd.vn">info@webhd.vn</a></strong>
+                </div>
+                <div class="contact-detail">
+                  <span>Điện thoại</span>
+                  <strong><a href="tel:0938002776">0938 002 776</a></strong>
+                </div>
+                <div class="contact-detail">
+                  <span>Thời gian làm việc</span>
+                  <strong>Thứ 2 – Thứ 7</strong>
+                </div>
+              </div>
+            </div>
+            <form class="contact-form" id="contactForm">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Họ tên</label>
+                  <input id="name" class="form-control" type="text" placeholder="Nguyễn Văn A" required />
+                </div>
+                <div class="form-group">
+                  <label for="phone">Số điện thoại</label>
+                  <input id="phone" class="form-control" type="tel" placeholder="09xx xxx xxx" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input id="email" class="form-control" type="email" placeholder="email@example.com" />
+              </div>
+              <div class="form-group">
+                <label for="type">Loại Website</label>
+                <select id="type" class="form-control">
+                  <option>Landing Page</option>
+                  <option>Website công ty</option>
+                  <option>Web bán hàng / E-commerce</option>
+                  <option>Website Startup / SaaS</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="message">Mô tả dự án</label>
+                <textarea id="message" class="form-control" placeholder="Hãy mô tả website bạn muốn làm..."></textarea>
+              </div>
+              <button class="btn btn-primary" style="width:100%" type="submit">
+                Gửi yêu cầu →
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+      </div>
+      <div class="site-page" data-page="about" hidden>
+        <main>
+      <section class="page-hero">
+        <div class="container">
+          <div class="section-label">About</div>
+          <h1>Chúng tôi xây website để tạo khách hàng.</h1>
+          <p>WebStudio tập trung vào thiết kế hiện đại, tốc độ cao và nội dung rõ ràng giúp doanh nghiệp chuyển đổi tốt hơn.</p>
+        </div>
+      </section>
+      <section class="page-content">
+        <div class="container content-grid">
+          <article class="content-card">
+            <h2 style="margin-bottom:12px">Sứ mệnh</h2>
+            <p>Mang đến website đẹp, nhanh và dễ dùng — phù hợp mục tiêu kinh doanh thực tế của từng khách hàng.</p>
+            <div class="meta-row">
+              <span class="chip">UI/UX</span>
+              <span class="chip">Frontend</span>
+              <span class="chip">SEO</span>
+              <span class="chip">E-commerce</span>
+            </div>
+            <a class="btn btn-primary" href="#lien-he">Trao đổi dự án</a>
+          </article>
+          <div class="stack">
+            <article class="list-card"><h3>50+ dự án</h3><p>Landing page, website công ty, cửa hàng online và SaaS.</p></article>
+            <article class="list-card"><h3>Làm việc online</h3><p>Đồng hành toàn quốc, bàn giao rõ ràng theo từng giai đoạn.</p></article>
+            <article class="list-card"><h3>Hỗ trợ sau launch</h3><p>Chỉnh sửa, hướng dẫn sử dụng và tối ưu tiếp theo nhu cầu.</p></article>
+          </div>
+        </div>
+      </section>
+    </main>
+      </div>
+      <div class="site-page" data-page="landing" hidden>
+        <main>
+      <section class="page-hero">
+        <div class="container">
+          <div class="section-label">Landing Page</div>
+          <h1>Landing Page tập trung chuyển đổi.</h1>
+          <p>
+            Một trang — một mục tiêu rõ ràng: thu lead, đặt lịch hoặc bán sản phẩm.
+            Thiết kế đẹp, tải nhanh, sẵn sàng chạy quảng cáo.
+          </p>
+          <div class="hero-actions" style="margin-top:24px">
+            <a class="btn btn-primary" href="#lien-he">Nhận tư vấn Landing Page</a>
+            <a class="btn btn-secondary" href="#cart">Thêm vào giỏ yêu cầu</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-content">
+        <div class="container content-grid">
+          <article class="product-panel">
+            <h2>Landing Page mang lại gì?</h2>
+            <ul class="price-features">
+              <li>01 trang tập trung thông điệp chính</li>
+              <li>Bố cục tối ưu CTA / form đăng ký</li>
+              <li>Responsive trên mobile &amp; desktop</li>
+              <li>Tối ưu tốc độ tải trang</li>
+              <li>SEO cơ bản + gắn tracking (Pixel/GA)</li>
+            </ul>
+            <div class="price-inline">Từ 3.900.000đ</div>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#lien-he">Đặt lịch tư vấn</a>
+              <a class="btn btn-secondary" href="#mau-landing">Xem ảnh mẫu</a>
+            </div>
+          </article>
+
+          <div class="stack">
+            <article class="list-card">
+              <h3>Phù hợp khi nào?</h3>
+              <p>
+                Chạy Facebook/Google Ads, ra mắt sản phẩm mới, sự kiện, khóa học
+                hoặc chiến dịch cần thu khách hàng tiềm năng nhanh.
+              </p>
+              <div class="meta-row">
+                <span class="chip">Quảng cáo</span>
+                <span class="chip">Thu lead</span>
+                <span class="chip">Chuyển đổi</span>
+              </div>
+            </article>
+            <article class="list-card">
+              <h3>Quy trình làm việc</h3>
+              <p>
+                Trao đổi mục tiêu → thiết kế UI → lập trình → tối ưu → bàn giao
+                và hướng dẫn chạy campaign.
+              </p>
+            </article>
+            <article class="list-card">
+              <h3>Thời gian dự kiến</h3>
+              <p>Thường 5–10 ngày làm việc tùy độ phức tạp nội dung và form.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section sample-section" id="mau-landing">
+        <div class="container">
+          <div class="section-label">Ảnh mẫu</div>
+          <h2 class="section-title">Một số phong cách Landing Page tham khảo</h2>
+          <p class="section-description">
+            Hình ảnh minh họa hướng thiết kế — giao diện thực tế sẽ chỉnh theo
+            thương hiệu và mục tiêu chiến dịch của bạn.
+          </p>
+          <div class="sample-grid">
+            <figure class="sample-card sample-card--wide">
+              <img
+                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&amp;fit=crop&amp;w=1400&amp;q=80"
+                alt="Mẫu landing page dashboard analytics"
+                loading="lazy"
+              />
+              <figcaption>
+                <strong>Growth Ads</strong>
+                <span>Landing thu lead chạy quảng cáo</span>
+              </figcaption>
+            </figure>
+            <figure class="sample-card">
+              <img
+                src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&amp;fit=crop&amp;w=900&amp;q=80"
+                alt="Mẫu landing page app mobile"
+                loading="lazy"
+              />
+              <figcaption>
+                <strong>App Launch</strong>
+                <span>Ra mắt ứng dụng / sản phẩm số</span>
+              </figcaption>
+            </figure>
+            <figure class="sample-card">
+              <img
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&amp;fit=crop&amp;w=900&amp;q=80"
+                alt="Mẫu landing page khóa học online"
+                loading="lazy"
+              />
+              <figcaption>
+                <strong>Course Funnel</strong>
+                <span>Đăng ký khóa học / webinar</span>
+              </figcaption>
+            </figure>
+            <figure class="sample-card">
+              <img
+                src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&amp;fit=crop&amp;w=900&amp;q=80"
+                alt="Mẫu landing page bán hàng"
+                loading="lazy"
+              />
+              <figcaption>
+                <strong>Offer Page</strong>
+                <span>Landing bán hàng / ưu đãi</span>
+              </figcaption>
+            </figure>
+            <figure class="sample-card">
+              <img
+                src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&amp;fit=crop&amp;w=900&amp;q=80"
+                alt="Mẫu landing page SaaS startup"
+                loading="lazy"
+              />
+              <figcaption>
+                <strong>SaaS Waitlist</strong>
+                <span>Đăng ký sớm cho startup</span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="cta-box">
+            <h2>Sẵn sàng có Landing Page chuyển đổi tốt?</h2>
+            <p>
+              Gửi brief ngắn — chúng tôi đề xuất bố cục, thông điệp và ước tính
+              thời gian phù hợp ngân sách của bạn.
+            </p>
+            <a href="#lien-he" class="btn btn-primary">Trao đổi dự án →</a>
+          </div>
+        </div>
+      </section>
+    </main>
+      </div>
+      <div class="site-page" data-page="company" hidden>
+        <main>
+      <section class="page-hero">
+        <div class="container">
+          <div class="section-label">Website công ty</div>
+          <h1>Website doanh nghiệp chuyên nghiệp.</h1>
+          <p>
+            Giới thiệu công ty, dịch vụ, đội ngũ và dự án một cách rõ ràng —
+            giúp khách hàng tin tưởng và liên hệ nhanh hơn.
+          </p>
+          <div class="hero-actions" style="margin-top:24px">
+            <a class="btn btn-primary" href="#lien-he">Nhận tư vấn Website công ty</a>
+            <a class="btn btn-secondary" href="#cart">Thêm vào giỏ yêu cầu</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-content">
+        <div class="container content-grid">
+          <article class="product-panel">
+            <h2>Website công ty gồm những gì?</h2>
+            <ul class="price-features">
+              <li>5–10 trang: Trang chủ, Giới thiệu, Dịch vụ, Dự án, Liên hệ…</li>
+              <li>Thiết kế UI đúng nhận diện thương hiệu</li>
+              <li>Responsive trên máy tính &amp; điện thoại</li>
+              <li>CMS quản trị nội dung cơ bản</li>
+              <li>SEO kỹ thuật + Google Analytics</li>
+            </ul>
+            <div class="price-inline">Từ 8.900.000đ</div>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#lien-he">Đặt lịch tư vấn</a>
+              <a class="btn btn-secondary" href="#mau-cong-ty">Xem ảnh mẫu</a>
+            </div>
+          </article>
+
+          <div class="stack">
+            <article class="list-card">
+              <h3>Phù hợp khi nào?</h3>
+              <p>
+                Doanh nghiệp cần mặt tiền số để giới thiệu dịch vụ, xây dựng uy tín,
+                hỗ trợ sales và thu lead từ Google / mạng xã hội.
+              </p>
+              <div class="meta-row">
+                <span class="chip">Doanh nghiệp</span>
+                <span class="chip">Thương hiệu</span>
+                <span class="chip">Uy tín</span>
+              </div>
+            </article>
+            <article class="list-card">
+              <h3>Các trang thường có</h3>
+              <p>
+                Trang chủ, Về chúng tôi, Dịch vụ/Sản phẩm, Dự án/Case study,
+                Đội ngũ, Tin tức (tuỳ chọn), Liên hệ.
+              </p>
+            </article>
+            <article class="list-card">
+              <h3>Thời gian dự kiến</h3>
+              <p>Thường 2–4 tuần tùy số trang, nội dung và số vòng chỉnh sửa.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section sample-section" id="mau-cong-ty">
+        <div class="container">
+          <div class="section-label">Ảnh mẫu</div>
+          <h2 class="section-title">Phong cách website công ty tham khảo</h2>
+          <p class="section-description">
+            Hình ảnh minh họa hướng thiết kế corporate — giao diện thực tế sẽ
+            chỉnh theo brand guideline của doanh nghiệp bạn.
+          </p>
+          <div class="sample-grid">
+            <figure class="sample-card sample-card--wide">
+              <img
+                src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&amp;fit=crop&amp;w=1400&amp;q=80"
+                alt="Mẫu website công ty văn phòng hiện đại"
+                loading="lazy"
+              />
+              <figcaption>
+                <strong>Corporate Home</strong>
+                <span>Trang chủ doanh nghiệp chuyên nghiệp</span>
+              </figcaption>
+            </figure>
+            <figure class="sample-card">
+              <img
+                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&amp;fit=crop&amp;w=900&amp;q=80"
+                alt="Mẫu trang giới thiệu đội ngũ"
+                loading="lazy"
+              />
+              <figcaption>
+                <strong>About &amp; Team</strong>
+                <span>Giới thiệu công ty và đội ngũ</span>
+              </figcaption>
+            </figure>
+            <figure class="sample-card">
+              <img
+                src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&amp;fit=crop&amp;w=900&amp;q=80"
+                alt="Mẫu trang dịch vụ doanh nghiệp"
+                loading="lazy"
+              />
+              <figcaption>
+                <strong>Services</strong>
+                <span>Trang dịch vụ / giải pháp</span>
+              </figcaption>
+            </figure>
+            <figure class="sample-card">
+              <img
+                src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&amp;fit=crop&amp;w=900&amp;q=80"
+                alt="Mẫu trang dự án case study"
+                loading="lazy"
+              />
+              <figcaption>
+                <strong>Projects</strong>
+                <span>Dự án / case study</span>
+              </figcaption>
+            </figure>
+            <figure class="sample-card">
+              <img
+                src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&amp;fit=crop&amp;w=900&amp;q=80"
+                alt="Mẫu trang liên hệ doanh nghiệp"
+                loading="lazy"
+              />
+              <figcaption>
+                <strong>Contact</strong>
+                <span>Trang liên hệ &amp; form tư vấn</span>
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="cta-box">
+            <h2>Sẵn sàng có website công ty chuyên nghiệp?</h2>
+            <p>
+              Chia sẻ ngành nghề và mục tiêu — chúng tôi đề xuất cấu trúc trang,
+              phong cách thiết kế và lộ trình bàn giao phù hợp.
+            </p>
+            <a href="#lien-he" class="btn btn-primary">Trao đổi dự án →</a>
+          </div>
+        </div>
+      </section>
+    </main>
+      </div>
+      <div class="site-page" data-page="saas" hidden>
+        <main>
+      <section class="page-hero">
+        <div class="container">
+          <div class="section-label">Startup / SaaS</div>
+          <h1>Website &amp; Web App cho Startup.</h1>
+          <p>
+            Landing sản phẩm, dashboard, đăng nhập và subscription — xây nền tảng
+            rõ ràng để onboard người dùng và mở rộng tính năng.
+          </p>
+          <div class="hero-actions" style="margin-top:24px">
+            <a class="btn btn-primary" href="#lien-he">Nhận tư vấn SaaS</a>
+            <a class="btn btn-secondary" href="#cart">Thêm vào giỏ yêu cầu</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-content">
+        <div class="container content-grid">
+          <article class="product-panel">
+            <h2>Gói Startup / SaaS gồm gì?</h2>
+            <ul class="price-features">
+              <li>Website giới thiệu sản phẩm / waitlist</li>
+              <li>Đăng nhập &amp; tài khoản người dùng</li>
+              <li>Dashboard quản trị cơ bản</li>
+              <li>Luồng subscription / gói dịch vụ</li>
+              <li>Kiến trúc dễ mở rộng tính năng</li>
+            </ul>
+            <div class="price-inline">Liên hệ báo giá</div>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#lien-he">Đặt lịch tư vấn</a>
+              <a class="btn btn-secondary" href="#mau-saas">Xem ảnh mẫu</a>
+            </div>
+          </article>
+          <div class="stack">
+            <article class="list-card">
+              <h3>Phù hợp khi nào?</h3>
+              <p>
+                Startup cần MVP web, SaaS cần mặt tiền + khu vực đăng nhập,
+                hoặc sản phẩm số cần onboarding người dùng rõ ràng.
+              </p>
+              <div class="meta-row">
+                <span class="chip">MVP</span>
+                <span class="chip">Dashboard</span>
+                <span class="chip">Subscription</span>
+              </div>
+            </article>
+            <article class="list-card">
+              <h3>Hướng triển khai</h3>
+              <p>
+                Ưu tiên luồng cốt lõi trước (đăng ký → dùng thử → trả phí),
+                sau đó mở rộng module theo roadmap sản phẩm.
+              </p>
+            </article>
+            <article class="list-card">
+              <h3>Thời gian dự kiến</h3>
+              <p>MVP thường 4–8 tuần tùy phạm vi tính năng và tích hợp API.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section sample-section" id="mau-saas">
+        <div class="container">
+          <div class="section-label">Ảnh mẫu</div>
+          <h2 class="section-title">Phong cách Startup / SaaS tham khảo</h2>
+          <p class="section-description">
+            Hình ảnh minh họa dashboard và landing sản phẩm — giao diện thực tế
+            sẽ theo branding và luồng người dùng của bạn.
+          </p>
+          <div class="sample-grid">
+            <figure class="sample-card sample-card--wide">
+              <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&amp;fit=crop&amp;w=1400&amp;q=80" alt="Mẫu dashboard SaaS" loading="lazy" />
+              <figcaption><strong>Product Dashboard</strong><span>Bảng điều khiển người dùng</span></figcaption>
+            </figure>
+            <figure class="sample-card">
+              <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mẫu analytics SaaS" loading="lazy" />
+              <figcaption><strong>Analytics</strong><span>Theo dõi tăng trưởng</span></figcaption>
+            </figure>
+            <figure class="sample-card">
+              <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mẫu team startup" loading="lazy" />
+              <figcaption><strong>Launch Site</strong><span>Landing giới thiệu sản phẩm</span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="cta-box">
+            <h2>Sẵn sàng dựng nền tảng Startup / SaaS?</h2>
+            <p>Mô tả sản phẩm và người dùng mục tiêu — nhận đề xuất phạm vi MVP rõ ràng.</p>
+            <a href="#lien-he" class="btn btn-primary">Trao đổi dự án →</a>
+          </div>
+        </div>
+      </section>
+    </main>
+      </div>
+      <div class="site-page" data-page="ecommerce" hidden>
+        <main>
+      <section class="page-hero">
+        <div class="container">
+          <div class="section-label">E-commerce</div>
+          <h1>Web bán hàng hoàn chỉnh.</h1>
+          <p>
+            Danh mục sản phẩm, giỏ hàng, đặt hàng và thanh toán — tối ưu cho
+            trải nghiệm mua trên điện thoại và máy tính.
+          </p>
+          <div class="hero-actions" style="margin-top:24px">
+            <a class="btn btn-primary" href="#lien-he">Nhận tư vấn E-commerce</a>
+            <a class="btn btn-secondary" href="#cart">Thêm vào giỏ yêu cầu</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="page-content">
+        <div class="container content-grid">
+          <article class="product-panel">
+            <h2>Website bán hàng gồm gì?</h2>
+            <ul class="price-features">
+              <li>Danh mục &amp; trang chi tiết sản phẩm</li>
+              <li>Giỏ hàng, đặt hàng, quản lý đơn</li>
+              <li>Tích hợp thanh toán phổ biến</li>
+              <li>Responsive mobile-first</li>
+              <li>SEO sản phẩm + theo dõi chuyển đổi</li>
+            </ul>
+            <div class="price-inline">Liên hệ báo giá</div>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#lien-he">Đặt lịch tư vấn</a>
+              <a class="btn btn-secondary" href="#mau-ecommerce">Xem ảnh mẫu</a>
+            </div>
+          </article>
+          <div class="stack">
+            <article class="list-card">
+              <h3>Phù hợp khi nào?</h3>
+              <p>
+                Shop online, thương hiệu muốn bán trực tiếp, mở rộng kênh bán
+                ngoài mạng xã hội hoặc cần quản lý đơn tập trung.
+              </p>
+              <div class="meta-row">
+                <span class="chip">Bán hàng</span>
+                <span class="chip">Giỏ hàng</span>
+                <span class="chip">Thanh toán</span>
+              </div>
+            </article>
+            <article class="list-card">
+              <h3>Tính năng mở rộng</h3>
+              <p>
+                Mã giảm giá, phân loại biến thể, kho hàng, thông báo đơn hàng,
+                tích hợp vận chuyển — tuỳ theo nhu cầu.
+              </p>
+            </article>
+            <article class="list-card">
+              <h3>Thời gian dự kiến</h3>
+              <p>Thường 3–6 tuần tùy số sản phẩm, luồng thanh toán và tích hợp.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section sample-section" id="mau-ecommerce">
+        <div class="container">
+          <div class="section-label">Ảnh mẫu</div>
+          <h2 class="section-title">Phong cách web bán hàng tham khảo</h2>
+          <p class="section-description">
+            Hình ảnh minh họa trải nghiệm mua sắm — giao diện thực tế sẽ theo
+            nhận diện thương hiệu và ngành hàng của bạn.
+          </p>
+          <div class="sample-grid">
+            <figure class="sample-card sample-card--wide">
+              <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&amp;fit=crop&amp;w=1400&amp;q=80" alt="Mẫu trang cửa hàng online" loading="lazy" />
+              <figcaption><strong>Store Front</strong><span>Trang chủ cửa hàng</span></figcaption>
+            </figure>
+            <figure class="sample-card">
+              <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mẫu danh mục sản phẩm" loading="lazy" />
+              <figcaption><strong>Catalog</strong><span>Danh mục sản phẩm</span></figcaption>
+            </figure>
+            <figure class="sample-card">
+              <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&amp;fit=crop&amp;w=900&amp;q=80" alt="Mẫu thanh toán online" loading="lazy" />
+              <figcaption><strong>Checkout</strong><span>Giỏ hàng &amp; thanh toán</span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <div class="cta-box">
+            <h2>Sẵn sàng mở kênh bán hàng online?</h2>
+            <p>Cho chúng tôi biết ngành hàng và quy mô sản phẩm — nhận đề xuất cấu trúc shop phù hợp.</p>
+            <a href="#lien-he" class="btn btn-primary">Trao đổi dự án →</a>
+          </div>
+        </div>
+      </section>
+    </main>
+      </div>
+      <div class="site-page" data-page="collection" hidden>
+        <main>
+      <section class="page-hero">
+        <div class="container">
+          <div class="section-label">Dự án</div>
+          <h1>Các dự án website đã thực hiện.</h1>
+          <p>Một số website tiêu biểu dành cho startup, cửa hàng và doanh nghiệp.</p>
+        </div>
+      </section>
+      <section class="page-content">
+        <div class="container projects-grid">
+          <a class="portfolio-item" href="#saas">
+            <div class="portfolio-media">
+              <img class="portfolio-img portfolio-img--main" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&amp;fit=crop&amp;w=1400&amp;q=80" alt="Nova Analytics SaaS dashboard" loading="lazy" />
+              <img class="portfolio-img portfolio-img--hover" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&amp;fit=crop&amp;w=1400&amp;q=80" alt="Nova Analytics analytics view" loading="lazy" />
+            </div>
+            <span class="portfolio-badge">Startup / SaaS</span>
+            <div class="portfolio-name">
+              <h3>Nova Analytics</h3>
+              <p>SaaS Dashboard Platform</p>
+            </div>
+          </a>
+          <a class="portfolio-item" href="#ecommerce">
+            <div class="portfolio-media">
+              <img class="portfolio-img portfolio-img--main" src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Green Store online shopping" loading="lazy" />
+              <img class="portfolio-img portfolio-img--hover" src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Green Store product showcase" loading="lazy" />
+            </div>
+            <span class="portfolio-badge">E-commerce</span>
+            <div class="portfolio-name">
+              <h3>Green Store</h3>
+              <p>Online Shopping</p>
+            </div>
+          </a>
+          <a class="portfolio-item" href="#landing">
+            <div class="portfolio-media">
+              <img class="portfolio-img portfolio-img--main" src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Aura Studio creative landing" loading="lazy" />
+              <img class="portfolio-img portfolio-img--hover" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Aura Studio team collaboration" loading="lazy" />
+            </div>
+            <span class="portfolio-badge">Landing Page</span>
+            <div class="portfolio-name">
+              <h3>Aura Studio</h3>
+              <p>Creative Landing Page</p>
+            </div>
+          </a>
+          <a class="portfolio-item" href="#product">
+            <div class="portfolio-media">
+              <img class="portfolio-img portfolio-img--main" src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Clinic Care healthcare website" loading="lazy" />
+              <img class="portfolio-img portfolio-img--hover" src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Clinic Care medical service" loading="lazy" />
+            </div>
+            <span class="portfolio-badge">Website dịch vụ</span>
+            <div class="portfolio-name">
+              <h3>Clinic Care</h3>
+              <p>Healthcare Booking Site</p>
+            </div>
+          </a>
+          <a class="portfolio-item" href="#company">
+            <div class="portfolio-media">
+              <img class="portfolio-img portfolio-img--main" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Finance Pro corporate website" loading="lazy" />
+              <img class="portfolio-img portfolio-img--hover" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Finance Pro business meeting" loading="lazy" />
+            </div>
+            <span class="portfolio-badge">Website công ty</span>
+            <div class="portfolio-name">
+              <h3>Finance Pro</h3>
+              <p>Corporate Finance Site</p>
+            </div>
+          </a>
+          <a class="portfolio-item" href="#product">
+            <div class="portfolio-media">
+              <img class="portfolio-img portfolio-img--main" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Foodly restaurant website" loading="lazy" />
+              <img class="portfolio-img portfolio-img--hover" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&amp;fit=crop&amp;w=1200&amp;q=80" alt="Foodly dining interior" loading="lazy" />
+            </div>
+            <span class="portfolio-badge">Nhà hàng / đặt bàn</span>
+            <div class="portfolio-name">
+              <h3>Foodly</h3>
+              <p>Restaurant Reservation</p>
+            </div>
+          </a>
+        </div>
+      </section>
+    </main>
+      </div>
+      <div class="site-page" data-page="product" hidden>
+        <main>
+      <section class="page-hero">
+        <div class="container">
+          <div class="section-label">Product</div>
+          <h1>Gói Business</h1>
+          <p>Website chuyên nghiệp dành cho doanh nghiệp: 5–10 trang, UI riêng, CMS và SEO cơ bản.</p>
+        </div>
+      </section>
+      <section class="page-content">
+        <div class="container content-grid">
+          <article class="product-panel">
+            <h2>Bao gồm gì?</h2>
+            <ul class="price-features">
+              <li>5–10 trang nội dung</li>
+              <li>Thiết kế UI riêng</li>
+              <li>Responsive mọi thiết bị</li>
+              <li>CMS quản trị</li>
+              <li>SEO cơ bản + Analytics</li>
+            </ul>
+            <div class="price-inline">8.900.000đ</div>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#cart">Thêm vào giỏ yêu cầu</a>
+              <a class="btn btn-secondary" href="#lien-he">Tư vấn ngay</a>
+            </div>
+          </article>
+          <article class="list-card">
+            <h3>Phù hợp khi nào?</h3>
+            <p>Doanh nghiệp cần website giới thiệu dịch vụ, dự án, đội ngũ và thu lead từ Google / quảng cáo.</p>
+            <div class="meta-row">
+              <span class="chip">Doanh nghiệp</span>
+              <span class="chip">Dịch vụ</span>
+              <span class="chip">Thương hiệu</span>
+            </div>
+            <a href="#collection" class="btn btn-secondary">Xem dự án</a>
+          </article>
+        </div>
+      </section>
+    </main>
+      </div>
+      <div class="site-page" data-page="cart" hidden>
+        <main>
+      <section class="page-hero">
+        <div class="container">
+          <div class="section-label">Cart</div>
+          <h1>Giỏ yêu cầu của bạn</h1>
+          <p>Xác nhận các gói quan tâm rồi gửi yêu cầu tư vấn.</p>
+        </div>
+      </section>
+      <section class="page-content">
+        <div class="container">
+          <div class="cart-box">
+            <h2>Đã chọn</h2>
+            <div class="cart-item">
+              <div>
+                <strong>Gói Business</strong>
+                <span>Website doanh nghiệp 5–10 trang</span>
+              </div>
+              <div>8.900.000đ</div>
+            </div>
+            <div class="cart-item">
+              <div>
+                <strong>SEO cơ bản</strong>
+                <span>Tối ưu cấu trúc & tốc độ</span>
+              </div>
+              <div>Miễn phí</div>
+            </div>
+            <div class="cart-total">
+              <span>Tạm tính</span>
+              <span>8.900.000đ</span>
+            </div>
+            <div class="hero-actions" style="margin-top:24px">
+              <a class="btn btn-primary" href="#lien-he">Gửi yêu cầu</a>
+              <a class="btn btn-secondary" href="#product">Xem lại gói</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+      </div>
+      <div class="site-page" data-page="lien-he" hidden>
+        <main>
+      <section class="page-hero">
+        <div class="container">
+          <div class="section-label">Liên hệ</div>
+          <h1>Hãy cùng tạo nên website của bạn.</h1>
+          <p>Gửi thông tin dự án, chúng tôi sẽ tư vấn giải pháp phù hợp trong thời gian sớm nhất.</p>
+        </div>
+      </section>
+      <section class="page-content" id="contact">
+        <div class="container">
+          <div class="contact-grid">
+            <div class="contact-info">
+              <div class="section-label">Thông tin</div>
+              <h2>Kết nối với WebStudio.</h2>
+              <p>
+                Bạn có thể gọi trực tiếp, gửi email hoặc điền form bên cạnh để nhận tư vấn miễn phí.
+              </p>
+              <div class="contact-details">
+                <div class="contact-detail">
+                  <span>Email</span>
+                  <strong><a href="mailto:info@webhd.vn">info@webhd.vn</a></strong>
+                </div>
+                <div class="contact-detail">
+                  <span>Điện thoại</span>
+                  <strong><a href="tel:0938002776">0938 002 776</a></strong>
+                </div>
+                <div class="contact-detail">
+                  <span>Thời gian làm việc</span>
+                  <strong>Thứ 2 – Thứ 7</strong>
+                </div>
+              </div>
+            </div>
+            <form class="contact-form" id="contactFormPage">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name-lien-he">Họ tên</label>
+                  <input id="name-lien-he" class="form-control" type="text" placeholder="Nguyễn Văn A" required />
+                </div>
+                <div class="form-group">
+                  <label for="phone-lien-he">Số điện thoại</label>
+                  <input id="phone-lien-he" class="form-control" type="tel" placeholder="09xx xxx xxx" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="email-lien-he">Email</label>
+                <input id="email-lien-he" class="form-control" type="email" placeholder="email@example.com" />
+              </div>
+              <div class="form-group">
+                <label for="type">Loại Website</label>
+                <select id="type" class="form-control">
+                  <option>Landing Page</option>
+                  <option>Website công ty</option>
+                  <option>Web bán hàng / E-commerce</option>
+                  <option>Website Startup / SaaS</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="message-lien-he">Mô tả dự án</label>
+                <textarea id="message-lien-he" class="form-control" placeholder="Hãy mô tả website bạn muốn làm..."></textarea>
+              </div>
+              <button class="btn btn-primary" style="width:100%" type="submit">
+                Gửi yêu cầu →
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+      </div>
+      <div class="site-page" data-page="search" hidden>
+        <main>
+      <section class="page-hero">
+        <div class="container">
+          <div class="section-label">Search</div>
+          <h1>Tìm dịch vụ hoặc dự án</h1>
+          <p>Nhập từ khóa như Landing Page, SaaS, E-commerce...</p>
+        </div>
+      </section>
+      <section class="page-content">
+        <div class="container">
+          <form class="search-box" id="searchFormPage">
+            <h2>Từ khóa</h2>
+            <div class="search-row">
+              <input class="form-control" type="search" name="q" placeholder="Ví dụ: website công ty" required />
+              <button class="btn btn-primary" type="submit">Tìm</button>
+            </div>
+            <p id="searchResult">Kết quả sẽ hiện tại đây.</p>
+          </form>
+        </div>
+      </section>
+    </main>
+      </div>
+      <div class="site-page" data-page="sitemap" hidden>
+        <main>
+      <section class="page-hero">
+        <div class="container">
+          <div class="section-label">Sitemap</div>
+          <h1>Sơ đồ trang</h1>
+          <p>Tất cả trang chính của website WebStudio.</p>
+        </div>
+      </section>
+      <section class="page-content">
+        <div class="container">
+          <ul class="sitemap-list">
+            <li><a href="#home"><span>Trang chủ</span><span>index.html</span></a></li>
+            <li><a href="#about"><span>Giới thiệu</span><span>about.html</span></a></li>
+            <li><a href="#lien-he"><span>Liên hệ</span><span>contact.html</span></a></li>
+            <li><a href="#collection"><span>Dự án</span><span>collection.html</span></a></li>
+            <li><a href="#product"><span>Gói dịch vụ</span><span>product.html</span></a></li>
+            <li><a href="#cart"><span>Giỏ yêu cầu</span><span>cart.html</span></a></li>
+            <li><a href="#search"><span>Tìm kiếm</span><span>search.html</span></a></li>
+            <li><a href="#sitemap"><span>Sitemap</span><span>sitemap.html</span></a></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+      </div>
+      <div class="site-page" data-page="privacy" hidden>
+        <main>
+      <section class="page-hero">
+        <div class="container">
+          <div class="section-label">Chính sách</div>
+          <h1>Chính sách bảo mật</h1>
+          <p>Cách WebStudio thu thập, sử dụng và bảo vệ thông tin của bạn khi sử dụng website và dịch vụ tư vấn.</p>
+        </div>
+      </section>
+      <section class="page-content">
+        <div class="container legal-content">
+
+            <article class="legal-block">
+              <h2>1. Giới thiệu</h2>
+              <p>WebStudio tôn trọng quyền riêng tư của khách hàng và người dùng website. Chính sách này giải thích cách chúng tôi thu thập, sử dụng và bảo vệ thông tin khi bạn sử dụng website hoặc liên hệ nhận tư vấn dịch vụ thiết kế/lập trình web.</p>
+              
+            </article>
+
+            <article class="legal-block">
+              <h2>2. Thông tin chúng tôi thu thập</h2>
+              <p>Tùy theo cách bạn tương tác với chúng tôi, thông tin có thể bao gồm:</p>
+              <ul><li>Họ tên, số điện thoại, email và nội dung yêu cầu tư vấn bạn gửi qua form liên hệ.</li><li>Thông tin kỹ thuật cơ bản như loại trình duyệt, thiết bị, địa chỉ IP (ở mức tổng hợp) phục vụ vận hành và bảo mật website.</li><li>Dữ liệu hành vi trên website (trang đã xem, nút đã bấm) nếu có gắn công cụ phân tích như Google Analytics.</li></ul>
+            </article>
+
+            <article class="legal-block">
+              <h2>3. Mục đích sử dụng thông tin</h2>
+              <p>Chúng tôi sử dụng thông tin để:</p>
+              <ul><li>Phản hồi yêu cầu tư vấn, báo giá và hỗ trợ dự án.</li><li>Cải thiện chất lượng website, nội dung và trải nghiệm người dùng.</li><li>Gửi thông tin liên quan đến dịch vụ khi bạn đồng ý nhận liên hệ.</li><li>Đảm bảo an toàn, phòng chống gian lận hoặc truy cập trái phép.</li></ul>
+            </article>
+
+            <article class="legal-block">
+              <h2>4. Chia sẻ thông tin</h2>
+              <p>Chúng tôi không bán thông tin cá nhân của bạn. Thông tin chỉ có thể được chia sẻ với đối tác kỹ thuật cần thiết để vận hành dịch vụ (ví dụ: nhà cung cấp hosting, email) theo thỏa thuận bảo mật, hoặc khi pháp luật yêu cầu.</p>
+              
+            </article>
+
+            <article class="legal-block">
+              <h2>5. Lưu trữ và bảo mật</h2>
+              <p>Thông tin được lưu trong thời gian cần thiết cho mục đích tư vấn và thực hiện hợp đồng, hoặc theo quy định pháp luật. Chúng tôi áp dụng các biện pháp kỹ thuật và tổ chức hợp lý để hạn chế truy cập trái phép, mất mát hoặc tiết lộ dữ liệu.</p>
+              
+            </article>
+
+            <article class="legal-block">
+              <h2>6. Cookie và công cụ theo dõi</h2>
+              <p>Website có thể dùng cookie hoặc công cụ phân tích để hiểu cách người dùng sử dụng trang. Bạn có thể tắt cookie trong trình duyệt; một số tính năng website có thể bị ảnh hưởng.</p>
+              
+            </article>
+
+            <article class="legal-block">
+              <h2>7. Quyền của bạn</h2>
+              <p>Bạn có quyền yêu cầu xem, chỉnh sửa hoặc xóa thông tin cá nhân đã cung cấp (trừ trường hợp pháp luật yêu cầu lưu giữ). Liên hệ qua email info@webhd.vn hoặc số điện thoại 0938 002 776 để được hỗ trợ.</p>
+              
+            </article>
+
+            <article class="legal-block">
+              <h2>8. Thay đổi chính sách</h2>
+              <p>WebStudio có thể cập nhật Chính sách bảo mật theo thời gian. Phiên bản mới sẽ được đăng trên trang này kèm ngày cập nhật.</p>
+              
+            </article>
+          <p class="legal-updated">Cập nhật lần cuối: 14/08/2026</p>
+        </div>
+      </section>
+    </main>
+      </div>
+      <div class="site-page" data-page="terms" hidden>
+        <main>
+      <section class="page-hero">
+        <div class="container">
+          <div class="section-label">Điều khoản</div>
+          <h1>Điều khoản & điều kiện</h1>
+          <p>Các điều khoản áp dụng khi bạn sử dụng website WebStudio và thuê dịch vụ thiết kế/lập trình web.</p>
+        </div>
+      </section>
+      <section class="page-content">
+        <div class="container legal-content">
+
+            <article class="legal-block">
+              <h2>1. Chấp nhận điều khoản</h2>
+              <p>Khi truy cập website WebStudio hoặc sử dụng dịch vụ thiết kế/lập trình website của chúng tôi, bạn đồng ý với Điều khoản & điều kiện này. Nếu không đồng ý, vui lòng ngừng sử dụng website/dịch vụ.</p>
+              
+            </article>
+
+            <article class="legal-block">
+              <h2>2. Phạm vi dịch vụ</h2>
+              <p>WebStudio cung cấp dịch vụ thiết kế và phát triển website (Landing Page, website công ty, E-commerce, Startup/SaaS) theo thỏa thuận cụ thể với từng khách hàng. Phạm vi công việc, tiến độ và chi phí sẽ được xác nhận bằng báo giá/hợp đồng trước khi triển khai.</p>
+              
+            </article>
+
+            <article class="legal-block">
+              <h2>3. Trách nhiệm của khách hàng</h2>
+              <p>Khách hàng chịu trách nhiệm:</p>
+              <ul><li>Cung cấp thông tin, nội dung, hình ảnh và phản hồi đúng hạn để dự án tiến triển.</li><li>Đảm bảo quyền sử dụng hợp pháp đối với nội dung, logo, hình ảnh cung cấp cho WebStudio.</li><li>Thanh toán theo đúng thỏa thuận đã thống nhất.</li></ul>
+            </article>
+
+            <article class="legal-block">
+              <h2>4. Trách nhiệm của WebStudio</h2>
+              <p>Chúng tôi thực hiện công việc theo phạm vi đã thống nhất, bàn giao sản phẩm và hướng dẫn sử dụng cơ bản. Các hạng mục ngoài phạm vi (tính năng mới, chỉnh sửa lớn sau bàn giao) có thể phát sinh chi phí bổ sung.</p>
+              
+            </article>
+
+            <article class="legal-block">
+              <h2>5. Thanh toán và hoàn tiền</h2>
+              <p>Điều kiện thanh toán được nêu trong báo giá/hợp đồng từng dự án. Khoản tạm ứng thường không hoàn lại sau khi đã bắt đầu thiết kế/lập trình, trừ trường hợp hai bên thỏa thuận khác bằng văn bản.</p>
+              
+            </article>
+
+            <article class="legal-block">
+              <h2>6. Sở hữu trí tuệ</h2>
+              <p>Sau khi thanh toán đủ và bàn giao, quyền sử dụng sản phẩm website thuộc về khách hàng theo thỏa thuận. WebStudio được phép trưng bày dự án trong portfolio trừ khi khách hàng yêu cầu bảo mật bằng văn bản. Mã nguồn thư viện mã nguồn mở vẫn tuân theo giấy phép gốc của thư viện đó.</p>
+              
+            </article>
+
+            <article class="legal-block">
+              <h2>7. Giới hạn trách nhiệm</h2>
+              <p>WebStudio không chịu trách nhiệm cho thiệt hại gián tiếp phát sinh từ việc sử dụng website (mất dữ liệu do hosting bên thứ ba, lỗi từ plugin/dịch vụ ngoài phạm vi quản lý, chiến dịch quảng cáo của khách hàng). Chúng tôi nỗ lực tối ưu tốc độ và bảo mật ở mức hợp lý theo phạm vi đã cam kết.</p>
+              
+            </article>
+
+            <article class="legal-block">
+              <h2>8. Nội dung trên website WebStudio</h2>
+              <p>Thông tin giá, gói dịch vụ và nội dung trên website mang tính tham khảo. Báo giá chính thức được xác nhận sau khi trao đổi nhu cầu cụ thể. Nghiêm cấm sao chép, sử dụng trái phép nội dung/thiết kế của website WebStudio.</p>
+              
+            </article>
+
+            <article class="legal-block">
+              <h2>9. Luật áp dụng</h2>
+              <p>Điều khoản này được điều chỉnh bởi pháp luật Việt Nam. Mọi tranh chấp sẽ ưu tiên giải quyết bằng thương lượng; nếu không thành sẽ đưa ra cơ quan có thẩm quyền tại Việt Nam.</p>
+              
+            </article>
+
+            <article class="legal-block">
+              <h2>10. Liên hệ</h2>
+              <p>Mọi thắc mắc về Điều khoản & điều kiện, vui lòng liên hệ: email info@webhd.vn — điện thoại 0938 002 776.</p>
+              
+            </article>
+          <p class="legal-updated">Cập nhật lần cuối: 14/08/2026</p>
+        </div>
+      </section>
+    </main>
+      </div>
+      <div class="site-page" data-page="tai-ung-dung" hidden>
+        <div class="dl-page">
+      <div class="dl-phone-outline" aria-hidden="true"></div>
+      <div class="dl-dialog" id="dlDialog">
+        <p class="dl-dialog-title">Đang mở “WebStudio.app”…</p>
+        <p class="dl-dialog-sub">Đang xác minh…</p>
+        <div class="dl-progress"><span id="dlBar"></span></div>
+        <div class="dl-dialog-actions">
+          <a class="dl-ghost" href="#home">Hủy</a>
+          <button type="button" class="dl-ghost" id="dlSkip">Bỏ qua</button>
+        </div>
+      </div>
+      <main class="dl-main" id="dlMain">
+        <img class="dl-icon" src="public/icons/app-khach-192.png" alt="" />
+        <h1>Cảm ơn bạn đã tải WebStudio xuống!</h1>
+        <p class="dl-lead">
+          Tệp cài đặt sẽ được tải về máy. Mở tệp trên điện thoại Android để cài ứng dụng khách.
+        </p>
+        <a class="dl-download" id="dlApk" href="WebStudio.apk" download="WebStudio.apk">Tải tệp cài đặt</a>
+        <p class="dl-hint" id="dlHint">
+          Trên điện thoại Android: mở tệp WebStudio.apk, cho phép cài đặt từ nguồn này, rồi bấm Cài đặt.
+          Trên GitHub Pages, file WebStudio.apk phải nằm cùng thư mục với index.html.
+        </p>
+        <p class="dl-retry">
+          Nếu quá trình tải xuống không bắt đầu, vui lòng
+          <a href="#tai-ung-dung">nhấp vào đây</a> để thử lại.
+        </p>
+      </main>
+    </div>
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h3>Thông tin liên hệ</h3>
+            <ul class="footer-contact">
+              <li>
+                <span class="footer-ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v2a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h2a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L7.1 9.5a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6A2 2 0 0 1 22 16.9z"/></svg>
+                </span>
+                <a href="tel:0938002776">0938 002 776</a>
+              </li>
+              <li>
+                <span class="footer-ico" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>
+                </span>
+                <a href="mailto:info@webhd.vn">info@webhd.vn</a>
+              </li>
+            </ul>
+            <div class="footer-social">
+              <a href="#" aria-label="Facebook" class="social-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H9v3h2v7h3v-7h2.6l.4-3H14V9z"/></svg>
+              </a>
+              <a href="#" aria-label="YouTube" class="social-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M23 7.5s-.2-1.6-.9-2.3c-.9-.9-1.9-.9-2.3-1C16.9 4 12 4 12 4h0s-4.9 0-7.8.2c-.5.1-1.4.1-2.3 1C1.2 5.9 1 7.5 1 7.5S.8 9.4.8 11.2v1.7C.8 14.6 1 16.5 1 16.5s.2 1.6.9 2.3c.9.9 2.1.9 2.6 1 1.9.2 7.5.2 7.5.2s4.9 0 7.8-.2c.5-.1 1.4-.1 2.3-1 .7-.7.9-2.3.9-2.3s.2-1.9.2-3.6v-1.7C23.2 9.4 23 7.5 23 7.5zM9.8 14.6V8.9l5.3 2.9-5.3 2.8z"/></svg>
+              </a>
+              <a href="#" aria-label="TikTok" class="social-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19.6 7.4a5.7 5.7 0 0 1-3.4-1.1v7.2a5.7 5.7 0 1 1-5.7-5.7c.3 0 .6 0 .9.1v2.8a2.9 2.9 0 1 0 2 2.8V2h2.8a5.7 5.7 0 0 0 3.4 3.4v2z"/></svg>
+              </a>
+              <a href="#" aria-label="GitHub" class="social-btn">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.2-3.4-1.2-.4-1.1-1-1.4-1-1.4-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.3-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7 3.6 3.6 0 0 1 .1-2.7s.8-.3 2.8 1a9.6 9.6 0 0 1 5 0c2-1.3 2.8-1 2.8-1a3.6 3.6 0 0 1 .1 2.7 3.9 3.9 0 0 1 1 2.7c0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.8v2.7c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="footer-col">
+            <h3>Về Chúng Tôi</h3>
+            <ul class="footer-list">
+              <li><a href="#about">Về chúng tôi</a></li>
+              <li><a href="#collection">Dự án</a></li>
+              <li><a href="#lien-he">Liên hệ</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h3>Dịch Vụ</h3>
+            <ul class="footer-list">
+              <li><a href="#product">Thiết kế website</a></li>
+              <li><a href="#landing">Thiết kế landing page</a></li>
+              <li><a href="#company">Thiết kế website công ty</a></li>
+              <li><a href="#saas">Website Startup / SaaS</a></li>
+              <li><a href="#ecommerce">Web bán hàng / E-commerce</a></li>
+              <li><a href="#tai-ung-dung">Tải ứng dụng</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h3>Chính sách</h3>
+            <ul class="footer-list">
+              <li><a href="#privacy">Chính sách bảo mật</a></li>
+              <li><a href="#terms">Điều khoản &amp; điều kiện</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>© 2026 WebStudio. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+const menuBtn = document.getElementById("menuBtn");
+const navLinks = document.getElementById("navLinks");
+const siteHeader = document.getElementById("siteHeader");
+const contactForm = document.getElementById("contactForm");
+const searchForm = document.getElementById("searchForm");
+const themeToggle = document.getElementById("themeToggle");
+const THEME_KEY = "webstudio-theme";
+
+function applyTheme(theme) {
+  const isLight = theme === "light";
+  document.body.classList.toggle("theme-light", isLight);
+  localStorage.setItem(THEME_KEY, isLight ? "light" : "dark");
+  if (themeToggle) {
+    themeToggle.setAttribute(
+      "aria-label",
+      isLight ? "Chuyển sang chế độ tối" : "Chuyển sang chế độ sáng"
+    );
+  }
+}
+
+if (menuBtn && navLinks) {
+  menuBtn.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+  });
+
+  navLinks.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("active");
+      document.querySelectorAll(".has-dropdown.open").forEach((el) => {
+        el.classList.remove("open");
+        const btn = el.querySelector("[aria-expanded]");
+        if (btn) btn.setAttribute("aria-expanded", "false");
+      });
+    });
+  });
+}
+
+function isMobileNav() {
+  return window.matchMedia("(max-width: 900px)").matches;
+}
+
+document.querySelectorAll(".has-dropdown").forEach((item) => {
+  const btn = item.querySelector(".nav-drop-btn, .nav-more");
+  if (!btn) return;
+
+  btn.addEventListener("click", (e) => {
+    if (!isMobileNav()) return;
+    e.stopPropagation();
+    const willOpen = !item.classList.contains("open");
+    document.querySelectorAll(".has-dropdown.open").forEach((el) => {
+      if (el !== item) {
+        el.classList.remove("open");
+        const other = el.querySelector("[aria-expanded]");
+        if (other) other.setAttribute("aria-expanded", "false");
+      }
+    });
+    item.classList.toggle("open", willOpen);
+    btn.setAttribute("aria-expanded", willOpen ? "true" : "false");
+  });
+});
+
+document.addEventListener("click", () => {
+  if (!isMobileNav()) return;
+  document.querySelectorAll(".has-dropdown.open").forEach((el) => {
+    el.classList.remove("open");
+    const btn = el.querySelector("[aria-expanded]");
+    if (btn) btn.setAttribute("aria-expanded", "false");
+  });
+});
+
+if (siteHeader) {
+  window.addEventListener(
+    "scroll",
+    () => {
+      siteHeader.classList.toggle("scrolled", window.scrollY > 50);
+    },
+    { passive: true }
+  );
+}
+
+if (themeToggle) {
+  const saved = localStorage.getItem(THEME_KEY);
+  applyTheme(saved === "light" ? "light" : "dark");
+
+  themeToggle.addEventListener("click", async (event) => {
+    const next = document.body.classList.contains("theme-light")
+      ? "dark"
+      : "light";
+
+    const rect = themeToggle.getBoundingClientRect();
+    const x = event.clientX || rect.left + rect.width / 2;
+    const y = event.clientY || rect.top + rect.height / 2;
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    document.documentElement.style.setProperty("--theme-ripple-x", `${x}px`);
+    document.documentElement.style.setProperty("--theme-ripple-y", `${y}px`);
+    document.documentElement.style.setProperty(
+      "--theme-ripple-r",
+      `${Math.ceil(endRadius)}px`
+    );
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (reduceMotion) {
+      applyTheme(next);
+      return;
+    }
+
+    if (document.startViewTransition) {
+      const transition = document.startViewTransition(() => {
+        applyTheme(next);
+      });
+      try {
+        await transition.ready;
+      } catch (_) {
+        /* ignore aborted transition */
+      }
+      return;
+    }
+
+    // Fallback: vòng nước lan tỏa bằng overlay
+    const overlay = document.createElement("div");
+    overlay.className = "theme-ripple-overlay";
+    overlay.style.setProperty("--theme-ripple-x", `${x}px`);
+    overlay.style.setProperty("--theme-ripple-y", `${y}px`);
+    overlay.dataset.theme = next;
+    document.body.appendChild(overlay);
+
+    requestAnimationFrame(() => {
+      overlay.classList.add("is-active");
+    });
+
+    window.setTimeout(() => {
+      applyTheme(next);
+      overlay.classList.add("is-done");
+      window.setTimeout(() => overlay.remove(), 280);
+    }, 420);
+  });
+}
+
+function bindContactForm(form) {
+  if (!form || form.dataset.bound === "1") return;
+  form.dataset.bound = "1";
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    alert("Cảm ơn bạn! Yêu cầu của bạn đã được gửi.");
+    this.reset();
+  });
+}
+bindContactForm(contactForm);
+bindContactForm(document.getElementById("contactFormPage"));
+
+if (searchForm) {
+  searchForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const q = new FormData(this).get("q");
+    const result = document.getElementById("searchResult");
+    if (result) {
+      result.textContent = q
+        ? `Đã tìm: "${q}" — hiển thị các dự án / dịch vụ liên quan.`
+        : "Vui lòng nhập từ khóa.";
+    }
+  });
+}
+
+/* ===== SEARCH OVERLAY ===== */
+const searchOpenBtn = document.getElementById("searchOpen");
+const featuredServices = [
+  {
+    title: "Thiết kế Website",
+    href: "product.html",
+  },
+  {
+    title: "Thiết kế Landing Page",
+    href: "landing.html",
+  },
+  {
+    title: "Thiết kế Website công ty",
+    href: "company.html",
+  },
+  {
+    title: "Thiết kế Website Startup / SaaS",
+    href: "saas.html",
+  },
+  {
+    title: "Thiết kế Web bán hàng / E-commerce",
+    href: "ecommerce.html",
+  },
+];
+
+const searchIconSvg =
+  '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>';
+const closeIconSvg =
+  '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>';
+const checkSvg =
+  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"></path></svg>';
+
+function ensureSearchOverlay() {
+  if (document.getElementById("searchPanel")) return;
+
+  const backdrop = document.createElement("div");
+  backdrop.className = "search-backdrop";
+  backdrop.id = "searchBackdrop";
+
+  const panel = document.createElement("div");
+  panel.className = "search-panel";
+  panel.id = "searchPanel";
+  panel.setAttribute("role", "dialog");
+  panel.setAttribute("aria-modal", "true");
+  panel.setAttribute("aria-label", "Tìm kiếm");
+
+  panel.innerHTML = `
+    <div class="search-field">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+      <input id="searchOverlayInput" type="search" placeholder="Tìm kiếm..." autocomplete="off" />
+    </div>
+    <div class="search-featured">
+      <h3>Dịch vụ nổi bật</h3>
+      <ul id="searchFeaturedList">
+        ${featuredServices
+          .map(
+            (item) => `
+          <li data-title="${item.title.toLowerCase()}">
+            <a href="${item.href}">
+              <span class="search-check">${checkSvg}</span>
+              <span>${item.title}</span>
+            </a>
+          </li>`
+          )
+          .join("")}
+      </ul>
+      <p class="search-empty" id="searchEmpty">Không tìm thấy dịch vụ phù hợp.</p>
+    </div>
+  `;
+
+  document.body.appendChild(backdrop);
+  document.body.appendChild(panel);
+}
+
+function setSearchButtonMode(isOpen) {
+  if (!searchOpenBtn) return;
+  searchOpenBtn.classList.toggle("is-close", isOpen);
+  searchOpenBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+  searchOpenBtn.setAttribute("aria-label", isOpen ? "Đóng tìm kiếm" : "Tìm kiếm");
+  searchOpenBtn.innerHTML = isOpen ? closeIconSvg : searchIconSvg;
+}
+
+function openSearchOverlay() {
+  ensureSearchOverlay();
+  document.body.classList.add("search-open");
+  setSearchButtonMode(true);
+  const input = document.getElementById("searchOverlayInput");
+  if (input) {
+    input.value = "";
+    filterFeatured("");
+    window.setTimeout(() => input.focus(), 50);
+  }
+}
+
+function closeSearchOverlay() {
+  document.body.classList.remove("search-open");
+  setSearchButtonMode(false);
+}
+
+function filterFeatured(query) {
+  const q = query.trim().toLowerCase();
+  const items = document.querySelectorAll("#searchFeaturedList li");
+  let visible = 0;
+  items.forEach((li) => {
+    const match = !q || (li.dataset.title || "").includes(q);
+    li.classList.toggle("is-hidden", !match);
+    if (match) visible += 1;
+  });
+  const empty = document.getElementById("searchEmpty");
+  if (empty) empty.classList.toggle("is-visible", visible === 0);
+}
+
+if (searchOpenBtn) {
+  ensureSearchOverlay();
+
+  searchOpenBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (document.body.classList.contains("search-open")) {
+      closeSearchOverlay();
+    } else {
+      openSearchOverlay();
+    }
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!document.body.classList.contains("search-open")) return;
+    const panel = document.getElementById("searchPanel");
+    const backdrop = document.getElementById("searchBackdrop");
+    if (e.target === backdrop) {
+      closeSearchOverlay();
+      return;
+    }
+    if (
+      panel &&
+      !panel.contains(e.target) &&
+      !searchOpenBtn.contains(e.target)
+    ) {
+      closeSearchOverlay();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && document.body.classList.contains("search-open")) {
+      closeSearchOverlay();
+    }
+  });
+
+  document.addEventListener("input", (e) => {
+    if (e.target && e.target.id === "searchOverlayInput") {
+      filterFeatured(e.target.value);
+    }
+  });
+}
+
+/* Floating contact bubbles */
+(function initFloatBubbles() {
+  if (document.getElementById("floatBubbles")) return;
+
+  const phone = "0938002776";
+  const wrap = document.createElement("div");
+  wrap.className = "float-bubbles";
+  wrap.id = "floatBubbles";
+  wrap.innerHTML = `
+    <a class="float-btn float-btn--zalo" href="https://zalo.me/${phone}" target="_blank" rel="noopener noreferrer" aria-label="Chat Zalo">Zalo</a>
+    <a class="float-btn float-btn--phone" href="tel:${phone}" aria-label="Gọi điện thoại">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v2a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h2a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L7.1 9.5a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6A2 2 0 0 1 22 16.9z"/></svg>
+    </a>
+    <button type="button" class="float-btn float-btn--top" id="floatScrollTop" aria-label="Cuộn lên đầu trang">
+      <svg class="float-progress" viewBox="0 0 52 52" aria-hidden="true">
+        <circle class="float-progress-track" cx="26" cy="26" r="23"></circle>
+        <circle class="float-progress-bar" cx="26" cy="26" r="23"></circle>
+      </svg>
+      <span class="float-top-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 14l6-6 6 6"/></svg>
+      </span>
+    </button>
+  `;
+  document.body.appendChild(wrap);
+
+  const topBtn = document.getElementById("floatScrollTop");
+  const progressBar = wrap.querySelector(".float-progress-bar");
+  const radius = 23;
+  const circumference = 2 * Math.PI * radius;
+  if (progressBar) {
+    progressBar.style.strokeDasharray = `${circumference}`;
+    progressBar.style.strokeDashoffset = `${circumference}`;
+  }
+
+  function updateScrollProgress() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight;
+    const progress = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+
+    if (topBtn) {
+      topBtn.classList.toggle("is-visible", scrollTop > 280);
+    }
+    if (progressBar) {
+      progressBar.style.strokeDashoffset = `${circumference * (1 - progress)}`;
+    }
+  }
+
+  window.addEventListener("scroll", updateScrollProgress, { passive: true });
+  updateScrollProgress();
+
+  if (topBtn) {
+    topBtn.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+})();
+
+
+
+const PAGE_TITLES = {
+  "home": "WebStudio - Thiết kế Website chuyên nghiệp",
+  "about": "Về chúng tôi — WebStudio",
+  "landing": "Landing Page — WebStudio",
+  "company": "Website công ty — WebStudio",
+  "saas": "Website Startup / SaaS — WebStudio",
+  "ecommerce": "Web bán hàng — WebStudio",
+  "collection": "Dự án — WebStudio",
+  "product": "Gói dịch vụ — WebStudio",
+  "cart": "Giỏ yêu cầu — WebStudio",
+  "lien-he": "Liên hệ — WebStudio",
+  "search": "Tìm kiếm — WebStudio",
+  "sitemap": "Sitemap — WebStudio",
+  "privacy": "Chính sách bảo mật — WebStudio",
+  "terms": "Điều khoản — WebStudio",
+  "tai-ung-dung": "Tải ứng dụng — WebStudio"
+};
+const PAGE_IDS = new Set(Object.keys(PAGE_TITLES));
+const HOME_SECTIONS = new Set(["services", "pricing", "process", "contact", "top"]);
+
+function resolveHash() {
+  const raw = (location.hash || "#home").slice(1);
+  const id = raw || "home";
+  if (PAGE_IDS.has(id)) return { page: id, scroll: null };
+  if (HOME_SECTIONS.has(id)) return { page: "home", scroll: id };
+  return { page: "home", scroll: null };
+}
+
+function showPage() {
+  const { page, scroll } = resolveHash();
+  document.querySelectorAll(".site-page").forEach((el) => {
+    const on = el.dataset.page === page;
+    el.classList.toggle("is-on", on);
+    el.hidden = !on;
+  });
+  document.body.className = document.body.className
+    .split(/\s+/)
+    .filter((c) => c && !c.startsWith("page-"))
+    .concat("page-" + page)
+    .join(" ");
+  document.title = PAGE_TITLES[page] || PAGE_TITLES.home;
+  bindContactForm(document.getElementById("contactForm"));
+  bindContactForm(document.getElementById("contactFormPage"));
+  if (page === "tai-ung-dung") initDownloadPage();
+  window.requestAnimationFrame(() => {
+    if (scroll) {
+      const target = document.getElementById(scroll);
+      if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      else window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      window.scrollTo({ top: 0, behavior: "auto" });
+    }
+  });
+}
+
+function resolveApkUrl() {
+  if (location.port === "3000") return "/api/download/apk";
+  let path = location.pathname || "/";
+  const last = path.split("/").pop() || "";
+  if (!path.endsWith("/") && !/\.[a-z0-9]+$/i.test(last)) path += "/";
+  if (!path.endsWith("/")) path = path.replace(/[^/]+$/, "");
+  return path + "WebStudio.apk";
+}
+
+function triggerApkDownload(url) {
+  const a = document.createElement("a");
+  a.href = url;
+  a.setAttribute("download", "WebStudio.apk");
+  a.rel = "noopener";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+function initDownloadPage() {
+  const bar = document.getElementById("dlBar");
+  const dialog = document.getElementById("dlDialog");
+  const main = document.getElementById("dlMain");
+  const skip = document.getElementById("dlSkip");
+  const apkLink = document.getElementById("dlApk");
+  const hint = document.getElementById("dlHint");
+  if (!bar || !dialog || !main || !apkLink || dialog.dataset.ready === "1") return;
+  dialog.dataset.ready = "1";
+  let p = 8;
+  function done() {
+    dialog.style.display = "none";
+    main.classList.add("is-on");
+  }
+  if (skip) skip.onclick = done;
+  const t = setInterval(function () {
+    p = Math.min(100, p + 8);
+    bar.style.width = p + "%";
+    if (p >= 100) {
+      clearInterval(t);
+      setTimeout(done, 200);
+    }
+  }, 160);
+  const apk = resolveApkUrl();
+  apkLink.href = apk;
+  apkLink.setAttribute("download", "WebStudio.apk");
+  apkLink.onclick = function (e) {
+    e.preventDefault();
+    startApkDownload(apk, apkLink, hint);
+  };
+  setTimeout(function () {
+    startApkDownload(apk, apkLink, hint);
+  }, 2800);
+}
+
+function startApkDownload(url, apkLink, hint) {
+  fetch(url)
+    .then(function (res) {
+      if (!res.ok) throw new Error(String(res.status));
+      return res.blob();
+    })
+    .then(function (blob) {
+      if (blob.size < 1000 || /text\/html/i.test(blob.type)) {
+        throw new Error("html");
+      }
+      const objectUrl = URL.createObjectURL(blob);
+      apkLink.href = objectUrl;
+      triggerApkDownload(objectUrl);
+    })
+    .catch(function () {
+      apkLink.href = url;
+      triggerApkDownload(url);
+      if (hint) {
+        hint.textContent =
+          "Không tải được vì GitHub không có API tạo APK. Hãy tải file WebStudio.apk lên cùng thư mục với index.html, rồi bấm lại nút Tải tệp cài đặt.";
+      }
+    });
+}
+
+window.addEventListener("hashchange", showPage);
+showPage();
+
+  </script>
+</body>
+</html>
