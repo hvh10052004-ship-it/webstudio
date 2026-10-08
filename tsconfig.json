@@ -28,8 +28,16 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
-    "**/*.mts",
     "**/*.d.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules",
+    "scripts",
+    "android",
+    "tools",
+    "www-cap",
+    "docs",
+    "render-dist",
+    "dist"
+  ]
 }

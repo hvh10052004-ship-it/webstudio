@@ -14,17 +14,17 @@ const APK_HEADERS = {
 };
 
 function existingApk() {
-  const names = ["webstudio.apk", "WebStudio.apk"];
+  const names = ["webstudio.apk", "WebStudio.apk"] as const;
   const folders = [
-    path.join(process.cwd(), "public"),
-    process.cwd(),
-    path.join(process.cwd(), "dist"),
-    path.join(process.cwd(), "docs"),
+    path.join(/* turbopackIgnore: true */ process.cwd(), "public"),
+    path.join(/* turbopackIgnore: true */ process.cwd(), "docs"),
   ];
   for (const folder of folders) {
     for (const name of names) {
-      const file = path.join(folder, name);
-      if (existsSync(file)) return readFileSync(file);
+      const file = path.join(/* turbopackIgnore: true */ folder, name);
+      if (existsSync(/* turbopackIgnore: true */ file)) {
+        return readFileSync(/* turbopackIgnore: true */ file);
+      }
     }
   }
   return null;

@@ -11,9 +11,10 @@ ENV APP_KHACH_SERVER=1
 ENV NEXT_PUBLIC_APP_KHACH_SERVER=1
 ENV HOSTNAME=0.0.0.0
 ENV NODE_ENV=production
-ENV DATABASE_PATH=/app/data/webstudio.db
 
-RUN mkdir -p data && npm run build
+RUN mkdir -p /app/data && npm run build
+
+ENV DATABASE_PATH=/app/data/webstudio.db
 
 EXPOSE 3000
 
