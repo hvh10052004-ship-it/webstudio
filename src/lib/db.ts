@@ -73,7 +73,7 @@ let cached: DatabaseSync | null = null;
 
 export function dbPath() {
   const raw = process.env.DATABASE_PATH || "./data/webstudio.db";
-  return path.resolve(process.cwd(), raw);
+  return path.isAbsolute(raw) ? raw : path.resolve(process.cwd(), raw);
 }
 
 export function getDb() {
