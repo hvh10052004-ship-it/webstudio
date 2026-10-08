@@ -219,3 +219,78 @@ a { text-decoration: none; color: inherit; }
 }
 .app-tab.is-on { color: var(--app-accent); }
 .app-tab svg { display: block; }
+button.app-type-card {
+  border: 0;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+.app-type-card.is-on {
+  outline: 2px solid var(--app-accent);
+  background: #f3f0ff;
+}
+.app-chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+}
+.app-chip {
+  flex: none;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--app-card);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--app-muted);
+}
+.app-chip.is-on { background: var(--app-fg); color: var(--app-bg); }
+.app-mau-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.app-mau-card {
+  background: var(--app-card);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.app-mau-thumb { height: 88px; display: block; }
+.app-mau-thumb.t-landing { background: linear-gradient(135deg, #c4b5fd, #5b4bdd); }
+.app-mau-thumb.t-company { background: linear-gradient(135deg, #93c5fd, #1d4ed8); }
+.app-mau-thumb.t-saas { background: linear-gradient(135deg, #6ee7b7, #047857); }
+.app-mau-thumb.t-ecommerce { background: linear-gradient(135deg, #fcd34d, #c2410c); }
+.app-mau-card strong { padding: 10px 10px 0; font-size: 13px; }
+.app-mau-card span { padding: 4px 10px 12px; font-size: 11px; color: var(--app-muted); }
+.app-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.app-field label { font-size: 12px; font-weight: 700; }
+.app-field input, .app-field textarea {
+  border: 1px solid var(--app-line);
+  border-radius: 12px;
+  padding: 12px;
+  font: inherit;
+  background: var(--app-card);
+}
+.app-note { font-size: 13px; color: var(--app-muted); line-height: 1.45; }
+.app-list { background: var(--app-card); border-radius: 16px; overflow: hidden; }
+.app-list a {
+  display: flex;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--app-line);
+  font-size: 14px;
+  font-weight: 600;
+}
+.app-list a:last-child { border-bottom: 0; }
+.pv-kicker { font-size: 12px; font-weight: 700; color: var(--app-accent); letter-spacing: 0.08em; text-transform: uppercase; }
+#preview h2 { font-size: 28px; margin: 8px 0 12px; letter-spacing: -0.03em; }
+.pv-desc { color: var(--app-muted); margin-bottom: 18px; line-height: 1.5; }
+.app-chat-box {
+  background: var(--app-card);
+  border-radius: 16px;
+  padding: 16px;
+  min-height: 180px;
+}

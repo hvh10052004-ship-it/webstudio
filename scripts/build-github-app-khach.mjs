@@ -45,17 +45,39 @@ button.app-soan-item.is-locked { pointer-events: auto; }
 .app-site-thumb { position: relative; width: 64px; height: 64px; border-radius: 12px; overflow: hidden; flex: none; background: var(--app-preview-img); }
 .app-site-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .app-chat-inbox-item { width: 100%; border: 0; background: transparent; font: inherit; color: inherit; cursor: pointer; text-align: left; }
+html, body { height: 100%; margin: 0; }
+html.app-native body { background: #f4f1ec; }
+html.app-native .app-stage {
+  min-height: 100%; min-height: 100vh; min-height: 100dvh;
+  height: 100%; padding: 0; justify-content: stretch; align-items: stretch;
+}
+html.app-native .app-stage-hint { display: none; }
+html.app-native .app-phone {
+  width: 100%; max-width: none;
+  height: 100%; min-height: 100%;
+  height: 100vh; min-height: 100vh;
+  height: 100dvh; min-height: 100dvh;
+  border-radius: 0; border: 0; box-shadow: none;
+}
   </style>
 </head>
 <body>
   <div class="app-stage">
-    <p class="app-stage-hint">App khách · GitHub Pages</p>
+    <p class="app-stage-hint">App khách</p>
     <div class="app-phone" id="phone" data-theme="light">
-      <div class="app-phone-body" id="phoneBody"></div>
+      <div class="app-phone-body" id="phoneBody"><p class="app-note" style="padding:20px 4px">Đang mở app…</p></div>
       <nav class="app-tabbar" aria-label="Điều hướng app" id="tabbar"></nav>
     </div>
   </div>
   <script>
+(function () {
+  try {
+    var p = location.pathname || "/";
+    if (location.protocol !== "file:" && p.charAt(p.length - 1) !== "/" && !/\.html$/i.test(p)) {
+      history.replaceState(null, "", p + "/" + (location.search || "") + (location.hash || ""));
+    }
+  } catch (e) {}
+})();
 const SITE_TYPES = [
   { id: "landing", name: "Landing Page", short: "Landing", blurb: "1 trang, chạy ads, thu lead, bán 1 sản phẩm." },
   { id: "company", name: "Website công ty", short: "Công ty", blurb: "Giới thiệu doanh nghiệp, dịch vụ, đội ngũ, liên hệ." },
@@ -166,7 +188,7 @@ function load() {
       groups: Array.isArray(raw.groups) ? raw.groups : [],
       savedTypes: raw.savedTypes && typeof raw.savedTypes === "object" ? raw.savedTypes : {},
       messages: Array.isArray(raw.messages) ? raw.messages : [
-        { who: "bot", text: "Chào bạn. App khách đang chạy trên GitHub Pages — soạn nội dung và xem ngay trên điện thoại." }
+        { who: "bot", text: "Chào bạn. App khách đang chạy trên Render — soạn nội dung và xem ngay trên điện thoại." }
       ]
     };
   } catch {
@@ -181,7 +203,7 @@ function load() {
       phone: "",
       theme: "light",
       userName: "Khách",
-      messages: [{ who: "bot", text: "Chào bạn. App khách đang chạy trên GitHub Pages." }]
+      messages: [{ who: "bot", text: "Chào bạn. App khách đang chạy trên Render." }]
     };
   }
 }
@@ -297,7 +319,7 @@ function renderMau() {
         <button type="button" class="app-tpl" data-mau="\${t.id}">
           <div class="app-tpl-img"><img src="\${t.image}" alt="" /></div>
           <strong>\${esc(t.name)}</strong>
-          <span>\${esc(SITE_TYPES.find((x) => x.id === t.type)?.short || "")} · \${esc(t.use)}</span>
+          <span>\${esc((SITE_TYPES.filter((x) => x.id === t.type)[0] || { short: "" }).short)} · \${esc(t.use)}</span>
         </button>\`).join("")}
     </div>\`;
 }
@@ -502,7 +524,7 @@ function renderQuyen() {
   return \`
     <button type="button" class="app-back" data-go="toi">← Cài đặt</button>
     <header class="app-home-top"><div><h1>Quyền riêng tư</h1><p>Dữ liệu lưu trên trình duyệt của bạn</p></div></header>
-    <div class="app-info-card"><strong>GitHub Pages</strong><p>Bản nháp, chat và hồ sơ được lưu localStorage trên máy/điện thoại. Không gửi lên máy chủ.</p></div>
+    <div class="app-info-card"><strong>Render</strong><p>Bản nháp, chat và hồ sơ được lưu localStorage trên máy/điện thoại. Không gửi lên máy chủ.</p></div>
     <div class="app-nav-row is-in-card" data-go="ho-so"><span>Hồ sơ</span>\${CHEV}</div>
     <div class="app-nav-row is-in-card" data-go="tai-khoan"><span>Tài khoản</span>\${CHEV}</div>\`;
 }
@@ -510,8 +532,8 @@ function renderQuyen() {
 function renderTaiKhoan() {
   return \`
     <button type="button" class="app-back" data-go="toi">← Cài đặt</button>
-    <header class="app-home-top"><div><h1>Tài khoản và bảo mật</h1><p>Bản GitHub không có đăng nhập máy chủ</p></div></header>
-    <div class="app-info-card"><p>Để dùng tài khoản, mật khẩu, email đầy đủ như bản trên máy, cần máy chủ Next.js. Bản GitHub chỉ lưu hồ sơ trên thiết bị.</p></div>
+    <header class="app-home-top"><div><h1>Tài khoản và bảo mật</h1><p>Bản Render không có đăng nhập máy chủ</p></div></header>
+    <div class="app-info-card"><p>Để dùng tài khoản, mật khẩu, email đầy đủ như bản trên máy, cần máy chủ Next.js. Bản Render chỉ lưu hồ sơ trên thiết bị.</p></div>
     <div class="app-nav-row is-in-card" data-go="ho-so"><span>Thông tin hồ sơ</span>\${CHEV}</div>\`;
 }
 
@@ -519,7 +541,7 @@ function renderDev() {
   return \`
     <button type="button" class="app-back" data-go="toi">← Cài đặt</button>
     <header class="app-home-top"><div><h1>Nhà phát triển</h1><p>WebStudio App khách</p></div></header>
-    <div class="app-info-card"><strong>Phiên bản GitHub Pages</strong><p>App tĩnh 24/7. Soạn / xem / chat lưu trên trình duyệt.</p></div>\`;
+    <div class="app-info-card"><strong>Phiên bản Render</strong><p>App tĩnh 24/7. Soạn / xem / chat lưu trên trình duyệt.</p></div>\`;
 }
 
 function renderAbout() {
@@ -542,7 +564,7 @@ function renderTaiApk() {
     <button type="button" class="app-back" data-go="toi">← Cài đặt</button>
     <header class="app-home-top"><div><h1>Tải ứng dụng</h1><p>Cài WebStudio trên Android</p></div></header>
     <a class="app-btn app-btn-primary" id="dlApk" href="WebStudio.apk" download="WebStudio.apk">Tải ứng dụng Android</a>
-    <p class="app-note" id="dlHint" style="margin-top:12px">File WebStudio.apk phải nằm cùng thư mục với index.html trên GitHub.</p>\`;
+    <p class="app-note" id="dlHint" style="margin-top:12px">File WebStudio.apk nằm cùng thư mục với index.html trên Render.</p>\`;
 }
 
 function bind() {
@@ -654,7 +676,7 @@ function bind() {
         })
         .catch(() => {
           const hint = document.getElementById("dlHint");
-          if (hint) hint.textContent = "Chưa có WebStudio.apk trên GitHub. Hãy tải file APK lên cùng thư mục với index.html.";
+          if (hint) hint.textContent = "Chưa có WebStudio.apk trên Render. Hãy tải file APK lên cùng thư mục với index.html.";
         });
     };
   }
@@ -684,21 +706,42 @@ function render() {
 }
 
 window.addEventListener("hashchange", render);
-render();
+try {
+  var ua = navigator.userAgent || "";
+  var capacitor = !!(window.Capacitor && window.Capacitor.isNativePlatform && window.Capacitor.isNativePlatform());
+  var native = capacitor || /WebStudioKhach/i.test(ua) || ua.indexOf("; wv") !== -1 || window.matchMedia("(max-width: 480px)").matches;
+  document.documentElement.classList.toggle("app-native", native);
+  render();
+} catch (err) {
+  var body = document.getElementById("phoneBody");
+  if (body) body.innerHTML = "<p class='app-note' style='padding:24px'>Không mở được app. Tải lại trang.</p>";
+}
   </script>
 </body>
 </html>
 `;
 
-const docs = path.join(root, "docs");
-fs.mkdirSync(path.join(docs, "public", "icons"), { recursive: true });
-fs.writeFileSync(path.join(docs, "index.html"), html);
-fs.writeFileSync(path.join(docs, "404.html"), `<!DOCTYPE html><meta charset="utf-8"><script>location.replace("./index.html"+location.hash)</script>`);
-fs.writeFileSync(path.join(docs, ".nojekyll"), "");
-const apk = path.join(root, "WebStudio.apk");
-if (fs.existsSync(apk)) fs.copyFileSync(apk, path.join(docs, "WebStudio.apk"));
-for (const name of ["app-khach-192.png", "app-khach-512.png"]) {
-  const src = path.join(root, "public", "icons", name);
-  if (fs.existsSync(src)) fs.copyFileSync(src, path.join(docs, "public", "icons", name));
+function writeAppKhachOut(dir, copyApk = true) {
+  fs.mkdirSync(path.join(dir, "public", "icons"), { recursive: true });
+  fs.writeFileSync(path.join(dir, "index.html"), html);
+  fs.writeFileSync(
+    path.join(dir, "404.html"),
+    `<!DOCTYPE html><meta charset="utf-8"><script>location.replace("./index.html"+location.hash)</script>`,
+  );
+  fs.writeFileSync(path.join(dir, ".nojekyll"), "");
+  const apkFile = path.join(root, "WebStudio.apk");
+  if (copyApk && fs.existsSync(apkFile)) fs.copyFileSync(apkFile, path.join(dir, "WebStudio.apk"));
+  for (const name of ["app-khach-192.png", "app-khach-512.png"]) {
+    const src = path.join(root, "public", "icons", name);
+    if (fs.existsSync(src)) fs.copyFileSync(src, path.join(dir, "public", "icons", name));
+  }
 }
-console.log("Da tao docs/index.html (app khach GitHub Pages)");
+
+const renderDist = path.join(root, "render-dist");
+writeAppKhachOut(renderDist);
+writeAppKhachOut(path.join(root, "docs"));
+writeAppKhachOut(path.join(root, "www-cap"), false);
+const apkWww = path.join(root, "tools", "apk", "decoded", "assets", "www");
+fs.mkdirSync(apkWww, { recursive: true });
+fs.copyFileSync(path.join(renderDist, "index.html"), path.join(apkWww, "index.html"));
+console.log("Da tao render-dist/, docs/ va www-cap/ (Capacitor)");

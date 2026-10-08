@@ -67,7 +67,11 @@ export function InstallAppCard() {
               Cài nhanh trên trình duyệt
             </button>
           ) : null}
-          <a className="app-btn app-btn-primary" href="/api/download/apk">
+          <a
+            className="app-btn app-btn-primary"
+            href="/webstudio.apk"
+            download="webstudio.apk"
+          >
             Tải tệp cài đặt
           </a>
         </>

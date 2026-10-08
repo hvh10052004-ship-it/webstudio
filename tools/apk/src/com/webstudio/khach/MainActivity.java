@@ -19,6 +19,7 @@ public class MainActivity extends Activity {
   private static final int FILE_CHOOSER_REQ = 1001;
   private WebView web;
   private boolean shownError;
+  private String startUrl = "";
   private ValueCallback fileCallback;
 
   @Override
@@ -33,9 +34,13 @@ public class MainActivity extends Activity {
       settings.setDatabaseEnabled(true);
       settings.setAllowFileAccess(true);
       settings.setLoadWithOverviewMode(false);
-      settings.setUseWideViewPort(true);
+      settings.setUseWideViewPort(false);
       settings.setSupportZoom(false);
       settings.setBuiltInZoomControls(false);
+      try {
+        settings.setUserAgentString(settings.getUserAgentString() + " WebStudioKhach");
+      } catch (Throwable ignored) {
+      }
       try {
         settings.getClass().getMethod("setMixedContentMode", int.class).invoke(settings, Integer.valueOf(0));
       } catch (Throwable ignored) {
@@ -64,16 +69,17 @@ public class MainActivity extends Activity {
           new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
               if (url == null) return true;
-              String current = view.getUrl();
-              boolean fromFile = current != null && current.indexOf("file://") == 0;
-              if (url.indexOf("http://") == 0 || url.indexOf("https://") == 0) {
-                if (fromFile) {
-                  view.loadUrl(url);
-                  return true;
+              if (url.indexOf("tel:") == 0 || url.indexOf("mailto:") == 0 || url.indexOf("https://zalo.me") == 0) {
+                try {
+                  startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                } catch (Throwable ignored) {
                 }
-                return false;
+                return true;
               }
               if (url.indexOf("file://") == 0 || url.indexOf("data:") == 0) {
+                return false;
+              }
+              if (url.indexOf("http://") == 0 || url.indexOf("https://") == 0) {
                 return false;
               }
               return true;
@@ -81,14 +87,40 @@ public class MainActivity extends Activity {
 
             public void onReceivedError(
                 WebView view, int errorCode, String description, String failingUrl) {
-              showLoadError(view, failingUrl, description);
+              if (failingUrl != null && failingUrl.indexOf("file://") == 0) {
+                showLoadError(view, failingUrl, description);
+                return;
+              }
+              if (startUrl.length() == 0) return;
+              if (failingUrl != null
+                  && failingUrl.indexOf("http") == 0
+                  && failingUrl.indexOf(startUrl) != 0
+                  && !failingUrl.equals(startUrl)) {
+                return;
+              }
+              view.loadUrl("file:///android_asset/www/index.html");
+            }
+
+            public void onPageFinished(WebView view, String url) {
+              if (startUrl.length() == 0) return;
+              if (url == null || url.indexOf("file://") == 0) return;
+              String title = view.getTitle();
+              if (title == null) return;
+              String low = title.toLowerCase();
+              if (title.indexOf("WebStudio") >= 0) return;
+              if (low.indexOf("not found") < 0
+                  && low.indexOf("404") < 0
+                  && low.indexOf("github") < 0) {
+                return;
+              }
+              view.loadUrl("file:///android_asset/www/index.html");
             }
           });
-      String start = readStartUrl();
-      if (start.length() > 0) {
-        web.loadUrl(start);
+      startUrl = readStartUrl();
+      if (startUrl.length() > 0) {
+        web.loadUrl(startUrl);
       } else {
-        web.loadUrl("file:///android_asset/www/home.html");
+        web.loadUrl("file:///android_asset/www/index.html");
       }
       setContentView(web);
     } catch (Throwable error) {
@@ -218,7 +250,7 @@ public class MainActivity extends Activity {
         "<html><head><meta charset='utf-8'/><meta name='viewport' content='width=device-width, initial-scale=1'/></head>"
             + "<body style='margin:0;background:#10131a;color:#f4f1ec;font-family:sans-serif;padding:32px 24px'>"
             + "<h2 style='font-size:20px'>Không mở được app admin</h2>"
-            + "<p style='line-height:1.5;color:#c5c9d3'>Điện thoại phải cùng Wi‑Fi với máy tính đang chạy <b>npm run dev:lan</b>, rồi tải lại APK từ trang tải app admin.</p>"
+            + "<p style='line-height:1.5;color:#c5c9d3'>Không mở được trang mạng. App khách Studio vẫn chạy bằng nội dung đã đóng gói trong máy — hãy đóng app rồi mở lại. Nếu vẫn lỗi, tải lại APK từ trang Tải ứng dụng.</p>"
             + "<p style='word-break:break-all;color:#9aa3b5;font-size:13px'>"
             + escapeHtml(url)
             + "</p>"

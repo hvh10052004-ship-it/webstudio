@@ -2226,3 +2226,106 @@ body.theme-light .legal-updated {
     height: 48px;
   }
 }
+
+.about-values {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.app-dl-steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.app-dl-hint {
+  margin-top: 18px;
+  color: #8992a4;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.app-phone {
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(180deg, #161b2c, #0c1020);
+  padding: 18px 16px 22px;
+  min-height: 420px;
+}
+
+.app-phone-notch {
+  width: 92px;
+  height: 8px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.16);
+  margin: 0 auto 18px;
+}
+
+.app-phone-screen {
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 22px 18px;
+  min-height: 340px;
+}
+
+.app-phone-kicker {
+  color: #8f7cff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.app-phone-screen h3 {
+  font-size: 24px;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
+.app-phone-screen p {
+  color: #8992a4;
+  font-size: 14px;
+  margin-bottom: 22px;
+}
+
+.app-phone-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.app-phone-tiles span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.app-phone-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  border-radius: 12px;
+  background: #fff;
+  color: #10131b;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .about-values,
+  .app-dl-steps {
+    grid-template-columns: 1fr;
+  }
+}

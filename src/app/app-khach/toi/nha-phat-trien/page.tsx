@@ -41,11 +41,39 @@ export default function NhaPhatTrienPage() {
         </li>
       </ul>
 
+      <p className="app-sec-label">Luồng dữ liệu</p>
+      <ol className="app-flow">
+        <li>
+          <strong>App (Frontend)</strong>
+          <span>Bạn thao tác trên WebView / trình duyệt</span>
+        </li>
+        <li>
+          <strong>API</strong>
+          <span>fetch /api/auth, /api/me, /api/sites, /api/chats</span>
+        </li>
+        <li>
+          <strong>Máy chủ (Backend)</strong>
+          <span>Next.js xử lý đăng nhập, quyền, soạn site, chat</span>
+        </li>
+        <li>
+          <strong>Database</strong>
+          <span>SQLite: users, sessions, sites, messages</span>
+        </li>
+        <li>
+          <strong>Trả kết quả</strong>
+          <span>JSON về app → giao diện cập nhật</span>
+        </li>
+      </ol>
+
       <p className="app-sec-label">Kỹ thuật app</p>
       <ul className="app-info-list">
         <li>
+          <strong>Vỏ điện thoại</strong>
+          <span>APK Android WebView, mở /app-khach trên máy chủ</span>
+        </li>
+        <li>
           <strong>Nền tảng</strong>
-          <span>Next.js, React, SQLite trên máy chủ</span>
+          <span>Next.js, React, SQLite trên máy chủ — không phải GitHub Pages tĩnh</span>
         </li>
         <li>
           <strong>Dữ liệu</strong>
@@ -53,7 +81,7 @@ export default function NhaPhatTrienPage() {
         </li>
         <li>
           <strong>Bảo mật</strong>
-          <span>Đăng nhập cookie phiên; mật khẩu được băm, không lưu thô</span>
+          <span>Phiên cookie hoặc Bearer token; mật khẩu được băm, không lưu thô</span>
         </li>
       </ul>
     </AppShell>

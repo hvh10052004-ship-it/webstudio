@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     short_name: "WebStudio",
     description:
       "Tạo Landing Page, website công ty, SaaS và web bán hàng trên điện thoại.",
-    start_url: "/app-khach",
+    start_url: process.env.NEXT_PUBLIC_APP_KHACH_SERVER === "1" ? "/" : "/app-khach",
     scope: "/",
     display: "standalone",
     orientation: "portrait",

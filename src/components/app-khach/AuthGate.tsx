@@ -39,7 +39,7 @@ export function LoginForm() {
         <header className="app-home-top">
           <div>
             <h1>Đăng nhập</h1>
-            <p>Vào app bằng tài khoản của bạn</p>
+            <p>App gửi API lên máy chủ, tài khoản lưu trong database</p>
           </div>
         </header>
         <div className="app-account-card">

@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      { source: "/webstudio.apk", destination: "/api/download/apk" },
+      { source: "/WebStudio.apk", destination: "/api/download/apk" },
+    ];
+  },
   async headers() {
     return [
       {
@@ -21,6 +27,34 @@ const nextConfig: NextConfig = {
             value: "no-cache, no-store, must-revalidate",
           },
           { key: "Service-Worker-Allowed", value: "/" },
+        ],
+      },
+      {
+        source: "/webstudio.apk",
+        headers: [
+          {
+            key: "Content-Type",
+            value: "application/vnd.android.package-archive",
+          },
+          {
+            key: "Content-Disposition",
+            value:
+              'attachment; filename="WebStudio.apk"; filename*=UTF-8\'\'WebStudio.apk',
+          },
+        ],
+      },
+      {
+        source: "/WebStudio.apk",
+        headers: [
+          {
+            key: "Content-Type",
+            value: "application/vnd.android.package-archive",
+          },
+          {
+            key: "Content-Disposition",
+            value:
+              'attachment; filename="WebStudio.apk"; filename*=UTF-8\'\'WebStudio.apk',
+          },
         ],
       },
     ];

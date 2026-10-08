@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { ContactFloat } from "@/components/ContactFloat";
 import { ContactForm } from "@/components/ContactForm";
+import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 
 export default function Home() {
@@ -30,7 +32,11 @@ export default function Home() {
                   <a href="#contact" className="btn btn-primary">
                     Bắt đầu dự án →
                   </a>
-                  <a href="/tai-ung-dung" className="btn btn-secondary">
+                  <a
+                    href="/webstudio.apk"
+                    download="webstudio.apk"
+                    className="btn btn-secondary"
+                  >
                     Tải ứng dụng khách
                   </a>
                 </div>
@@ -393,21 +399,8 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="site-footer">
-        <div className="container">
-          <div className="footer-content">
-            <a className="logo" href="#top">
-              Web<span>Studio.</span>
-            </a>
-            <p>© 2026 WebStudio. All rights reserved.</p>
-            <div className="footer-links">
-              <a href="#">Facebook</a>
-              <a href="#">Behance</a>
-              <a href="#">Zalo</a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
+      <ContactFloat />
     </div>
   );
 }

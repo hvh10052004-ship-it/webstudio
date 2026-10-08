@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import "@/styles/tai-ung-dung.css";
 
 export const metadata: Metadata = {
-  title: "Tải WebStudio — App khách",
-  description: "Tải ứng dụng khách WebStudio về điện thoại để chạy thử.",
+  title: "Tải App khách Studio — WebStudio",
+  description:
+    "Tải ứng dụng khách WebStudio về Android để soạn website, xem trước và chat hỗ trợ.",
 };
 
 export default function DownloadLayout({ children }: { children: ReactNode }) {

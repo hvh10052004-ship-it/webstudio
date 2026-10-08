@@ -311,11 +311,12 @@ function buildManifest() {
   const intentFilter = addStr(p, "intent-filter");
   const action = addStr(p, "action");
   const category = addStr(p, "category");
-  const pkgName = addStr(p, "vn.webstudio.khach");
-  const verName = addStr(p, "1.0");
+  const pkgName = addStr(p, "com.webstudio.khach");
+  const verName = addStr(p, "1.8.3");
   const label = addStr(p, "WebStudio");
   const internet = addStr(p, "android.permission.INTERNET");
-  const activityName = addStr(p, "vn.webstudio.khach.MainActivity");
+  const network = addStr(p, "android.permission.ACCESS_NETWORK_STATE");
+  const activityName = addStr(p, "com.webstudio.khach.MainActivity");
   const main = addStr(p, "android.intent.action.MAIN");
   const launcher = addStr(p, "android.intent.category.LAUNCHER");
 
@@ -332,12 +333,14 @@ function buildManifest() {
     startNs(android, nsUri),
     startEl(-1, manifest, [
       attr(0xffffffff, pkg, pkgName, TYPE_STRING, pkgName),
-      ns.int("versionCode", 2),
+      ns.int("versionCode", 14),
       ns.str("versionName", verName),
     ]),
-    startEl(-1, usesSdk, [ns.int("minSdkVersion", 16), ns.int("targetSdkVersion", 28)]),
+    startEl(-1, usesSdk, [ns.int("minSdkVersion", 21), ns.int("targetSdkVersion", 28)]),
     endEl(-1, usesSdk),
     startEl(-1, usesPerm, [ns.str("name", internet)]),
+    endEl(-1, usesPerm),
+    startEl(-1, usesPerm, [ns.str("name", network)]),
     endEl(-1, usesPerm),
     startEl(-1, application, [
       ns.str("label", label),
@@ -567,10 +570,11 @@ function injectDex(apkPath: string, dex: Buffer) {
 
 function signApkFile(unsignedPath: string) {
   const jar = path.join(toolsDir(), "uber-apk-signer.jar");
-  if (!existsSync(jar)) throw new Error("Thiếu công cụ ký APK.");
+  const java = javaBin();
+  if (!existsSync(jar) || !java) throw new Error("Thiếu công cụ ký APK.");
   const dir = mkdtempSync(path.join(os.tmpdir(), "ws-apk-"));
   const ks = path.join(toolsDir(), "release.p12");
-  const args = ["-jar", jar, "-a", unsignedPath, "--out", dir];
+  const args = ["-jar", jar, "-a", unsignedPath, "--out", dir, "--allowResign"];
   if (existsSync(ks)) {
     args.push(
       "--ks",
@@ -583,7 +587,7 @@ function signApkFile(unsignedPath: string) {
       "webstudio-release",
     );
   }
-  const result = spawnSync("java", args, {
+  const result = spawnSync(java, args, {
     encoding: "utf8",
     windowsHide: true,
   });
@@ -632,11 +636,12 @@ function javaRtJar() {
 
 function compileWebViewDex() {
   const tools = toolsDir();
+  const dexPath = path.join(tools, "template", "classes.dex");
+  if (existsSync(dexPath)) return;
   const ecj = path.join(tools, "ecj.jar");
   const dx = path.join(tools, "dx.jar");
   const src = path.join(tools, "src", "com", "webstudio", "khach", "MainActivity.java");
   const out = path.join(tools, "classes-out");
-  const dexPath = path.join(tools, "template", "classes.dex");
   if (!existsSync(ecj) || !existsSync(dx) || !existsSync(src)) return;
   rmSync(out, { recursive: true, force: true });
   mkdirSync(out, { recursive: true });
@@ -660,31 +665,107 @@ function compileWebViewDex() {
   }
 }
 
-function assembleAndSignApk(decoded: string, appUrl: string) {
+function javaBin() {
+  const candidates = [
+    "java",
+    process.env.JAVA_HOME ? path.join(process.env.JAVA_HOME, "bin", "java.exe") : "",
+    process.env.JAVA_HOME ? path.join(process.env.JAVA_HOME, "bin", "java") : "",
+    "C:\\Program Files\\Android\\Android Studio\\jbr\\bin\\java.exe",
+    "C:\\Program Files\\Java\\jdk-17\\bin\\java.exe",
+    "C:\\Program Files\\Eclipse Adoptium\\jdk-17.0.12-hotspot\\bin\\java.exe",
+  ].filter(Boolean);
+  for (const bin of candidates) {
+    if (bin !== "java" && !existsSync(bin)) continue;
+    const probe = spawnSync(bin, ["-version"], { encoding: "utf8", windowsHide: true });
+    if (probe.status === 0 || /version/i.test(`${probe.stdout}${probe.stderr}`)) {
+      return bin;
+    }
+  }
+  return null;
+}
+
+function resolveDexPath() {
+  const candidates = [
+    path.join(toolsDir(), "template", "classes.dex"),
+    path.join(toolsDir(), "classes.dex"),
+  ];
+  for (const file of candidates) {
+    if (existsSync(file)) return file;
+  }
   compileWebViewDex();
-  const dexPath = path.join(toolsDir(), "template", "classes.dex");
-  const apktool = path.join(toolsDir(), "apktool.jar");
-  if (!existsSync(dexPath) || !existsSync(apktool) || !existsSync(decoded)) {
-    throw new Error("Thiếu bộ đóng gói APK.");
+  for (const file of candidates) {
+    if (existsSync(file)) return file;
   }
-  const dir = mkdtempSync(path.join(os.tmpdir(), "ws-apk-"));
-  const unsigned = path.join(dir, "unsigned.apk");
-  const built = spawnSync("java", ["-jar", apktool, "b", decoded, "-f", "-o", unsigned], {
-    encoding: "utf8",
-    windowsHide: true,
+  throw new Error("Thiếu classes.dex để đóng gói APK.");
+}
+
+function patchedDex(dexPath: string, appUrl: string) {
+  const raw = readFileSync(dexPath);
+  return raw.includes(Buffer.from(URL_MARK, "utf8")) ? patchDex(raw, appUrl) : raw;
+}
+
+function addAssetTree(files: ZipEntry[], absDir: string, zipPrefix: string) {
+  if (!existsSync(absDir)) return;
+  for (const entry of readdirSync(absDir, { withFileTypes: true })) {
+    const abs = path.join(absDir, entry.name);
+    const zip = `${zipPrefix}${entry.name}`.replace(/\\/g, "/");
+    if (entry.isDirectory()) {
+      addAssetTree(files, abs, `${zip}/`);
+    } else {
+      files.push({ name: zip, data: readFileSync(abs) });
+    }
+  }
+}
+
+function assembleWithNode(decoded: string, appUrl: string, dexPath: string) {
+  const template = path.join(toolsDir(), "template");
+  const manifestBin = path.join(template, "AndroidManifest.xml");
+  const arsc = path.join(template, "resources.arsc");
+  const files: ZipEntry[] = [
+    {
+      name: "AndroidManifest.xml",
+      data: existsSync(manifestBin) ? readFileSync(manifestBin) : buildManifest(),
+    },
+    { name: "classes.dex", data: patchedDex(dexPath, appUrl) },
+  ];
+  if (existsSync(arsc)) {
+    files.push({ name: "resources.arsc", data: readFileSync(arsc) });
+  }
+  addAssetTree(files, path.join(template, "res"), "res/");
+  addAssetTree(files, path.join(decoded, "assets"), "assets/");
+  const seen = new Set<string>();
+  const unique = files.filter((file) => {
+    if (seen.has(file.name)) return false;
+    seen.add(file.name);
+    return true;
   });
-  if (built.status !== 0) {
+  const key = ensureDebugKey();
+  return zipApk(signJar(unique, key.privateKey, key.cert));
+}
+
+function assembleAndSignApk(decoded: string, appUrl: string) {
+  const dexPath = resolveDexPath();
+  const apktool = path.join(toolsDir(), "apktool.jar");
+  const java = javaBin();
+  if (java && existsSync(apktool) && existsSync(decoded)) {
+    const dir = mkdtempSync(path.join(os.tmpdir(), "ws-apk-"));
+    const unsigned = path.join(dir, "unsigned.apk");
+    const built = spawnSync(java, ["-jar", apktool, "b", decoded, "-f", "-o", unsigned], {
+      encoding: "utf8",
+      windowsHide: true,
+    });
+    if (built.status === 0) {
+      const smaliDir = path.join(decoded, "smali");
+      if (!existsSync(smaliDir)) {
+        injectDex(unsigned, patchedDex(dexPath, appUrl));
+      }
+      const signed = signApkFile(unsigned);
+      rmSync(dir, { recursive: true, force: true });
+      return signed;
+    }
     rmSync(dir, { recursive: true, force: true });
-    throw new Error(built.stderr || built.stdout || "Không đóng gói được APK.");
   }
-  const rawDex = readFileSync(dexPath);
-  const dex = rawDex.includes(Buffer.from(URL_MARK, "utf8"))
-    ? patchDex(rawDex, appUrl)
-    : rawDex;
-  injectDex(unsigned, dex);
-  const signed = signApkFile(unsigned);
-  rmSync(dir, { recursive: true, force: true });
-  return signed;
+  return assembleWithNode(decoded, appUrl, dexPath);
 }
 
 function adminHomeHtml(adminUrl: string) {
@@ -720,12 +801,6 @@ export function buildCustomerApk(appUrl: string) {
   try {
     cpSync(decodedSrc, decoded, { recursive: true });
     writeFileSync(path.join(decoded, "assets", "www", "start.txt"), appUrl.trim());
-    const homePath = path.join(decoded, "assets", "www", "home.html");
-    const home = readFileSync(homePath, "utf8").replace(
-      /https?:\/\/[^"'/\s]+\/app-khach/g,
-      appUrl.replace(/\/$/, ""),
-    );
-    writeFileSync(homePath, home);
     return assembleAndSignApk(decoded, appUrl);
   } finally {
     rmSync(dir, { recursive: true, force: true });
@@ -766,11 +841,27 @@ export function buildAdminApk(adminUrl: string) {
   }
 }
 
+export function defaultCustomerAppUrl() {
+  const origin = process.env.PUBLIC_ORIGIN?.trim().replace(/\/$/, "");
+  if (origin) {
+    if (process.env.APP_KHACH_STATIC === "1" || /github\.io/i.test(origin)) return `${origin}/`;
+    return `${origin}/app-khach`;
+  }
+  const ip = firstLanIpv4();
+  return `http://${ip || "127.0.0.1"}:3000/app-khach`;
+}
+
 export function saveApkCopies(fileName: string, apk: Buffer) {
   const root = process.cwd();
-  writeFileSync(path.join(root, fileName), apk);
-  mkdirSync(path.join(root, "public"), { recursive: true });
-  writeFileSync(path.join(root, "public", fileName), apk);
+  const folders = [
+    root,
+    path.join(root, "dist"),
+    path.join(root, "docs"),
+  ];
+  for (const folder of folders) {
+    mkdirSync(folder, { recursive: true });
+    writeFileSync(path.join(folder, fileName), apk);
+  }
   const downloads = path.join(os.homedir(), "Downloads");
   if (existsSync(downloads)) {
     writeFileSync(path.join(downloads, fileName), apk);

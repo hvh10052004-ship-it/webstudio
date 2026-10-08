@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">WebStudio</string>
     <string name="splash_title">WebStudio</string>
-    <string name="app_version">1.8.0</string>
-    <string name="loading">Đang tải app khách…</string>
+    <string name="app_version">2.0.1</string>
+    <string name="loading">Đang mở app khách…</string>
     <string name="offline_title">Mất kết nối</string>
 </resources>

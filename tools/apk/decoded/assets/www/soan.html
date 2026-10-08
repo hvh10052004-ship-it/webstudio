@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Soạn website — WebStudio</title>
+  <link rel="stylesheet" href="home.css" />
+</head>
+<body data-tab="soan">
+  <div class="app-phone">
+    <div class="app-phone-body">
+      <header class="app-home-top">
+        <div>
+          <h1 id="soanTitle">Soạn website</h1>
+          <p>Điền nội dung — lưu trên điện thoại, xem ngay</p>
+        </div>
+      </header>
+      <form id="soanForm">
+        <div class="app-field">
+          <label for="name">Tên website / sản phẩm</label>
+          <input id="name" name="name" placeholder="AURA Glow Essence" />
+        </div>
+        <div class="app-field">
+          <label for="phone">Số điện thoại / Zalo</label>
+          <input id="phone" name="phone" inputmode="tel" placeholder="0938 002 776" />
+        </div>
+        <div class="app-field">
+          <label for="desc">Mô tả ngắn</label>
+          <textarea id="desc" name="desc" rows="4" placeholder="Website đẹp, nhanh, tạo khách hàng."></textarea>
+        </div>
+        <div class="app-field">
+          <label for="cta">Nút kêu gọi</label>
+          <input id="cta" name="cta" placeholder="Đặt hàng ngay" />
+        </div>
+        <button class="app-btn app-btn-primary" type="submit" style="width:100%;border:0">Lưu và xem trang</button>
+      </form>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

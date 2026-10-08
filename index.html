@@ -1773,9 +1773,109 @@ body.theme-light .footer-bottom p {
   grid-row: auto;
 }
 
+.about-values,
+.app-dl-steps {
+  display: grid;
+  gap: 16px;
+}
+
+.about-values {
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 40px;
+}
+
+.app-dl-steps {
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 40px;
+}
+
+.app-dl-hint {
+  margin-top: 18px;
+  color: #8992a4;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.app-phone {
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(180deg, #161b2c, #0c1020);
+  padding: 18px 16px 22px;
+  min-height: 420px;
+}
+
+.app-phone-notch {
+  width: 92px;
+  height: 8px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.16);
+  margin: 0 auto 18px;
+}
+
+.app-phone-screen {
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 22px 18px;
+  min-height: 340px;
+}
+
+.app-phone-kicker {
+  color: #8f7cff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.app-phone-screen h3 {
+  font-size: 24px;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
+.app-phone-screen p {
+  color: #8992a4;
+  font-size: 14px;
+  margin-bottom: 22px;
+}
+
+.app-phone-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 22px;
+}
+
+.app-phone-tiles span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.app-phone-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  border-radius: 12px;
+  background: #fff;
+  color: #10131b;
+  font-weight: 700;
+  font-size: 14px;
+}
+
 @media (max-width: 900px) {
   .content-grid,
-  .projects-grid {
+  .projects-grid,
+  .about-values,
+  .app-dl-steps {
     grid-template-columns: 1fr;
   }
   .search-row {
@@ -2499,7 +2599,7 @@ body.page-tai-ung-dung {
               </p>
               <div class="hero-actions">
                 <a href="#lien-he" class="btn btn-primary">Bắt đầu dự án →</a>
-                <a href="#portfolio" class="btn btn-secondary">Xem dự án</a>
+                <a href="#tai-ung-dung" class="btn btn-secondary">Tải App khách Studio</a>
               </div>
               <div class="hero-info">
                 <div class="hero-stat"><strong>50+</strong><span>Dự án</span></div>
@@ -2590,6 +2690,16 @@ body.page-tai-ung-dung {
               <p>
                 Website và Web App dành cho Startup với Dashboard, đăng nhập,
                 tài khoản người dùng, subscription và các tính năng tùy chỉnh.
+              </p>
+              <div class="service-arrow">↗</div>
+            </a>
+            <a class="service-card" href="#tai-ung-dung">
+              <div class="service-number">05</div>
+              <div class="service-icon">📲</div>
+              <h3>Tải App khách Studio</h3>
+              <p>
+                Tải WebStudio.apk về điện thoại Android để tự soạn website,
+                xem trước, chat hỗ trợ và chạy thử như một ứng dụng thật.
               </p>
               <div class="service-arrow">↗</div>
             </a>
@@ -3800,34 +3910,69 @@ body.page-tai-ung-dung {
     </main>
       </div>
       <div class="site-page" data-page="tai-ung-dung" hidden>
-        <div class="dl-page">
-      <div class="dl-phone-outline" aria-hidden="true"></div>
-      <div class="dl-dialog" id="dlDialog">
-        <p class="dl-dialog-title">Đang mở “WebStudio.app”…</p>
-        <p class="dl-dialog-sub">Đang xác minh…</p>
-        <div class="dl-progress"><span id="dlBar"></span></div>
-        <div class="dl-dialog-actions">
-          <a class="dl-ghost" href="#home">Hủy</a>
-          <button type="button" class="dl-ghost" id="dlSkip">Bỏ qua</button>
+        <main>
+      <section class="page-hero">
+        <div class="container">
+          <div class="section-label">App khách</div>
+          <h1>Tải App khách Studio về điện thoại.</h1>
+          <p>Soạn website, xem trước, chat hỗ trợ và chạy thử như một ứng dụng thật — dành cho khách hàng WebStudio trên Android.</p>
         </div>
-      </div>
-      <main class="dl-main" id="dlMain">
-        <img class="dl-icon" src="public/icons/app-khach-192.png" alt="" />
-        <h1>Cảm ơn bạn đã tải WebStudio xuống!</h1>
-        <p class="dl-lead">
-          Tệp cài đặt sẽ được tải về máy. Mở tệp trên điện thoại Android để cài ứng dụng khách.
-        </p>
-        <a class="dl-download" id="dlApk" href="WebStudio.apk" download="WebStudio.apk">Tải tệp cài đặt</a>
-        <p class="dl-hint" id="dlHint">
-          Trên điện thoại Android: mở tệp WebStudio.apk, cho phép cài đặt từ nguồn này, rồi bấm Cài đặt.
-          Trên GitHub Pages, file WebStudio.apk phải nằm cùng thư mục với index.html.
-        </p>
-        <p class="dl-retry">
-          Nếu quá trình tải xuống không bắt đầu, vui lòng
-          <a href="#tai-ung-dung">nhấp vào đây</a> để thử lại.
-        </p>
-      </main>
-    </div>
+      </section>
+      <section class="page-content">
+        <div class="container content-grid">
+          <article class="content-card">
+            <h2>App khách WebStudio</h2>
+            <p>Cài APK trên Android để mở Studio ngay trên điện thoại: chọn loại website, điền nội dung, xem bản xem trước và trao đổi với đội ngũ hỗ trợ.</p>
+            <div class="meta-row">
+              <span class="chip">Android</span>
+              <span class="chip">APK</span>
+              <span class="chip">Soạn website</span>
+              <span class="chip">Xem trước</span>
+            </div>
+            <a class="btn btn-primary" id="dlApk" href="WebStudio.apk" download="WebStudio.apk">Tải App khách Studio</a>
+            <p class="app-dl-hint" id="dlHint">Sau khi tải, mở <b>WebStudio.apk</b>, cho phép cài từ nguồn này, rồi bấm Cài đặt.</p>
+          </article>
+          <div class="app-phone" aria-hidden="true">
+            <div class="app-phone-notch"></div>
+            <div class="app-phone-screen">
+              <p class="app-phone-kicker">WebStudio</p>
+              <h3>Tạo website của bạn</h3>
+              <p>Chọn loại site — soạn trên điện thoại</p>
+              <div class="app-phone-tiles">
+                <span>Landing</span>
+                <span>Công ty</span>
+                <span>Bán hàng</span>
+                <span>SaaS</span>
+              </div>
+              <div class="app-phone-cta">Bắt đầu soạn</div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="container">
+          <div class="section-label">Tính năng</div>
+          <h2 class="section-title">Studio trên điện thoại làm được gì.</h2>
+          <div class="about-values">
+            <article class="list-card"><h3>Soạn nội dung</h3><p>Chọn mẫu, điền thông tin doanh nghiệp, dịch vụ và liên hệ ngay trên điện thoại.</p></article>
+            <article class="list-card"><h3>Xem trước</h3><p>Xem website đang dựng như khách thật, chỉnh từng khối rồi lưu.</p></article>
+            <article class="list-card"><h3>Chat hỗ trợ</h3><p>Nhắn với WebStudio khi cần chỉnh sửa, báo giá hoặc bàn giao.</p></article>
+            <article class="list-card"><h3>Chạy như app</h3><p>Giao diện full-screen, không thanh địa chỉ — trải nghiệm như ứng dụng cài sẵn.</p></article>
+          </div>
+        </div>
+      </section>
+      <section class="section">
+        <div class="container">
+          <div class="section-label">Cài đặt</div>
+          <h2 class="section-title">Ba bước để mở App khách Studio.</h2>
+          <div class="app-dl-steps">
+            <article class="list-card"><h3>1. Tải APK</h3><p>Bấm Tải App khách Studio và chờ tệp WebStudio.apk về máy.</p></article>
+            <article class="list-card"><h3>2. Cho phép cài</h3><p>Mở tệp, cho phép cài đặt từ trình duyệt nếu hệ thống hỏi.</p></article>
+            <article class="list-card"><h3>3. Mở Studio</h3><p>Cài xong, mở icon WebStudio trên màn hình chính để bắt đầu soạn.</p></article>
+          </div>
+        </div>
+      </section>
+        </main>
       </div>
     </div>
 
@@ -4344,7 +4489,7 @@ function showPage() {
 }
 
 function resolveApkUrl() {
-  if (location.port === "3000") return "/api/download/apk";
+  if (location.port === "3000" || location.port === "3001") return "/api/download/apk";
   let path = location.pathname || "/";
   const last = path.split("/").pop() || "";
   if (!path.endsWith("/") && !/\.[a-z0-9]+$/i.test(last)) path += "/";
@@ -4363,28 +4508,10 @@ function triggerApkDownload(url) {
 }
 
 function initDownloadPage() {
-  const bar = document.getElementById("dlBar");
-  const dialog = document.getElementById("dlDialog");
-  const main = document.getElementById("dlMain");
-  const skip = document.getElementById("dlSkip");
   const apkLink = document.getElementById("dlApk");
   const hint = document.getElementById("dlHint");
-  if (!bar || !dialog || !main || !apkLink || dialog.dataset.ready === "1") return;
-  dialog.dataset.ready = "1";
-  let p = 8;
-  function done() {
-    dialog.style.display = "none";
-    main.classList.add("is-on");
-  }
-  if (skip) skip.onclick = done;
-  const t = setInterval(function () {
-    p = Math.min(100, p + 8);
-    bar.style.width = p + "%";
-    if (p >= 100) {
-      clearInterval(t);
-      setTimeout(done, 200);
-    }
-  }, 160);
+  if (!apkLink || apkLink.dataset.ready === "1") return;
+  apkLink.dataset.ready = "1";
   const apk = resolveApkUrl();
   apkLink.href = apk;
   apkLink.setAttribute("download", "WebStudio.apk");
@@ -4392,9 +4519,6 @@ function initDownloadPage() {
     e.preventDefault();
     startApkDownload(apk, apkLink, hint);
   };
-  setTimeout(function () {
-    startApkDownload(apk, apkLink, hint);
-  }, 2800);
 }
 
 function startApkDownload(url, apkLink, hint) {

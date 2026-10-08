@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: webstudio-app-khach
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: APP_KHACH_SERVER
+        value: "1"
+      - key: NEXT_PUBLIC_APP_KHACH_SERVER
+        value: "1"
+      - key: COOKIE_SECURE
+        value: "1"
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_PATH
+        value: /app/data/webstudio.db
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: PUBLIC_ORIGIN
+        sync: false

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import { isAppKhachServer } from "@/lib/appKhachServer";
 import "./globals.css";
 import "@/styles/webstudio.css";
 
@@ -31,8 +32,9 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const native = isAppKhachServer() ? " app-native" : "";
   return (
-    <html lang="vi" className={inter.variable}>
+    <html lang="vi" className={`${inter.variable}${native}`}>
       <body>{children}</body>
     </html>
   );
