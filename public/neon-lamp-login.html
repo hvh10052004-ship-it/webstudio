@@ -2063,13 +2063,24 @@ document.addEventListener("DOMContentLoaded", () => {
           }),
         });
         const data = await res.json();
-        resetSubmitButton();
-        if (!res.ok) return showFormError(data.error || "Không gửi được mã.");
-        body.setAttribute("data-auth", "code");
-        cardTitle.textContent = "Nhập mã";
-        document.getElementById("codeHint").textContent = "Mã 6 số đã gửi tới " + data.gmail;
-        btnText.textContent = "Xác nhận";
-        return;
+        if (!res.ok) {
+          resetSubmitButton();
+          return showFormError(data.error || "Không gửi được mã.");
+        }
+        try {
+          const prev = JSON.parse(localStorage.getItem("ws-profile") || "{}");
+          prev.name = document.getElementById("nameField").value.trim();
+          prev.gmail = document.getElementById("gmailField").value.trim().toLowerCase();
+          localStorage.setItem("ws-profile", JSON.stringify(prev));
+        } catch (err) {}
+        if (!data.skipCode) {
+          resetSubmitButton();
+          body.setAttribute("data-auth", "code");
+          cardTitle.textContent = "Nhập mã";
+          document.getElementById("codeHint").textContent = "Mã 6 số đã gửi tới " + data.gmail;
+          btnText.textContent = "Xác nhận";
+          return;
+        }
       }
 
       if (mode === "code") {
