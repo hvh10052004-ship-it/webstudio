@@ -1,14 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import { isAppKhachServer } from "@/lib/appKhachServer";
 import "./globals.css";
 import "@/styles/webstudio.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600", "700", "800"],
-});
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -34,7 +27,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   const native = isAppKhachServer() ? " app-native" : "";
   return (
-    <html lang="vi" className={`${inter.variable}${native}`}>
+    <html lang="vi" className={native} style={{ ["--font-inter" as string]: "Inter, system-ui, sans-serif" }}>
       <body>{children}</body>
     </html>
   );

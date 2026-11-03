@@ -2,35 +2,19 @@ FROM node:22-bookworm-slim
 
 WORKDIR /app
 
-COPY . /tmp/src
+COPY . .
 
-RUN set -eux; \
-  if [ -d /tmp/src/src/app ]; then \
-    cp -a /tmp/src/. /app/; \
-  elif [ -d /tmp/src/app ]; then \
-    cp -a /tmp/src/. /app/; \
-  elif [ -d /tmp/src/webstudio/src/app ]; then \
-    cp -a /tmp/src/webstudio/. /app/; \
-  elif [ -d /tmp/src/WebStudio/src/app ]; then \
-    cp -a /tmp/src/WebStudio/. /app/; \
-  else \
-    found="$(find /tmp/src -type d \( -path '*/src/app' -o -path '*/app' \) ! -path '*/node_modules/*' -print -quit)"; \
-    if [ -n "$found" ]; then \
-      if echo "$found" | grep -q '/src/app$'; then \
-        cp -a "$(dirname "$(dirname "$found")")/." /app/; \
-      else \
-        cp -a "$(dirname "$found")/." /app/; \
+# Repo GitHub để mã trong thư mục webstudio hoặc WebStudio
+RUN if [ ! -d src/app ] && [ ! -d app ]; then \
+      if [ -d webstudio/src/app ]; then cp -a webstudio/. /app/; \
+      elif [ -d WebStudio/src/app ]; then cp -a WebStudio/. /app/; \
       fi; \
-    else \
-      echo "Khong tim thay src/app trong repo."; \
-      find /tmp/src -maxdepth 4 -type d; \
-      exit 1; \
-    fi; \
-  fi; \
-  test -f /app/package.json; \
-  test -d /app/src/app -o -d /app/app
-
-RUN npm ci
+    fi \
+    && if [ ! -d src/app ] && [ ! -d app ]; then \
+      echo "Khong thay thu muc src/app. Hay dat Root Directory = webstudio tren Render." \
+      && ls -la && exit 1; \
+    fi \
+    && npm ci
 
 ENV APP_KHACH_SERVER=1
 ENV NEXT_PUBLIC_APP_KHACH_SERVER=1

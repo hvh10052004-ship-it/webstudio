@@ -12,7 +12,7 @@ export default function TaiUngDungPage() {
         <section className="page-hero">
           <div className="container">
             <div className="section-label">App khách</div>
-            <h1>Tải App khách Studio về điện thoại.</h1>
+            <h1>Tải App Studio về điện thoại.</h1>
             <p>
               Soạn website, xem trước, chat hỗ trợ và chạy thử như một ứng dụng
               thật — dành cho khách hàng WebStudio trên Android.
@@ -23,7 +23,7 @@ export default function TaiUngDungPage() {
         <section className="page-content">
           <div className="container content-grid">
             <article className="content-card">
-              <h2>App khách WebStudio</h2>
+              <h2>App WebStudio</h2>
               <p>
                 Cài APK trên Android để mở Studio ngay trên điện thoại: chọn loại
                 website, điền nội dung, xem bản xem trước và trao đổi với đội ngũ
@@ -99,11 +99,11 @@ export default function TaiUngDungPage() {
         <section className="section about-section">
           <div className="container">
             <div className="section-label">Cài đặt</div>
-            <h2 className="section-title">Ba bước để mở App khách Studio.</h2>
+            <h2 className="section-title">Ba bước để mở App Studio.</h2>
             <div className="app-dl-steps">
               <article className="list-card">
                 <h3>1. Tải APK</h3>
-                <p>Bấm Tải App khách Studio và chờ tệp WebStudio.apk về máy.</p>
+                <p>Bấm Tải App Studio và chờ tệp WebStudio.apk về máy.</p>
               </article>
               <article className="list-card">
                 <h3>2. Cho phép cài</h3>
@@ -128,7 +128,7 @@ export default function TaiUngDungPage() {
             <div className="cta-box">
               <h2>Sẵn sàng soạn website trên điện thoại?</h2>
               <p>
-                Tải App khách Studio, hoặc mở bản web nếu bạn đang dùng máy tính.
+                Tải App Studio, hoặc mở bản web nếu bạn đang dùng máy tính.
               </p>
               <div className="hero-actions" style={{ justifyContent: "center" }}>
                 <DownloadAppCta />

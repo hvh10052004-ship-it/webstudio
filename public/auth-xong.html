@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Đang đăng nhập…</title>
+</head>
+<body>
+  <p>Đang vào WebStudio…</p>
+  <script>
+    (function () {
+      var profile = { name: "", email: "" };
+      var match = document.cookie.match(/(?:^|; )ws-social=([^;]*)/);
+      if (match) {
+        try { profile = JSON.parse(decodeURIComponent(match[1])); } catch (e) {}
+      }
+      try {
+        sessionStorage.setItem("ws-auth", "1");
+        var prev = {};
+        try { prev = JSON.parse(localStorage.getItem("ws-profile") || "{}"); } catch (e) {}
+        if (profile.name) prev.name = profile.name;
+        if (profile.email) prev.gmail = profile.email;
+        localStorage.setItem("ws-profile", JSON.stringify(prev));
+      } catch (e) {}
+      document.cookie = "ws-social=; Max-Age=0; path=/";
+      location.replace("/index.html");
+    })();
+  </script>
+</body>
+</html>

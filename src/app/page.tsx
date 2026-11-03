@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { ContactFloat } from "@/components/ContactFloat";
 import { ContactForm } from "@/components/ContactForm";
+import { GateLogin } from "@/components/GateLogin";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 
 export default function Home() {
   return (
     <div id="top">
+      <GateLogin />
       <SiteHeader />
 
       <main>
@@ -37,7 +39,7 @@ export default function Home() {
                     download="webstudio.apk"
                     className="btn btn-secondary"
                   >
-                    Tải ứng dụng khách
+                    Tải App Studio
                   </a>
                 </div>
                 <div className="hero-info">
@@ -57,34 +59,25 @@ export default function Home() {
               </div>
 
               <div className="hero-preview">
-                <div className="browser-card">
-                  <div className="browser">
+                <div className="phone-mock">
+                  <div className="phone-screen">
                     <div className="browser-top">
                       <span className="circle" />
                       <span className="circle" />
                       <span className="circle" />
                     </div>
-                    <div className="browser-content">
-                      <div className="mini-nav">
-                        <div className="mini-logo" />
-                        <div className="mini-links">
-                          <span />
-                          <span />
-                          <span />
-                        </div>
+                    <div className="phone-page">
+                      <div className="phone-nav">
+                        <strong>WebStudio</strong>
+                        <span>Dịch vụ</span>
+                        <span>Dự án</span>
+                        <span>Liên hệ</span>
                       </div>
-                      <div className="mock-tag" />
-                      <div className="mock-title" />
-                      <div className="mock-title short" />
-                      <div className="mock-text">
-                        <div />
-                        <div />
-                        <div />
-                      </div>
-                      <div className="mock-buttons">
-                        <span />
-                        <span />
-                      </div>
+                      <span className="phone-pill">Website chuyên nghiệp</span>
+                      <h2>Thiết kế website hiện đại cho doanh nghiệp &amp; startup</h2>
+                      <p>Giao diện đẹp, tốc độ cao, tối ưu SEO.</p>
+                      <p>Landing Page, Website công ty, E-commerce, SaaS.</p>
+                      <p className="phone-foot">Từ ý tưởng đến website sẵn sàng ra mắt.</p>
                     </div>
                   </div>
                 </div>

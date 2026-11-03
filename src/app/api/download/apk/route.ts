@@ -14,17 +14,23 @@ const APK_HEADERS = {
 };
 
 function existingApk() {
-  const names = ["webstudio.apk", "WebStudio.apk"] as const;
-  const folders = [
-    path.join(/* turbopackIgnore: true */ process.cwd(), "public"),
-    path.join(/* turbopackIgnore: true */ process.cwd(), "docs"),
+  const direct = [
+    path.join(
+      /* turbopackIgnore: true */ process.cwd(),
+      "android",
+      "app",
+      "build",
+      "outputs",
+      "apk",
+      "debug",
+      "webstudio.apk",
+    ),
+    path.join(/* turbopackIgnore: true */ process.cwd(), "public", "webstudio.apk"),
+    path.join(/* turbopackIgnore: true */ process.cwd(), "public", "WebStudio.apk"),
   ];
-  for (const folder of folders) {
-    for (const name of names) {
-      const file = path.join(/* turbopackIgnore: true */ folder, name);
-      if (existsSync(/* turbopackIgnore: true */ file)) {
-        return readFileSync(/* turbopackIgnore: true */ file);
-      }
+  for (const file of direct) {
+    if (existsSync(/* turbopackIgnore: true */ file)) {
+      return readFileSync(/* turbopackIgnore: true */ file);
     }
   }
   return null;
@@ -35,6 +41,8 @@ function apkResponse(apk: Buffer) {
 }
 
 export function GET(request: Request) {
+  const ready = existingApk();
+  if (ready) return apkResponse(ready);
   try {
     const apk = buildCustomerApk(publicAppUrl(request));
     try {

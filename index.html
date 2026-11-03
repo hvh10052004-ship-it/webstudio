@@ -16,6 +16,11 @@
   />
   <meta name="theme-color" content="#8f7cff" />
   <script>
+    try {
+      if (sessionStorage.getItem("ws-auth") !== "1") location.replace("/neon-lamp-login.html");
+    } catch (e) {}
+  </script>
+  <script>
     (function () {
       try {
         if (localStorage.getItem("webstudio-theme") === "light") {
@@ -1411,7 +1416,7 @@ textarea.form-control {
 
 .footer-contact a:hover,
 .footer-list a:hover {
-  color: #fff;
+  color: #c084fc;
 }
 
 .footer-social {
@@ -1433,7 +1438,7 @@ textarea.form-control {
 
 .social-btn:hover {
   transform: translateY(-2px);
-  background: #e11d2e;
+  background: #a855f7;
   color: #fff;
 }
 
@@ -1450,6 +1455,100 @@ textarea.form-control {
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.3px;
+}
+
+.profile-card {
+  max-width: 560px;
+  padding: 8px 0;
+  border-radius: 22px;
+  background: #fff;
+  color: #1c1c1e;
+  overflow: hidden;
+}
+
+.profile-row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 36px 1fr auto;
+  gap: 14px;
+  align-items: center;
+  padding: 16px 18px;
+  border: 0;
+  border-bottom: 1px solid #ececef;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.profile-card .profile-row:last-child,
+.profile-card form:last-child {
+  border-bottom: 0;
+}
+
+.profile-ico {
+  width: 28px;
+  height: 28px;
+  color: #8e8e93;
+}
+
+.profile-ico svg {
+  width: 24px;
+  height: 24px;
+}
+
+.profile-copy {
+  display: grid;
+  gap: 2px;
+}
+
+.profile-copy strong {
+  font-size: 17px;
+}
+
+.profile-copy span {
+  color: #8e8e93;
+  font-size: 14px;
+}
+
+.profile-chev {
+  color: #c7c7cc;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.profile-panel {
+  display: grid;
+  gap: 8px;
+  padding: 4px 18px 18px 68px;
+  border-bottom: 1px solid #ececef;
+}
+
+.profile-panel[hidden] {
+  display: none;
+}
+
+.profile-panel label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+.profile-panel input {
+  width: 100%;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font: inherit;
+  color: #111;
+  background: #fafafa;
+}
+
+.profile-note {
+  min-height: 1.2em;
+  margin: 0;
+  font-size: 13px;
+  color: #7c3aed;
 }
 
 .footer-bottom {
@@ -1641,7 +1740,8 @@ body.theme-light .footer-bottom p {
 .list-card,
 .product-panel,
 .cart-box,
-.search-box {
+.search-box,
+.profile-card {
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.035);
   border-radius: 22px;
@@ -1869,6 +1969,45 @@ body.theme-light .footer-bottom p {
   color: #10131b;
   font-weight: 700;
   font-size: 14px;
+}
+
+.app-phone-screen h3,
+.app-phone-tiles span,
+.app-phone-kicker {
+  color: #f4f6fb;
+}
+
+body.theme-light .app-phone {
+  border-color: rgba(18, 23, 34, 0.1);
+  background: linear-gradient(180deg, #ffffff, #eef1f6);
+}
+
+body.theme-light .app-phone-notch {
+  background: rgba(18, 23, 34, 0.12);
+}
+
+body.theme-light .app-phone-screen {
+  background: #f7f8fb;
+}
+
+body.theme-light .app-phone-screen h3,
+body.theme-light .app-phone-tiles span,
+body.theme-light .app-phone-kicker {
+  color: #121722;
+}
+
+body.theme-light .app-phone-screen p {
+  color: #5c6578;
+}
+
+body.theme-light .app-phone-tiles span {
+  border-color: rgba(18, 23, 34, 0.1);
+  background: #fff;
+}
+
+body.theme-light .app-phone-cta {
+  background: #121722;
+  color: #fff;
 }
 
 @media (max-width: 900px) {
@@ -2355,7 +2494,51 @@ body.theme-light .legal-updated {
 }
 
 body.page-tai-ung-dung {
+  background: #070b14;
+  color: #f4f6fb;
+}
+
+body.page-tai-ung-dung .page-hero h1,
+body.page-tai-ung-dung .content-card h2,
+body.page-tai-ung-dung .section-title,
+body.page-tai-ung-dung .list-card h3 {
+  color: #f4f6fb;
+}
+
+body.page-tai-ung-dung .page-hero p,
+body.page-tai-ung-dung .content-card p,
+body.page-tai-ung-dung .list-card p,
+body.page-tai-ung-dung .app-dl-hint {
+  color: #c5cedd;
+}
+
+body.page-tai-ung-dung .btn-primary {
   background: #fff;
+  color: #10131b;
+}
+
+body.theme-light.page-tai-ung-dung {
+  background: #f4f6fb;
+  color: #121722;
+}
+
+body.theme-light.page-tai-ung-dung .page-hero h1,
+body.theme-light.page-tai-ung-dung .content-card h2,
+body.theme-light.page-tai-ung-dung .section-title,
+body.theme-light.page-tai-ung-dung .list-card h3 {
+  color: #121722;
+}
+
+body.theme-light.page-tai-ung-dung .page-hero p,
+body.theme-light.page-tai-ung-dung .content-card p,
+body.theme-light.page-tai-ung-dung .list-card p,
+body.theme-light.page-tai-ung-dung .app-dl-hint {
+  color: #4b5565;
+}
+
+body.theme-light.page-tai-ung-dung .btn-primary {
+  background: #121722;
+  color: #fff;
 }
 
 .dl-page {
@@ -2526,7 +2709,7 @@ body.page-tai-ung-dung {
     <header class="site-header" id="siteHeader">
       <div class="container">
         <nav class="site-nav">
-          <a class="logo" href="#home">Web<span>Studio.</span></a>
+          <a class="logo" href="#home">Web<span>Studio</span></a>
 
           <div class="nav-cluster" id="navLinks">
             <ul class="nav-pill">
@@ -2557,6 +2740,7 @@ body.page-tai-ung-dung {
               <li class="has-dropdown more">
                 <button type="button" class="nav-more" aria-label="Thêm menu" aria-expanded="false">⋯</button>
                 <ul class="dropdown">
+                  <li><a href="#ho-so">Hồ sơ</a></li>
                   <li><a href="#cart">Giỏ yêu cầu</a></li>
                   <li><a href="#process">Quy trình</a></li>
                 </ul>
@@ -2599,7 +2783,7 @@ body.page-tai-ung-dung {
               </p>
               <div class="hero-actions">
                 <a href="#lien-he" class="btn btn-primary">Bắt đầu dự án →</a>
-                <a href="#tai-ung-dung" class="btn btn-secondary">Tải App khách Studio</a>
+                <a href="#tai-ung-dung" class="btn btn-secondary">Tải App Studio</a>
               </div>
               <div class="hero-info">
                 <div class="hero-stat"><strong>50+</strong><span>Dự án</span></div>
@@ -2693,10 +2877,10 @@ body.page-tai-ung-dung {
               </p>
               <div class="service-arrow">↗</div>
             </a>
-            <a class="service-card" href="#tai-ung-dung">
+            <a class="service-card" href="#tai-ung-dung" hidden style="display:none">
               <div class="service-number">05</div>
               <div class="service-icon">📲</div>
-              <h3>Tải App khách Studio</h3>
+              <h3>Tải App Studio</h3>
               <p>
                 Tải WebStudio.apk về điện thoại Android để tự soạn website,
                 xem trước, chat hỗ trợ và chạy thử như một ứng dụng thật.
@@ -2924,11 +3108,11 @@ body.page-tai-ung-dung {
               <div class="contact-details">
                 <div class="contact-detail">
                   <span>Email</span>
-                  <strong><a href="mailto:info@webhd.vn">info@webhd.vn</a></strong>
+                  <strong><a href="mailto:webstudi0.comm00@gmail.com">webstudi0.comm00@gmail.com</a></strong>
                 </div>
                 <div class="contact-detail">
                   <span>Điện thoại</span>
-                  <strong><a href="tel:0938002776">0938 002 776</a></strong>
+                  <strong><a href="tel:0559534940">0559 534 940</a></strong>
                 </div>
                 <div class="contact-detail">
                   <span>Thời gian làm việc</span>
@@ -3611,6 +3795,87 @@ body.page-tai-ung-dung {
       </section>
     </main>
       </div>
+      <div class="site-page" data-page="ho-so" hidden>
+        <main>
+          <section class="page-hero">
+            <div class="container">
+              <div class="section-label">Hồ sơ</div>
+              <h1>Tài khoản của bạn</h1>
+              <p>Xem và cập nhật tên tài khoản, mật khẩu và Gmail.</p>
+            </div>
+          </section>
+          <section class="page-content">
+            <div class="container">
+              <div class="profile-card" id="profileCard">
+                <button type="button" class="profile-row" data-profile="account">
+                  <span class="profile-ico" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"/><path d="M5 19c1.4-3 3.8-4.5 7-4.5S17.6 16 19 19"/></svg>
+                  </span>
+                  <span class="profile-copy">
+                    <strong>Tài khoản</strong>
+                    <span id="profileNameText">Chưa đặt tên</span>
+                  </span>
+                  <span class="profile-chev" aria-hidden="true">›</span>
+                </button>
+                <form class="profile-panel" id="profileAccount" hidden>
+                  <label for="profileName">Tên tài khoản</label>
+                  <input id="profileName" type="text" maxlength="40" placeholder="Tên tài khoản" />
+                  <button type="submit" class="btn btn-primary">Lưu</button>
+                </form>
+
+                <button type="button" class="profile-row" data-profile="password">
+                  <span class="profile-ico" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="15" r="3"/><path d="M10.2 13.2L20 4l2 2-2 1 1.5 1.5-1.6 1.2L18.4 8"/></svg>
+                  </span>
+                  <span class="profile-copy">
+                    <strong>Mật khẩu</strong>
+                    <span>Thay đổi mật khẩu</span>
+                  </span>
+                  <span class="profile-chev" aria-hidden="true">›</span>
+                </button>
+                <form class="profile-panel" id="profilePassword" hidden>
+                  <label for="profilePassOld">Mật khẩu cũ</label>
+                  <input id="profilePassOld" type="password" placeholder="Mật khẩu cũ" autocomplete="current-password" />
+                  <label for="profilePass">Mật khẩu mới</label>
+                  <input id="profilePass" type="password" placeholder="Mật khẩu mới" autocomplete="new-password" />
+                  <label for="profilePass2">Nhập lại mật khẩu</label>
+                  <input id="profilePass2" type="password" placeholder="Nhập lại mật khẩu mới" autocomplete="new-password" />
+                  <p class="profile-note" id="profilePassNote"></p>
+                  <button type="submit" class="btn btn-primary">Đổi mật khẩu</button>
+                </form>
+
+                <button type="button" class="profile-row" data-profile="gmail">
+                  <span class="profile-ico" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="M4 7l8 6 8-6"/></svg>
+                  </span>
+                  <span class="profile-copy">
+                    <strong>Gmail</strong>
+                    <span id="profileGmailText">Thêm Gmail</span>
+                  </span>
+                  <span class="profile-chev" aria-hidden="true">›</span>
+                </button>
+                <form class="profile-panel" id="profileGmail" hidden>
+                  <label for="profileMail">Gmail</label>
+                  <input id="profileMail" type="email" placeholder="ten@gmail.com" autocomplete="email" />
+                  <p class="profile-note" id="profileMailNote"></p>
+                  <button type="submit" class="btn btn-primary">Lưu Gmail</button>
+                </form>
+
+                <button type="button" class="profile-row" data-profile="logout">
+                  <span class="profile-ico" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 7V5a2 2 0 0 1 2-2h7v18h-7a2 2 0 0 1-2-2v-2"/><path d="M15 12H3m0 0l3-3m-3 3l3 3"/></svg>
+                  </span>
+                  <span class="profile-copy">
+                    <strong>Đăng xuất</strong>
+                    <span>Đăng xuất</span>
+                  </span>
+                  <span class="profile-chev" aria-hidden="true">›</span>
+                </button>
+              </div>
+            </div>
+          </section>
+        </main>
+      </div>
       <div class="site-page" data-page="cart" hidden>
         <main>
       <section class="page-hero">
@@ -3672,11 +3937,11 @@ body.page-tai-ung-dung {
               <div class="contact-details">
                 <div class="contact-detail">
                   <span>Email</span>
-                  <strong><a href="mailto:info@webhd.vn">info@webhd.vn</a></strong>
+                  <strong><a href="mailto:webstudi0.comm00@gmail.com">webstudi0.comm00@gmail.com</a></strong>
                 </div>
                 <div class="contact-detail">
                   <span>Điện thoại</span>
-                  <strong><a href="tel:0938002776">0938 002 776</a></strong>
+                  <strong><a href="tel:0559534940">0559 534 940</a></strong>
                 </div>
                 <div class="contact-detail">
                   <span>Thời gian làm việc</span>
@@ -3819,7 +4084,7 @@ body.page-tai-ung-dung {
 
             <article class="legal-block">
               <h2>7. Quyền của bạn</h2>
-              <p>Bạn có quyền yêu cầu xem, chỉnh sửa hoặc xóa thông tin cá nhân đã cung cấp (trừ trường hợp pháp luật yêu cầu lưu giữ). Liên hệ qua email info@webhd.vn hoặc số điện thoại 0938 002 776 để được hỗ trợ.</p>
+              <p>Bạn có quyền yêu cầu xem, chỉnh sửa hoặc xóa thông tin cá nhân đã cung cấp (trừ trường hợp pháp luật yêu cầu lưu giữ). Liên hệ qua email webstudi0.comm00@gmail.com hoặc số điện thoại 0559 534 940 để được hỗ trợ.</p>
               
             </article>
 
@@ -3901,7 +4166,7 @@ body.page-tai-ung-dung {
 
             <article class="legal-block">
               <h2>10. Liên hệ</h2>
-              <p>Mọi thắc mắc về Điều khoản & điều kiện, vui lòng liên hệ: email info@webhd.vn — điện thoại 0938 002 776.</p>
+              <p>Mọi thắc mắc về Điều khoản & điều kiện, vui lòng liên hệ: email webstudi0.comm00@gmail.com — điện thoại 0559 534 940.</p>
               
             </article>
           <p class="legal-updated">Cập nhật lần cuối: 14/08/2026</p>
@@ -3914,14 +4179,14 @@ body.page-tai-ung-dung {
       <section class="page-hero">
         <div class="container">
           <div class="section-label">App khách</div>
-          <h1>Tải App khách Studio về điện thoại.</h1>
+          <h1>Tải App Studio về điện thoại.</h1>
           <p>Soạn website, xem trước, chat hỗ trợ và chạy thử như một ứng dụng thật — dành cho khách hàng WebStudio trên Android.</p>
         </div>
       </section>
       <section class="page-content">
         <div class="container content-grid">
           <article class="content-card">
-            <h2>App khách WebStudio</h2>
+            <h2>App WebStudio</h2>
             <p>Cài APK trên Android để mở Studio ngay trên điện thoại: chọn loại website, điền nội dung, xem bản xem trước và trao đổi với đội ngũ hỗ trợ.</p>
             <div class="meta-row">
               <span class="chip">Android</span>
@@ -3929,7 +4194,7 @@ body.page-tai-ung-dung {
               <span class="chip">Soạn website</span>
               <span class="chip">Xem trước</span>
             </div>
-            <a class="btn btn-primary" id="dlApk" href="WebStudio.apk" download="WebStudio.apk">Tải App khách Studio</a>
+            <a class="btn btn-primary" id="dlApk" href="WebStudio.apk" download="WebStudio.apk">Tải App Studio</a>
             <p class="app-dl-hint" id="dlHint">Sau khi tải, mở <b>WebStudio.apk</b>, cho phép cài từ nguồn này, rồi bấm Cài đặt.</p>
           </article>
           <div class="app-phone" aria-hidden="true">
@@ -3964,9 +4229,9 @@ body.page-tai-ung-dung {
       <section class="section">
         <div class="container">
           <div class="section-label">Cài đặt</div>
-          <h2 class="section-title">Ba bước để mở App khách Studio.</h2>
+          <h2 class="section-title">Ba bước để mở App Studio.</h2>
           <div class="app-dl-steps">
-            <article class="list-card"><h3>1. Tải APK</h3><p>Bấm Tải App khách Studio và chờ tệp WebStudio.apk về máy.</p></article>
+            <article class="list-card"><h3>1. Tải APK</h3><p>Bấm Tải App Studio và chờ tệp WebStudio.apk về máy.</p></article>
             <article class="list-card"><h3>2. Cho phép cài</h3><p>Mở tệp, cho phép cài đặt từ trình duyệt nếu hệ thống hỏi.</p></article>
             <article class="list-card"><h3>3. Mở Studio</h3><p>Cài xong, mở icon WebStudio trên màn hình chính để bắt đầu soạn.</p></article>
           </div>
@@ -3986,13 +4251,13 @@ body.page-tai-ung-dung {
                 <span class="footer-ico" aria-hidden="true">
                   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v2a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h2a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.6a2 2 0 0 1-.5 2.1L7.1 9.5a16 16 0 0 0 6 6l1.1-1.1a2 2 0 0 1 2.1-.5c.8.3 1.7.5 2.6.6A2 2 0 0 1 22 16.9z"/></svg>
                 </span>
-                <a href="tel:0938002776">0938 002 776</a>
+                <a href="tel:0559534940">0559 534 940</a>
               </li>
               <li>
                 <span class="footer-ico" aria-hidden="true">
                   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/></svg>
                 </span>
-                <a href="mailto:info@webhd.vn">info@webhd.vn</a>
+                <a href="mailto:webstudi0.comm00@gmail.com">webstudi0.comm00@gmail.com</a>
               </li>
             </ul>
             <div class="footer-social">
@@ -4028,7 +4293,7 @@ body.page-tai-ung-dung {
               <li><a href="#company">Thiết kế website công ty</a></li>
               <li><a href="#saas">Website Startup / SaaS</a></li>
               <li><a href="#ecommerce">Web bán hàng / E-commerce</a></li>
-              <li><a href="#tai-ung-dung">Tải ứng dụng</a></li>
+              <li hidden style="display:none"><a href="#tai-ung-dung">Tải ứng dụng</a></li>
             </ul>
           </div>
 
@@ -4376,7 +4641,7 @@ if (searchOpenBtn) {
 (function initFloatBubbles() {
   if (document.getElementById("floatBubbles")) return;
 
-  const phone = "0938002776";
+  const phone = "0559534940";
   const wrap = document.createElement("div");
   wrap.className = "float-bubbles";
   wrap.id = "floatBubbles";
@@ -4442,6 +4707,7 @@ const PAGE_TITLES = {
   "ecommerce": "Web bán hàng — WebStudio",
   "collection": "Dự án — WebStudio",
   "product": "Gói dịch vụ — WebStudio",
+  "ho-so": "Hồ sơ — WebStudio",
   "cart": "Giỏ yêu cầu — WebStudio",
   "lien-he": "Liên hệ — WebStudio",
   "search": "Tìm kiếm — WebStudio",
@@ -4547,6 +4813,106 @@ function startApkDownload(url, apkLink, hint) {
 
 window.addEventListener("hashchange", showPage);
 showPage();
+
+(function () {
+  const key = "ws-profile";
+  const nameText = document.getElementById("profileNameText");
+  const gmailText = document.getElementById("profileGmailText");
+  const nameInput = document.getElementById("profileName");
+  const mailInput = document.getElementById("profileMail");
+  if (!nameText || !gmailText) return;
+
+  function readProfile() {
+    try {
+      return JSON.parse(localStorage.getItem(key) || "{}");
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function paint() {
+    const data = readProfile();
+    nameText.textContent = data.name || "Chưa đặt tên";
+    gmailText.textContent = data.gmail || "Thêm Gmail";
+    if (nameInput && !nameInput.value) nameInput.value = data.name || "";
+    if (mailInput && !mailInput.value) mailInput.value = data.gmail || "";
+  }
+
+  document.querySelectorAll(".profile-row").forEach((row) => {
+    row.addEventListener("click", () => {
+      const id = row.getAttribute("data-profile");
+      if (id === "logout") {
+        try { sessionStorage.removeItem("ws-auth"); } catch (e) {}
+        location.replace("/neon-lamp-login.html");
+        return;
+      }
+      const panel = document.getElementById(id === "account" ? "profileAccount" : id === "password" ? "profilePassword" : "profileGmail");
+      if (!panel) return;
+      const open = panel.hidden;
+      document.querySelectorAll(".profile-panel").forEach((el) => { el.hidden = true; });
+      panel.hidden = !open;
+    });
+  });
+
+  document.getElementById("profileAccount").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = readProfile();
+    data.name = nameInput.value.trim();
+    localStorage.setItem(key, JSON.stringify(data));
+    nameInput.value = data.name;
+    paint();
+    document.getElementById("profileAccount").hidden = true;
+  });
+
+  document.getElementById("profilePassword").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const note = document.getElementById("profilePassNote");
+    const oldPass = document.getElementById("profilePassOld").value;
+    const a = document.getElementById("profilePass").value;
+    const b = document.getElementById("profilePass2").value;
+    const data = readProfile();
+    if (!data.password) {
+      note.textContent = "Chưa có mật khẩu đã lưu. Hãy đăng ký lại để tạo mật khẩu trước.";
+      return;
+    }
+    if (oldPass !== data.password) {
+      note.textContent = "Mật khẩu cũ không đúng.";
+      return;
+    }
+    if (a.length < 4) {
+      note.textContent = "Mật khẩu mới ít nhất 4 ký tự.";
+      return;
+    }
+    if (a !== b) {
+      note.textContent = "Mật khẩu nhập lại chưa khớp.";
+      return;
+    }
+    data.password = a;
+    localStorage.setItem(key, JSON.stringify(data));
+    document.getElementById("profilePassOld").value = "";
+    document.getElementById("profilePass").value = "";
+    document.getElementById("profilePass2").value = "";
+    note.textContent = "Đã đổi mật khẩu.";
+  });
+
+  document.getElementById("profileGmail").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const note = document.getElementById("profileMailNote");
+    const gmail = mailInput.value.trim().toLowerCase();
+    if (!/^[^\s@]+@gmail\.com$/.test(gmail)) {
+      note.textContent = "Hãy nhập địa chỉ Gmail.";
+      return;
+    }
+    const data = readProfile();
+    data.gmail = gmail;
+    localStorage.setItem(key, JSON.stringify(data));
+    note.textContent = "";
+    paint();
+    document.getElementById("profileGmail").hidden = true;
+  });
+
+  paint();
+})();
 
   </script>
 </body>

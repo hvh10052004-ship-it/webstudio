@@ -1,6 +1,18 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  outputFileTracingExcludes: {
+    "*": [
+      "./android/**",
+      "./tools/**",
+      "./www-cap/**",
+      "./docs/**",
+      "./render-dist/**",
+      "./dist/**",
+      "./**/*.apk",
+      "./**/*.zip",
+    ],
+  },
   devIndicators: false,
   allowedDevOrigins: ["127.0.0.1", "localhost", "192.168.1.137", "192.168.0.137"],
   images: {
