@@ -2074,11 +2074,7 @@ document.addEventListener("DOMContentLoaded", () => {
           localStorage.setItem("ws-profile", JSON.stringify(prev));
         } catch (err) {}
         if (!data.skipCode) {
-          resetSubmitButton();
-          body.setAttribute("data-auth", "code");
-          cardTitle.textContent = "Nhập mã";
-          document.getElementById("codeHint").textContent = "Mã 6 số đã gửi tới " + data.gmail;
-          btnText.textContent = "Xác nhận";
+          location.href = "/nhap-ma.html?gmail=" + encodeURIComponent(data.gmail || document.getElementById("gmailField").value.trim().toLowerCase());
           return;
         }
       }
