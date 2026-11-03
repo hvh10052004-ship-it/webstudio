@@ -25,6 +25,7 @@ const nextConfig: NextConfig = {
   },
   async rewrites() {
     return [
+      { source: "/", destination: "/index.html" },
       { source: "/webstudio.apk", destination: "/api/download/apk" },
       { source: "/WebStudio.apk", destination: "/api/download/apk" },
     ];

@@ -5,10 +5,6 @@ services:
     dockerfilePath: ./Dockerfile
     healthCheckPath: /api/health
     envVars:
-      - key: APP_KHACH_SERVER
-        value: "1"
-      - key: NEXT_PUBLIC_APP_KHACH_SERVER
-        value: "1"
       - key: COOKIE_SECURE
         value: "1"
       - key: NODE_ENV

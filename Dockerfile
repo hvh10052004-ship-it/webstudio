@@ -16,8 +16,6 @@ RUN if [ ! -d src/app ] && [ ! -d app ]; then \
     fi \
     && npm ci
 
-ENV APP_KHACH_SERVER=1
-ENV NEXT_PUBLIC_APP_KHACH_SERVER=1
 ENV HOSTNAME=0.0.0.0
 ENV NODE_ENV=production
 
