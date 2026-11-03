@@ -1998,8 +1998,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     document.getElementById("formError").classList.remove("show");
+    const mode = body.getAttribute("data-auth") || "signin";
 
-    if (body.getAttribute("data-auth") === "register") {
+    if (mode === "signin") {
+      const name = document.getElementById("userField").value.trim();
+      const password = passField.value;
+      if (!name) return showFormError("Nhập tên tài khoản hoặc Gmail.");
+      if (!password) return showFormError("Nhập mật khẩu.");
+    }
+
+    if (mode === "register") {
       const name = document.getElementById("nameField").value.trim();
       const gmail = document.getElementById("gmailField").value.trim().toLowerCase();
       const password = passField.value;
@@ -2010,7 +2018,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (password !== password2) return showFormError("Mật khẩu nhập lại chưa khớp.");
     }
 
-    if (body.getAttribute("data-auth") === "code") {
+    if (mode === "code") {
       const code = document.getElementById("codeField").value.trim();
       if (!/^\d{6}$/.test(code)) return showFormError("Nhập đủ 6 số của mã.");
     }
@@ -2021,7 +2029,29 @@ document.addEventListener("DOMContentLoaded", () => {
     submitBtn.style.pointerEvents = "none";
 
     try {
-      if (body.getAttribute("data-auth") === "register") {
+      if (mode === "signin") {
+        const res = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: document.getElementById("userField").value.trim(),
+            password: passField.value,
+          }),
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          resetSubmitButton();
+          return showFormError(data.error || "Tài khoản hoặc mật khẩu không đúng.");
+        }
+        try {
+          const prev = JSON.parse(localStorage.getItem("ws-profile") || "{}");
+          prev.name = data.user?.name || document.getElementById("userField").value.trim();
+          if (data.user?.email) prev.gmail = data.user.email;
+          localStorage.setItem("ws-profile", JSON.stringify(prev));
+        } catch (err) {}
+      }
+
+      if (mode === "register") {
         const res = await fetch("/api/auth/gmail-code", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -2029,6 +2059,7 @@ document.addEventListener("DOMContentLoaded", () => {
             action: "send",
             name: document.getElementById("nameField").value.trim(),
             gmail: document.getElementById("gmailField").value.trim().toLowerCase(),
+            password: passField.value,
           }),
         });
         const data = await res.json();
@@ -2041,7 +2072,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      if (body.getAttribute("data-auth") === "code") {
+      if (mode === "code") {
         const res = await fetch("/api/auth/gmail-code", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -2060,7 +2091,6 @@ document.addEventListener("DOMContentLoaded", () => {
           const prev = JSON.parse(localStorage.getItem("ws-profile") || "{}");
           prev.name = document.getElementById("nameField").value.trim();
           prev.gmail = document.getElementById("gmailField").value.trim().toLowerCase();
-          prev.password = passField.value;
           localStorage.setItem("ws-profile", JSON.stringify(prev));
         } catch (err) {}
       }
@@ -2069,14 +2099,12 @@ document.addEventListener("DOMContentLoaded", () => {
       return showFormError("Không kết nối được máy chủ.");
     }
 
+    btnSpinner.classList.add("hidden");
+    btnSuccess.classList.remove("hidden");
     setTimeout(() => {
-      btnSpinner.classList.add("hidden");
-      btnSuccess.classList.remove("hidden");
-      setTimeout(() => {
-        try { sessionStorage.setItem("ws-auth", "1"); } catch (err) {}
-        location.href = "/index.html";
-      }, 700);
-    }, body.getAttribute("data-auth") === "signin" ? 1100 : 200);
+      try { sessionStorage.setItem("ws-auth", "1"); } catch (err) {}
+      location.href = "/index.html";
+    }, 700);
   });
 
   const social = document.getElementById("socialLogin");

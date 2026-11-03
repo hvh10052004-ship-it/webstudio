@@ -144,6 +144,25 @@ export function findUserByName(name: string) {
     | undefined;
 }
 
+export function findUserByLogin(login: string) {
+  const key = login.trim();
+  return getDb()
+    .prepare(
+      `SELECT id, name, pin_salt, pin_hash, COALESCE(role, 'customer') AS role
+       FROM users
+       WHERE lower(name) = lower(?) OR lower(COALESCE(email, '')) = lower(?)`,
+    )
+    .get(key, key) as
+    | {
+        id: number;
+        name: string;
+        pin_salt: string;
+        pin_hash: string;
+        role: string;
+      }
+    | undefined;
+}
+
 export function createUser(
   name: string,
   password: string,

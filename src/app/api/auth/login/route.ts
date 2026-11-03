@@ -3,7 +3,7 @@ import {
   COOKIE,
   cookieOptions,
   createSession,
-  findUserByName,
+  findUserByLogin,
   getUserById,
   markLogin,
   pinsMatch,
@@ -35,7 +35,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const existing = findUserByName(name);
+    const existing = findUserByLogin(name);
     if (!existing) {
       return NextResponse.json(
         { error: "Tài khoản chưa có. Hãy đăng ký." },

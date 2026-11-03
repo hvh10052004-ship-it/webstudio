@@ -1,21 +1,30 @@
 import tls from "node:tls";
 
-type Pending = { code: string; name: string; expires: number };
+type Pending = { code: string; name: string; password: string; expires: number };
 
 const pending = new Map<string, Pending>();
 
-export function issueCode(gmail: string, name: string) {
+export function issueCode(gmail: string, name: string, password = "") {
   const code = String(Math.floor(100000 + Math.random() * 900000));
-  pending.set(gmail, { code, name, expires: Date.now() + 10 * 60 * 1000 });
+  pending.set(gmail, {
+    code,
+    name,
+    password,
+    expires: Date.now() + 10 * 60 * 1000,
+  });
   return code;
 }
 
 export function checkCode(gmail: string, code: string) {
+  const row = consumePending(gmail, code);
+  return Boolean(row);
+}
+
+export function consumePending(gmail: string, code: string) {
   const row = pending.get(gmail);
-  if (!row || row.expires < Date.now()) return false;
-  if (row.code !== code) return false;
+  if (!row || row.expires < Date.now() || row.code !== code) return null;
   pending.delete(gmail);
-  return true;
+  return row;
 }
 
 function command(socket: tls.TLSSocket, line: string) {
