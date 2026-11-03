@@ -9,15 +9,21 @@ RUN set -eux; \
     cp -a /tmp/src/. /app/; \
   elif [ -d /tmp/src/app ]; then \
     cp -a /tmp/src/. /app/; \
+  elif [ -d /tmp/src/webstudio/src/app ]; then \
+    cp -a /tmp/src/webstudio/. /app/; \
   elif [ -d /tmp/src/WebStudio/src/app ]; then \
     cp -a /tmp/src/WebStudio/. /app/; \
   else \
-    found="$(find /tmp/src -type d -path '*/src/app' -print -quit)"; \
+    found="$(find /tmp/src -type d \( -path '*/src/app' -o -path '*/app' \) ! -path '*/node_modules/*' -print -quit)"; \
     if [ -n "$found" ]; then \
-      cp -a "$(dirname "$(dirname "$found")")/." /app/; \
+      if echo "$found" | grep -q '/src/app$'; then \
+        cp -a "$(dirname "$(dirname "$found")")/." /app/; \
+      else \
+        cp -a "$(dirname "$found")/." /app/; \
+      fi; \
     else \
       echo "Khong tim thay src/app trong repo."; \
-      find /tmp/src -maxdepth 3 -type d; \
+      find /tmp/src -maxdepth 4 -type d; \
       exit 1; \
     fi; \
   fi; \
