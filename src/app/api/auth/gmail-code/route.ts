@@ -71,16 +71,23 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Mật khẩu ít nhất 4 ký tự." }, { status: 400 });
     }
     if (findUserByName(name) || findUserByLogin(gmail)) {
-      return NextResponse.json({ error: "Tài khoản hoặc Gmail đã có người dùng." }, { status: 409 });
+      return NextResponse.json(
+        { error: "Tài khoản hoặc Gmail đã có. Hãy chọn Đăng nhập." },
+        { status: 409 },
+      );
     }
-    if (!gmailReady()) {
-      return finishAccount(name, password, gmail);
+    if (gmailReady()) {
+      try {
+        const code = issueCode(gmail, name, password);
+        await sendGmailCode(gmail, code);
+        return NextResponse.json({ ok: true, gmail });
+      } catch (err) {
+        console.error("Gmail SMTP failed", err);
+      }
     }
-    const code = issueCode(gmail, name, password);
-    await sendGmailCode(gmail, code);
-    return NextResponse.json({ ok: true, gmail });
+    return finishAccount(name, password, gmail);
   } catch (err) {
-    const message = err instanceof Error ? err.message : "Không gửi được mã.";
+    const message = err instanceof Error ? err.message : "Không đăng ký được.";
     return NextResponse.json({ error: message }, { status: 500 });
   }
 }
