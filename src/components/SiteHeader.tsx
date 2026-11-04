@@ -13,6 +13,12 @@ export function SiteHeader() {
     const onScroll = () => setScrolled(window.scrollY > 50);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
+    try {
+      if (localStorage.getItem("webstudio-theme") === "light") {
+        document.documentElement.classList.add("theme-light");
+        document.body.classList.add("theme-light");
+      }
+    } catch {}
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
