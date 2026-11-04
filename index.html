@@ -16,11 +16,6 @@
   />
   <meta name="theme-color" content="#8f7cff" />
   <script>
-    try {
-      if (sessionStorage.getItem("ws-auth") !== "1") location.replace("/neon-lamp-login.html");
-    } catch (e) {}
-  </script>
-  <script>
     (function () {
       try {
         if (localStorage.getItem("webstudio-theme") === "light") {
@@ -2740,7 +2735,6 @@ body.theme-light.page-tai-ung-dung .btn-primary {
               <li class="has-dropdown more">
                 <button type="button" class="nav-more" aria-label="Thêm menu" aria-expanded="false">⋯</button>
                 <ul class="dropdown">
-                  <li><a href="#ho-so">Hồ sơ</a></li>
                   <li><a href="#cart">Giỏ yêu cầu</a></li>
                   <li><a href="#process">Quy trình</a></li>
                 </ul>
@@ -3795,87 +3789,6 @@ body.theme-light.page-tai-ung-dung .btn-primary {
       </section>
     </main>
       </div>
-      <div class="site-page" data-page="ho-so" hidden>
-        <main>
-          <section class="page-hero">
-            <div class="container">
-              <div class="section-label">Hồ sơ</div>
-              <h1>Tài khoản của bạn</h1>
-              <p>Xem và cập nhật tên tài khoản, mật khẩu và Gmail.</p>
-            </div>
-          </section>
-          <section class="page-content">
-            <div class="container">
-              <div class="profile-card" id="profileCard">
-                <button type="button" class="profile-row" data-profile="account">
-                  <span class="profile-ico" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"/><path d="M5 19c1.4-3 3.8-4.5 7-4.5S17.6 16 19 19"/></svg>
-                  </span>
-                  <span class="profile-copy">
-                    <strong>Tài khoản</strong>
-                    <span id="profileNameText">Chưa đặt tên</span>
-                  </span>
-                  <span class="profile-chev" aria-hidden="true">›</span>
-                </button>
-                <form class="profile-panel" id="profileAccount" hidden>
-                  <label for="profileName">Tên tài khoản</label>
-                  <input id="profileName" type="text" maxlength="40" placeholder="Tên tài khoản" />
-                  <button type="submit" class="btn btn-primary">Lưu</button>
-                </form>
-
-                <button type="button" class="profile-row" data-profile="password">
-                  <span class="profile-ico" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="15" r="3"/><path d="M10.2 13.2L20 4l2 2-2 1 1.5 1.5-1.6 1.2L18.4 8"/></svg>
-                  </span>
-                  <span class="profile-copy">
-                    <strong>Mật khẩu</strong>
-                    <span>Thay đổi mật khẩu</span>
-                  </span>
-                  <span class="profile-chev" aria-hidden="true">›</span>
-                </button>
-                <form class="profile-panel" id="profilePassword" hidden>
-                  <label for="profilePassOld">Mật khẩu cũ</label>
-                  <input id="profilePassOld" type="password" placeholder="Mật khẩu cũ" autocomplete="current-password" />
-                  <label for="profilePass">Mật khẩu mới</label>
-                  <input id="profilePass" type="password" placeholder="Mật khẩu mới" autocomplete="new-password" />
-                  <label for="profilePass2">Nhập lại mật khẩu</label>
-                  <input id="profilePass2" type="password" placeholder="Nhập lại mật khẩu mới" autocomplete="new-password" />
-                  <p class="profile-note" id="profilePassNote"></p>
-                  <button type="submit" class="btn btn-primary">Đổi mật khẩu</button>
-                </form>
-
-                <button type="button" class="profile-row" data-profile="gmail">
-                  <span class="profile-ico" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="5.5" width="17" height="13" rx="2"/><path d="M4 7l8 6 8-6"/></svg>
-                  </span>
-                  <span class="profile-copy">
-                    <strong>Gmail</strong>
-                    <span id="profileGmailText">Thêm Gmail</span>
-                  </span>
-                  <span class="profile-chev" aria-hidden="true">›</span>
-                </button>
-                <form class="profile-panel" id="profileGmail" hidden>
-                  <label for="profileMail">Gmail</label>
-                  <input id="profileMail" type="email" placeholder="ten@gmail.com" autocomplete="email" />
-                  <p class="profile-note" id="profileMailNote"></p>
-                  <button type="submit" class="btn btn-primary">Lưu Gmail</button>
-                </form>
-
-                <button type="button" class="profile-row" data-profile="logout">
-                  <span class="profile-ico" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 7V5a2 2 0 0 1 2-2h7v18h-7a2 2 0 0 1-2-2v-2"/><path d="M15 12H3m0 0l3-3m-3 3l3 3"/></svg>
-                  </span>
-                  <span class="profile-copy">
-                    <strong>Đăng xuất</strong>
-                    <span>Đăng xuất</span>
-                  </span>
-                  <span class="profile-chev" aria-hidden="true">›</span>
-                </button>
-              </div>
-            </div>
-          </section>
-        </main>
-      </div>
       <div class="site-page" data-page="cart" hidden>
         <main>
       <section class="page-hero">
@@ -4707,7 +4620,6 @@ const PAGE_TITLES = {
   "ecommerce": "Web bán hàng — WebStudio",
   "collection": "Dự án — WebStudio",
   "product": "Gói dịch vụ — WebStudio",
-  "ho-so": "Hồ sơ — WebStudio",
   "cart": "Giỏ yêu cầu — WebStudio",
   "lien-he": "Liên hệ — WebStudio",
   "search": "Tìm kiếm — WebStudio",
@@ -4813,106 +4725,6 @@ function startApkDownload(url, apkLink, hint) {
 
 window.addEventListener("hashchange", showPage);
 showPage();
-
-(function () {
-  const key = "ws-profile";
-  const nameText = document.getElementById("profileNameText");
-  const gmailText = document.getElementById("profileGmailText");
-  const nameInput = document.getElementById("profileName");
-  const mailInput = document.getElementById("profileMail");
-  if (!nameText || !gmailText) return;
-
-  function readProfile() {
-    try {
-      return JSON.parse(localStorage.getItem(key) || "{}");
-    } catch (e) {
-      return {};
-    }
-  }
-
-  function paint() {
-    const data = readProfile();
-    nameText.textContent = data.name || "Chưa đặt tên";
-    gmailText.textContent = data.gmail || "Thêm Gmail";
-    if (nameInput && !nameInput.value) nameInput.value = data.name || "";
-    if (mailInput && !mailInput.value) mailInput.value = data.gmail || "";
-  }
-
-  document.querySelectorAll(".profile-row").forEach((row) => {
-    row.addEventListener("click", () => {
-      const id = row.getAttribute("data-profile");
-      if (id === "logout") {
-        try { sessionStorage.removeItem("ws-auth"); } catch (e) {}
-        location.replace("/neon-lamp-login.html");
-        return;
-      }
-      const panel = document.getElementById(id === "account" ? "profileAccount" : id === "password" ? "profilePassword" : "profileGmail");
-      if (!panel) return;
-      const open = panel.hidden;
-      document.querySelectorAll(".profile-panel").forEach((el) => { el.hidden = true; });
-      panel.hidden = !open;
-    });
-  });
-
-  document.getElementById("profileAccount").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const data = readProfile();
-    data.name = nameInput.value.trim();
-    localStorage.setItem(key, JSON.stringify(data));
-    nameInput.value = data.name;
-    paint();
-    document.getElementById("profileAccount").hidden = true;
-  });
-
-  document.getElementById("profilePassword").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const note = document.getElementById("profilePassNote");
-    const oldPass = document.getElementById("profilePassOld").value;
-    const a = document.getElementById("profilePass").value;
-    const b = document.getElementById("profilePass2").value;
-    const data = readProfile();
-    if (!data.password) {
-      note.textContent = "Chưa có mật khẩu đã lưu. Hãy đăng ký lại để tạo mật khẩu trước.";
-      return;
-    }
-    if (oldPass !== data.password) {
-      note.textContent = "Mật khẩu cũ không đúng.";
-      return;
-    }
-    if (a.length < 4) {
-      note.textContent = "Mật khẩu mới ít nhất 4 ký tự.";
-      return;
-    }
-    if (a !== b) {
-      note.textContent = "Mật khẩu nhập lại chưa khớp.";
-      return;
-    }
-    data.password = a;
-    localStorage.setItem(key, JSON.stringify(data));
-    document.getElementById("profilePassOld").value = "";
-    document.getElementById("profilePass").value = "";
-    document.getElementById("profilePass2").value = "";
-    note.textContent = "Đã đổi mật khẩu.";
-  });
-
-  document.getElementById("profileGmail").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const note = document.getElementById("profileMailNote");
-    const gmail = mailInput.value.trim().toLowerCase();
-    if (!/^[^\s@]+@gmail\.com$/.test(gmail)) {
-      note.textContent = "Hãy nhập địa chỉ Gmail.";
-      return;
-    }
-    const data = readProfile();
-    data.gmail = gmail;
-    localStorage.setItem(key, JSON.stringify(data));
-    note.textContent = "";
-    paint();
-    document.getElementById("profileGmail").hidden = true;
-  });
-
-  paint();
-})();
 
   </script>
 </body>

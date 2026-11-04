@@ -1,14 +1,12 @@
 import Link from "next/link";
 import { ContactFloat } from "@/components/ContactFloat";
 import { ContactForm } from "@/components/ContactForm";
-import { GateLogin } from "@/components/GateLogin";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 
 export default function Home() {
   return (
     <div id="top">
-      <GateLogin />
       <SiteHeader />
 
       <main>
