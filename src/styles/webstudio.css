@@ -1312,3 +1312,14 @@ textarea.form-control {
     margin: 28px auto 0;
   }
 }
+
+html.theme-light,
+html.theme-light body {
+  background: #ffffff;
+  color: #121722;
+}
+
+html.theme-light .site-header,
+html.theme-light .site-header.scrolled {
+  background: rgba(255, 255, 255, 0.92);
+}
