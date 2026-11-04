@@ -33,8 +33,6 @@
 
 html {
   scroll-behavior: smooth;
-  background: #070b14;
-  color-scheme: dark;
 }
 
 body {
@@ -311,33 +309,50 @@ body::after {
 
 /* ===== THEME: LIGHT ===== */
 html.theme-light-pending,
-html.theme-light,
 html.theme-light-pending body,
+html.theme-light,
 html.theme-light body,
 body.theme-light {
-  background: #f4f6fb !important;
+  background: #fff;
   color: #121722;
-  color-scheme: light;
 }
 
-body.theme-light::before {
-  background: #a995ff;
-  opacity: 0.12;
-}
-
-body.theme-light::after {
-  background: #72d8ff;
-  opacity: 0.1;
+body.theme-light::before,
+body.theme-light::after,
+html.theme-light body::before,
+html.theme-light body::after {
+  opacity: 0;
 }
 
 body.theme-light .logo,
-body.theme-light .menu-btn {
+body.theme-light .menu-btn,
+html.theme-light .logo,
+html.theme-light .menu-btn {
   color: #121722;
 }
 
 body.theme-light .site-header,
-body.theme-light .site-header.scrolled {
-  background: rgba(244, 246, 251, 0.92);
+body.theme-light .site-header.scrolled,
+html.theme-light .site-header,
+html.theme-light .site-header.scrolled {
+  background: #fff;
+  border-bottom: 1px solid rgba(18, 23, 34, 0.08);
+  backdrop-filter: none;
+}
+
+body.theme-light .nav-pill,
+body.theme-light .nav-tools,
+html.theme-light .nav-pill,
+html.theme-light .nav-tools {
+  background: #fff;
+  border: 1px solid rgba(18, 23, 34, 0.08);
+}
+
+body.theme-light .icon-btn,
+html.theme-light .icon-btn {
+  background: #fff;
+  color: #121722;
+  border: 1px solid rgba(18, 23, 34, 0.08);
 }
 
 body.theme-light .hero-description,
@@ -550,8 +565,9 @@ body.theme-light .cart-item {
   border-bottom-color: rgba(18, 23, 34, 0.08);
 }
 
-body.theme-light .nav-cluster.active {
-  background: #f3f5f8;
+body.theme-light .nav-cluster.active,
+html.theme-light .nav-cluster.active {
+  background: #fff;
 }
 
 #themeToggle .icon-moon {
@@ -2697,7 +2713,6 @@ body.theme-light.page-tai-ung-dung .btn-primary {
 <body>
   <script>
     if (document.documentElement.classList.contains("theme-light-pending")) {
-      document.documentElement.classList.add("theme-light");
       document.body.classList.add("theme-light");
       document.documentElement.classList.remove("theme-light-pending");
     }
@@ -4238,9 +4253,7 @@ const THEME_KEY = "webstudio-theme";
 
 function applyTheme(theme) {
   const isLight = theme === "light";
-  document.documentElement.classList.toggle("theme-light", isLight);
   document.body.classList.toggle("theme-light", isLight);
-  document.documentElement.style.background = isLight ? "#f4f6fb" : "#070b14";
   localStorage.setItem(THEME_KEY, isLight ? "light" : "dark");
   if (themeToggle) {
     themeToggle.setAttribute(
@@ -4314,11 +4327,64 @@ if (themeToggle) {
   const saved = localStorage.getItem(THEME_KEY);
   applyTheme(saved === "light" ? "light" : "dark");
 
-  themeToggle.addEventListener("click", () => {
+  themeToggle.addEventListener("click", async (event) => {
     const next = document.body.classList.contains("theme-light")
       ? "dark"
       : "light";
-    applyTheme(next);
+
+    const rect = themeToggle.getBoundingClientRect();
+    const x = event.clientX || rect.left + rect.width / 2;
+    const y = event.clientY || rect.top + rect.height / 2;
+    const endRadius = Math.hypot(
+      Math.max(x, window.innerWidth - x),
+      Math.max(y, window.innerHeight - y)
+    );
+
+    document.documentElement.style.setProperty("--theme-ripple-x", `${x}px`);
+    document.documentElement.style.setProperty("--theme-ripple-y", `${y}px`);
+    document.documentElement.style.setProperty(
+      "--theme-ripple-r",
+      `${Math.ceil(endRadius)}px`
+    );
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (reduceMotion) {
+      applyTheme(next);
+      return;
+    }
+
+    if (document.startViewTransition) {
+      const transition = document.startViewTransition(() => {
+        applyTheme(next);
+      });
+      try {
+        await transition.ready;
+      } catch (_) {
+        /* ignore aborted transition */
+      }
+      return;
+    }
+
+    // Fallback: vòng nước lan tỏa bằng overlay
+    const overlay = document.createElement("div");
+    overlay.className = "theme-ripple-overlay";
+    overlay.style.setProperty("--theme-ripple-x", `${x}px`);
+    overlay.style.setProperty("--theme-ripple-y", `${y}px`);
+    overlay.dataset.theme = next;
+    document.body.appendChild(overlay);
+
+    requestAnimationFrame(() => {
+      overlay.classList.add("is-active");
+    });
+
+    window.setTimeout(() => {
+      applyTheme(next);
+      overlay.classList.add("is-done");
+      window.setTimeout(() => overlay.remove(), 280);
+    }, 420);
   });
 }
 
