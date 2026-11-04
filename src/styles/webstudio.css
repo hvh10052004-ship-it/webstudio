@@ -6,6 +6,8 @@
 
 html {
   scroll-behavior: smooth;
+  background: #070b14;
+  color-scheme: dark;
 }
 
 body {
@@ -18,13 +20,26 @@ body {
 
 html.theme-light,
 html.theme-light body {
-  background: #ffffff;
+  background: #f4f6fb !important;
+  color: #121722;
+  color-scheme: light;
+}
+
+html.theme-light .logo,
+html.theme-light .menu-btn,
+html.theme-light .section-title,
+html.theme-light .hero h1 {
   color: #121722;
 }
 
-html.theme-light body::before,
-html.theme-light body::after {
-  opacity: 0.04;
+html.theme-light .hero-description,
+html.theme-light .section-description {
+  color: #5b6475;
+}
+
+html.theme-light .site-header,
+html.theme-light .site-header.scrolled {
+  background: rgba(244, 246, 251, 0.92);
 }
 
 a {
